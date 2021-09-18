@@ -78,9 +78,6 @@ class Ship(m.Model):
     def __str__(self) -> str:
         return self.name
 
-    def get_url(self) -> str:
-        return 'https://www.bcferries.com/ship-info?code={}'.format(self.code)
-
 
 class Sailing(m.Model):
     route = m.ForeignKey(Route, on_delete=m.CASCADE)
@@ -88,9 +85,6 @@ class Sailing(m.Model):
 
     #stops = m.ManyToManyField(Location)
     #transfer = m.ForeignKey('self', null=True, on_delete=m.SET_NULL)
-
-    def get_scheduled_url(self, scheduleMode='seasonal') -> str:
-        return 'http://www.bcferries.com/routes-fares/schedules/{}/{}-{}'.format(scheduleMode, self.route.origin.code, self.route.dest.code)
 
     def __str__(self) -> str:
         return f'{self.route}'
