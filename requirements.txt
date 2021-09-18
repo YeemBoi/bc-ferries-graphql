@@ -1,6 +1,7 @@
 beautifulsoup4
 Django
 django-cors-headers
+django-extensions
 django-filter
 graphene-django
 html5lib

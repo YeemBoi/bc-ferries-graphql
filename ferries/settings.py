@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'graphene_django',
+    'django_extensions',
     'core',
 ]
 
@@ -145,3 +146,39 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# See http://bcferries.com/robots.txt
+SCRAPER_PAUSE_SECS            = 10
+
+SCRAPER_URL_PREFIX            = 'http://www.bcferries.com'
+SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
+SCRAPER_CONDITIONS_URL        = SCRAPER_URL_PREFIX + '/current-conditions'
+SCRAPER_DEPARTURES_URL        = SCRAPER_URL_PREFIX + '/current-conditions/departures'
+SCRAPER_ROUTES_URL            = SCRAPER_URL_PREFIX + '/route-info'
+SCRAPER_FLEET_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet?page={}'
+SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}-{}'
+SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
+SCRAPER_FLEET_PAGE_RANGE      = 2
+SCRAPER_SCHEDULE_DATE_PERIODS = 100
+
+# BC Ferries doesn't use alt tags on all images, so map image src to amenities
+SCRAPER_AMENITY_IMAGE_PATHS = {
+    '/web_image/h8e/h8d/8800764362782.jpg': 'Arbutus Coffee Bar',
+    '/web_image/h81/h88/8798826168350.jpg': 'Aurora Lounge',
+    '/web_image/h03/h6d/8798746312734.jpg': 'Canoe Cafe',
+    '/web_image/h41/hd5/8798823022622.jpg': 'Coast Cafe Express',
+    '/web_image/hcb/hd0/8798832164894.jpg': 'Coastal Cafe',
+    '/web_image/h9d/h69/8800604258334.jpg': 'Pacific Buffet',
+    '/web_image/haa/hf3/8800605044766.jpg': 'Passages',
+    '/web_image/h20/h0b/8798760566814.jpg': 'SeaWest Lounge',
+    '/web_image/h44/h77/8798814371870.jpg': 'Sitka Coffee Place',
+    '/web_image/hf7/hb3/8798767808542.jpg': 'The Raven Lounge',
+    '/web_image/h6a/h96/8798810800158.jpg': 'Vista Restaurant',
+}
+
+SCRAPER_SCRIPTS = [
+    'scrape_routes',
+    'scrape_fleet',
+    'scrape_schedule',
+]

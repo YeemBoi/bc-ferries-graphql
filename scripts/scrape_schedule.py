@@ -1,16 +1,11 @@
-#!/usr/bin/python3
+from django.conf import settings
+import core.models as m
 
-import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ferries.settings')
-
-import django
-django.setup()
-
+from bs4 import BeautifulSoup as bs
 import html5lib
 # import ujson
 
 from django.utils import timezone
-
 from datetime import datetime, timedelta
 from calendar import Calendar, month_abbr
 
@@ -19,40 +14,37 @@ import pandas as pd
 import requests
 # from urllib.parse import urlparse
 from time import sleep
-import core.models as m
-
-from bs4 import BeautifulSoup as bs
 
 from dataclasses import dataclass
 
-PAUSE_SECS = 10
-
-URL_PREFIX = 'http://www.bcferries.com'
-
 dateList = pd.date_range(datetime.today(),
-    periods=100,
-    freq='1D',
-    tz=timezone.get_current_timezone()
+    periods = settings.SCRAPER_SCHEDULE_DATE_PERIODS,
+    freq = '1D',
+    tz = timezone.get_current_timezone()
 ).tolist()
 
 @dataclass
-class ScheduleTime:
-    hour: int
-    minute: int
+class ScrapedSchedule:
     findText: str
 
+    def __str__(self) -> str:
+        return self.findText
+
 @dataclass
-class ScheduleDate:
+class ScheduleTime(ScrapedSchedule):
+    hour: int
+    minute: int
+
+@dataclass
+class ScheduleDate(ScrapedSchedule):
     day: int
     month: int
-    findText: str
 
 def scheduleIncludes(schedule: list, search) -> bool:
     for d in schedule:
         if d.day == search.day and d.month == search.month:
             return True
     return False
-
 
 def fromScheduleTime(schedule: str) -> ScheduleTime:
     findText = schedule.replace('*', '').replace(',', '').strip().upper()
@@ -62,7 +54,7 @@ def fromScheduleTime(schedule: str) -> ScheduleTime:
     minute = int(minute)
     if splitText[1] == 'PM':
         hour += 12
-    return ScheduleTime(hour, minute, findText)
+    return ScheduleTime(findText, hour, minute)
 
 def fromScheduleDate(schedule: str) -> ScheduleDate:
     findText = schedule.replace('*', '').replace(',', '').strip().upper()
@@ -73,27 +65,29 @@ def fromScheduleDate(schedule: str) -> ScheduleDate:
         if abbr.upper() == splitText[1]:
             month = i + 1
             break
-    return ScheduleDate(day, month, findText)
+    return ScheduleDate(findText, day, month)
+
 
 def service(name: str, is_additional: bool) -> m.Service:
     amenity, created = m.Service.objects.get_or_create(name=name, is_additional=is_additional)
     if created:
-        print('created service', amenity)
+        print('Created service', amenity)
     return amenity
 
 
 def scrape_from_route(route: m.Route) -> m.Sailing:
     # cal = Calendar()
     if not route.is_bookable:
-        return ValueError(f'cannot scrape non-bookable route {route}')
+        return ValueError(f'Cannot scrape non-bookable route {route}')
     
-    sleep(PAUSE_SECS)
-    req = requests.get(f'http://www.bcferries.com/routes-fares/schedules/seasonal/{route.origin.code}-{route.dest.code}')
+    sleep(settings.SCRAPER_PAUSE_SECS)
+    req = requests.get(settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.dest.code))
     req.encoding = req.apparent_encoding
     print(req.status_code, 'on', req.url)
     soup = bs(req.text ,'html5lib')
     tbl = soup.select_one('.table-seasonal-schedule')
     if not tbl:
+        print('Could not retrieve schedule table for', route)
         return
 
     prevWeekdayName = ''
@@ -102,10 +96,9 @@ def scrape_from_route(route: m.Route) -> m.Sailing:
     scheduledSailings = []
 
     for row in tbl.select('tr'):
-
         weekDay = row.select_one('.text-capitalize')
         if not weekDay:
-            print('skipping row')
+            print('Skipping row')
             continue
         weekDayName = weekDay.getText(strip=True).upper()
         additionals = row.select_one('.progtrckr')
@@ -147,7 +140,7 @@ def scrape_from_route(route: m.Route) -> m.Sailing:
             if not timeStr:
                 continue
             time = fromScheduleTime(timeStr)
-            print('time:', time.findText)
+            print('Time:', time.findText)
             skipDates = []
             onlyDates = []
             for span in timeCol.select('.schedules-additional-info'):
@@ -162,13 +155,13 @@ def scrape_from_route(route: m.Route) -> m.Sailing:
                         onlyDates.extend(spanDates)
                     elif 'NOT AVAILABLE ON:' in spanText:
                         skipDates.extend(spanDates)
-            print('only:', onlyDates)
-            print('skip:', skipDates)
+            print('Only:', *onlyDates)
+            print('Skip:', *skipDates)
 
             if onlyDates:
                 for lDate in dateList:
                     if not scheduleIncludes(onlyDates, lDate): continue
-                    print('inserting one')
+                    print('Inserting one')
                     scheduledSailings.append(m.ScheduledSailing(
                         sailing = sailing,
                         time = datetime(
@@ -183,7 +176,7 @@ def scrape_from_route(route: m.Route) -> m.Sailing:
             else:
                 for lDate in dateList:
                     if scheduleIncludes(skipDates, lDate):
-                        print('skipping one')
+                        print('Skipping one')
                         continue
                     scheduledSailings.append(m.ScheduledSailing(
                         sailing = sailing,
@@ -200,10 +193,8 @@ def scrape_from_route(route: m.Route) -> m.Sailing:
     m.ScheduledSailing.objects.bulk_create(scheduledSailings)
     return sailing
 
-def main():
+
+def run():
     for route in m.Route.objects.filter(is_bookable=True):
         scrape_from_route(route)
-
-
-if __name__ == '__main__':
-    main()
+        print('\n')

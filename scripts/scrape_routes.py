@@ -1,18 +1,10 @@
-#!/usr/bin/python3
-
-import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ferries.settings')
-
-import django
-django.setup()
+from django.conf import settings
 import core.models as m
 
 import urllib3 # ha no requests
-http = urllib3.PoolManager()
 import ujson
 
-ROUTE_INFO_URL = 'http://www.bcferries.com/route-info'
-
+http = urllib3.PoolManager()
 
 def specificArea(objs, o):
     area, created = objs.get_or_create(
@@ -21,7 +13,7 @@ def specificArea(objs, o):
         sort_order = o['sortOrder']
     )
     if created:
-        print('created area', area)
+        print('Created area', area)
     return area
 
 
@@ -34,12 +26,12 @@ def location(l) -> m.Location:
         city = specificArea(m.City.objects, l['city']),
     )
     if created:
-        print('created location', loc)
+        print('Created location', loc)
     return loc
 
 
-def main():
-    routes = ujson.loads(http.request('GET', ROUTE_INFO_URL).data.decode('utf-8'))
+def run():
+    routes = ujson.loads(http.request('GET', settings.SCRAPER_ROUTES_URL).data.decode('utf-8'))
     for r in routes:
         origin = location(r)
         for rDest in r['destinationRoutes']:
@@ -56,8 +48,4 @@ def main():
                 allow_additional_passenger_types = rDest['allowAdditionalPassengerTypes'],
             )
             if created:
-                print('created route', route)
-
-if __name__ == '__main__':
-    main()
-
+                print('Created route', route)
