@@ -1,0 +1,8 @@
+URL_PREFIX = 'http://www.bcferries.com'
+SCHEDULES = 'http://www.bcferries.com/routes-fares/schedules'
+CONDITIONS = 'http://www.bcferries.com/current-conditions'
+DEPARTURES = 'http://www.bcferries.com/current-conditions/departures'
+ROUTES = 'http://www.bcferries.com/route-info'
+FLEET = 'http://www.bcferries.com/on-the-ferry/our-fleet?page={}'
+SCHEDULE_SEASONAL = 'http://www.bcferries.com/routes-fares/schedules/seasonal/{}-{}'
+SCHEDULE_DAILY = 'http://www.bcferries.com/routes-fares/schedules/daily/{}-{}'
