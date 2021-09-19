@@ -105,6 +105,7 @@ class ScheduledSailing(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='scheduled')
     time = m.DateTimeField()
 
+
 class CurrentSailing(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='current')
     ship = m.ForeignKey(Ship, on_delete=m.CASCADE)
@@ -112,4 +113,4 @@ class CurrentSailing(m.Model):
     arrival_time = m.DateTimeField()
     capacity =  m.PositiveIntegerField()
     delayed = m.BooleanField()
-    status = m.CharField(max_length=4, choices = settings.CURRENT_SAILING_STATUS_CHOICES)
+    status = m.CharField(max_length=4, choices=settings.CURRENT_SAILING_STATUS_CHOICES)
