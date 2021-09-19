@@ -193,6 +193,46 @@
                     "name": "Int",
                     "ofType": null
                   }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
                 }
               ],
               "deprecationReason": null,
@@ -328,6 +368,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -477,6 +557,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "travelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "travelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "city_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -527,6 +627,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "city_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "geoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -568,6 +708,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "geoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -797,6 +977,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -838,6 +1038,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -897,6 +1137,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -938,6 +1218,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -997,6 +1297,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -1038,6 +1378,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -1317,7 +1697,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "built_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "built_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "built_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "built_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "carCapacity",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -1337,7 +1797,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "humanCapacity_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "humanCapacity_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "humanCapacity_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "humanCapacity_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "horsepower",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -1357,6 +1897,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "maxDisplacement_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxDisplacement_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxDisplacement_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxDisplacement_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "maxSpeed",
                   "type": {
                     "kind": "SCALAR",
@@ -1367,7 +1947,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "maxSpeed_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxSpeed_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxSpeed_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxSpeed_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "totalLength",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Float",
@@ -1517,6 +2177,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "duration_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_LengthType",
                   "type": {
                     "kind": "SCALAR",
@@ -1647,6 +2347,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -1688,6 +2408,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -1747,6 +2507,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -1788,6 +2588,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -1847,6 +2667,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -1888,6 +2748,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -2007,7 +2907,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "order_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2147,6 +3127,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -2188,6 +3188,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -2247,6 +3287,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -2288,6 +3368,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2347,6 +3447,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -2388,6 +3528,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -2447,6 +3627,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "location_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "location_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -2497,6 +3697,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "location_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "location_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -2538,6 +3778,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "location_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -2647,7 +3927,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "time_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "time_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "time_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "time_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2787,6 +4147,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -2828,6 +4208,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -2887,6 +4307,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -2928,6 +4388,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2987,6 +4467,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -3028,6 +4548,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -3137,6 +4697,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "actualTime_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "arrivalTime",
                   "type": {
                     "kind": "SCALAR",
@@ -3147,7 +4747,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "arrivalTime_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "capacity",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -3178,6 +4858,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -3317,6 +5037,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -3358,6 +5098,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -3417,6 +5197,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -3458,6 +5278,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -3517,6 +5357,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -3558,6 +5438,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -3755,6 +5675,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "travelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "travelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "city_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -3805,6 +5745,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "city_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "geoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -3846,6 +5826,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "geoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -4436,6 +6456,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -4477,6 +6517,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -4536,6 +6616,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -4577,6 +6697,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -4636,6 +6776,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -4677,6 +6857,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -4883,6 +7103,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -4924,6 +7164,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -4983,6 +7263,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -5024,6 +7344,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -5083,6 +7423,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -5124,6 +7504,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -5220,7 +7640,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "order_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -5360,6 +7860,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -5401,6 +7921,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -5460,6 +8020,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -5501,6 +8101,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -5560,6 +8180,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -5601,6 +8261,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -5660,6 +8360,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "location_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "location_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -5710,6 +8430,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "location_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "location_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -5751,6 +8511,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "location_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -5958,6 +8758,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "travelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "travelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "city_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -6008,6 +8828,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "city_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "city_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "geoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -6049,6 +8909,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "geoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -6414,6 +9314,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "duration_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_LengthType",
                   "type": {
                     "kind": "SCALAR",
@@ -6544,6 +9484,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -6585,6 +9545,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -6644,6 +9644,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -6685,6 +9725,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -6744,6 +9804,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -6785,6 +9885,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -7028,7 +10168,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "order_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "order_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -7168,6 +10388,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -7209,6 +10449,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -7268,6 +10548,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -7309,6 +10629,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -7368,6 +10708,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -7409,6 +10789,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -7468,6 +10888,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "location_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "location_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -7518,6 +10958,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "location_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "location_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -7559,6 +11039,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "location_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "location_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -7645,7 +11165,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "time_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "time_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "time_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "time_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -7785,6 +11385,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -7826,6 +11446,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -7885,6 +11545,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -7926,6 +11626,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -7985,6 +11705,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -8026,6 +11786,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -8112,6 +11912,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "actualTime_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "arrivalTime",
                   "type": {
                     "kind": "SCALAR",
@@ -8122,7 +11962,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "arrivalTime_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "capacity",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -8153,6 +12073,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8292,6 +12252,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -8333,6 +12313,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -8392,6 +12412,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -8433,6 +12493,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8492,6 +12572,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -8533,6 +12653,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -9474,6 +13634,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "actualTime_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "actualTime_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "arrivalTime",
                   "type": {
                     "kind": "SCALAR",
@@ -9484,7 +13684,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "arrivalTime_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "arrivalTime_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "DateTime",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "capacity",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "capacity_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -9515,6 +13795,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Duration",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Duration_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9654,6 +13974,26 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_TravelRouteName_Istartswith",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -9695,6 +14035,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Origin_City_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_City_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -9754,6 +14134,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -9795,6 +14215,26 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_TravelRouteName",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Icontains",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_TravelRouteName_Istartswith",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9854,6 +14294,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_City_SortOrder_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Dest_GeoArea_Code",
                   "type": {
                     "kind": "SCALAR",
@@ -9895,6 +14375,46 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Dest_GeoArea_SortOrder",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Dest_GeoArea_SortOrder_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -10172,7 +14692,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "built_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "built_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "built_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "built_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "carCapacity",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "carCapacity_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -10192,7 +14792,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "humanCapacity_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "humanCapacity_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "humanCapacity_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "humanCapacity_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "horsepower",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "horsepower_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -10212,6 +14892,46 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "maxDisplacement_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxDisplacement_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxDisplacement_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxDisplacement_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "maxSpeed",
                   "type": {
                     "kind": "SCALAR",
@@ -10222,7 +14942,87 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "maxSpeed_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxSpeed_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxSpeed_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "maxSpeed_Lte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "totalLength",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Gt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Lt",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Gte",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "totalLength_Lte",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Float",

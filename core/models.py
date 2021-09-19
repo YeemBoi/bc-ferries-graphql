@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models as m
 
 
@@ -104,7 +105,6 @@ class ScheduledSailing(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='scheduled')
     time = m.DateTimeField()
 
-
 class CurrentSailing(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='current')
     ship = m.ForeignKey(Ship, on_delete=m.CASCADE)
@@ -112,14 +112,4 @@ class CurrentSailing(m.Model):
     arrival_time = m.DateTimeField()
     capacity =  m.PositiveIntegerField()
     delayed = m.BooleanField()
-    status = m.CharField(max_length=4, choices = [
-        ('GOOD', 'On time'),
-        ('MEDI', 'Medical emergency'),
-        ('PEAK', 'Peak travel; Loading max number of vehicles'),
-        ('VHCL', 'Loading as many vehicles as possible'),
-        ('ONGN', 'Earlier loading procedure causing ongoing delay'),
-        ('SHIP', 'Loading and unloading multiple ships'),
-        ('CREW', 'Crew member enroute to assist with boarding'),
-        ('CNCL', 'Cancelled'),
-        ('HELP', 'Helping customers'),
-    ])
+    status = m.CharField(max_length=4, choices = settings.CURRENT_SAILING_STATUS_CHOICES)

@@ -1,3 +1,5 @@
+from django.conf import settings
+
 import core.models as m
 
 import graphene as g
@@ -11,14 +13,16 @@ def fkFilters(relClass, relName: str) -> dict:
             newFields[f'{relName}__{field}'] = filters
     return newFields
 
+rangeLookups  = settings.DEFAULT_RANGE_FIELD_FILTERS
+stringLookups = settings.DEFAULT_STRING_FIELD_FILTERS
 
 class CityNode(gd.DjangoObjectType):
     class Meta:
         model = m.City
         filter_fields = {
             'code': ['exact'],
-            'name': ['exact', 'icontains', 'istartswith'],
-            'sort_order': ['exact']
+            'name': stringLookups,
+            'sort_order': rangeLookups,
         }
         interfaces = (g.relay.Node, )
 
@@ -28,8 +32,8 @@ class GeoAreaNode(gd.DjangoObjectType):
         model = m.GeoArea
         filter_fields = {
             'code': ['exact'],
-            'name': ['exact', 'icontains', 'istartswith'],
-            'sort_order': ['exact']
+            'name': stringLookups,
+            'sort_order': rangeLookups,
         }
         interfaces = (g.relay.Node, )
 
@@ -38,11 +42,11 @@ class LocationNode(gd.DjangoObjectType):
     class Meta:
         model = m.Location
         filter_fields = {
-            'code': ['exact'],
-            'name': ['exact', 'icontains', 'istartswith'],
-            'travel_route_name': ['exact'],
             'city': [],
             'geo_area': [],
+            'code': ['exact'],
+            'name': stringLookups,
+            'travel_route_name': stringLookups,
             **fkFilters(CityNode, 'city'),
             **fkFilters(GeoAreaNode, 'geo_area'),
         }
@@ -73,7 +77,7 @@ class ServiceNode(gd.DjangoObjectType):
     class Meta:
         model = m.Service
         filter_fields = {
-            'name': ['exact', 'icontains', 'istartswith'],
+            'name': stringLookups,
             'is_additional': ['exact'],
         }
         interfaces = (g.relay.Node, )
@@ -85,14 +89,14 @@ class ShipNode(gd.DjangoObjectType):
         filter_fields = {
             'services': [],
             'code': ['exact'],
-            'name': ['exact', 'icontains', 'istartswith'],
-            'built': ['exact'],
-            'car_capacity': ['exact'],
-            'human_capacity': ['exact'],
-            'horsepower': ['exact'],
-            'max_displacement': ['exact'],
-            'max_speed': ['exact'],
-            'total_length': ['exact'],
+            'name': stringLookups,
+            'built': rangeLookups,
+            'car_capacity': rangeLookups,
+            'human_capacity': rangeLookups,
+            'horsepower': rangeLookups,
+            'max_displacement': rangeLookups,
+            'max_speed': rangeLookups,
+            'total_length': rangeLookups,
             **fkFilters(ServiceNode, 'services'),
         }
         interfaces = (g.relay.Node, )
@@ -104,7 +108,7 @@ class SailingNode(gd.DjangoObjectType):
         model = m.Sailing
         filter_fields = {
             'route': [],
-            'duration': ['exact'],
+            'duration': rangeLookups,
             **fkFilters(RouteNode, 'route'),
         }
         interfaces = (g.relay.Node, )
@@ -117,7 +121,7 @@ class EnRouteStopNode(gd.DjangoObjectType):
             'sailing': [],
             'location': [],
             'is_transfer': ['exact'],
-            'order': ['exact'],
+            'order': rangeLookups,
             **fkFilters(SailingNode, 'sailing'),
             **fkFilters(LocationNode, 'location'),
         }
@@ -129,7 +133,7 @@ class ScheduledSailingNode(gd.DjangoObjectType):
         model = m.ScheduledSailing
         filter_fields = {
             'sailing': [],
-            'time': ['exact'],
+            'time': rangeLookups,
             **fkFilters(SailingNode, 'sailing'),
         }
         interfaces = (g.relay.Node, )
@@ -140,9 +144,9 @@ class CurrentSailingNode(gd.DjangoObjectType):
         model = m.CurrentSailing
         filter_fields = {
             'sailing': [],
-            'actual_time': ['exact'],
-            'arrival_time': ['exact'],
-            'capacity': ['exact'],
+            'actual_time': rangeLookups,
+            'arrival_time': rangeLookups,
+            'capacity': rangeLookups,
             'delayed': ['exact'],
             'status': ['exact'],
             **fkFilters(SailingNode, 'sailing'),
