@@ -6,6 +6,7 @@ import graphene as g
 import graphene_django as gd
 import graphene_django.filter as gdf
 
+
 def fkFilters(relClass, relName: str) -> dict:
     newFields = dict()
     for field, filters in relClass._meta.filter_fields.items():
@@ -13,16 +14,14 @@ def fkFilters(relClass, relName: str) -> dict:
             newFields[f'{relName}__{field}'] = filters
     return newFields
 
-rangeLookups  = settings.DEFAULT_RANGE_FIELD_FILTERS
-stringLookups = settings.DEFAULT_STRING_FIELD_FILTERS
 
 class CityNode(gd.DjangoObjectType):
     class Meta:
         model = m.City
         filter_fields = {
             'code': ['exact'],
-            'name': stringLookups,
-            'sort_order': rangeLookups,
+            'name': settings.DEFAULT_STRING_LOOKUPS,
+            'sort_order': settings.DEFAULT_RANGE_LOOKUPS,
         }
         interfaces = (g.relay.Node, )
 
@@ -32,8 +31,8 @@ class GeoAreaNode(gd.DjangoObjectType):
         model = m.GeoArea
         filter_fields = {
             'code': ['exact'],
-            'name': stringLookups,
-            'sort_order': rangeLookups,
+            'name': settings.DEFAULT_STRING_LOOKUPS,
+            'sort_order': settings.DEFAULT_RANGE_LOOKUPS,
         }
         interfaces = (g.relay.Node, )
 
@@ -45,8 +44,8 @@ class LocationNode(gd.DjangoObjectType):
             'city': [],
             'geo_area': [],
             'code': ['exact'],
-            'name': stringLookups,
-            'travel_route_name': stringLookups,
+            'name': settings.DEFAULT_STRING_LOOKUPS,
+            'travel_route_name': settings.DEFAULT_STRING_LOOKUPS,
             **fkFilters(CityNode, 'city'),
             **fkFilters(GeoAreaNode, 'geo_area'),
         }
@@ -77,7 +76,7 @@ class ServiceNode(gd.DjangoObjectType):
     class Meta:
         model = m.Service
         filter_fields = {
-            'name': stringLookups,
+            'name': settings.DEFAULT_STRING_LOOKUPS,
             'is_additional': ['exact'],
         }
         interfaces = (g.relay.Node, )
@@ -89,14 +88,14 @@ class ShipNode(gd.DjangoObjectType):
         filter_fields = {
             'services': [],
             'code': ['exact'],
-            'name': stringLookups,
-            'built': rangeLookups,
-            'car_capacity': rangeLookups,
-            'human_capacity': rangeLookups,
-            'horsepower': rangeLookups,
-            'max_displacement': rangeLookups,
-            'max_speed': rangeLookups,
-            'total_length': rangeLookups,
+            'name': settings.DEFAULT_STRING_LOOKUPS,
+            'built': settings.DEFAULT_DATE_LOOKUPS,
+            'car_capacity': settings.DEFAULT_RANGE_LOOKUPS,
+            'human_capacity': settings.DEFAULT_RANGE_LOOKUPS,
+            'horsepower': settings.DEFAULT_RANGE_LOOKUPS,
+            'max_displacement': settings.DEFAULT_RANGE_LOOKUPS,
+            'max_speed': settings.DEFAULT_RANGE_LOOKUPS,
+            'total_length': settings.DEFAULT_RANGE_LOOKUPS,
             **fkFilters(ServiceNode, 'services'),
         }
         interfaces = (g.relay.Node, )
@@ -108,7 +107,7 @@ class SailingNode(gd.DjangoObjectType):
         model = m.Sailing
         filter_fields = {
             'route': [],
-            'duration': rangeLookups,
+            'duration': settings.DEFAULT_RANGE_LOOKUPS,
             **fkFilters(RouteNode, 'route'),
         }
         interfaces = (g.relay.Node, )
@@ -121,7 +120,7 @@ class EnRouteStopNode(gd.DjangoObjectType):
             'sailing': [],
             'location': [],
             'is_transfer': ['exact'],
-            'order': rangeLookups,
+            'order': settings.DEFAULT_RANGE_LOOKUPS,
             **fkFilters(SailingNode, 'sailing'),
             **fkFilters(LocationNode, 'location'),
         }
@@ -133,7 +132,7 @@ class ScheduledSailingNode(gd.DjangoObjectType):
         model = m.ScheduledSailing
         filter_fields = {
             'sailing': [],
-            'time': rangeLookups,
+            'time': settings.DEFAULT_DATETIME_LOOKUPS,
             **fkFilters(SailingNode, 'sailing'),
         }
         interfaces = (g.relay.Node, )
@@ -144,9 +143,9 @@ class CurrentSailingNode(gd.DjangoObjectType):
         model = m.CurrentSailing
         filter_fields = {
             'sailing': [],
-            'actual_time': rangeLookups,
-            'arrival_time': rangeLookups,
-            'capacity': rangeLookups,
+            'actual_time': settings.DEFAULT_DATETIME_LOOKUPS,
+            'arrival_time': settings.DEFAULT_DATETIME_LOOKUPS,
+            'capacity': settings.DEFAULT_RANGE_LOOKUPS,
             'delayed': ['exact'],
             'status': ['exact'],
             **fkFilters(SailingNode, 'sailing'),
