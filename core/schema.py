@@ -143,12 +143,14 @@ class CurrentSailingNode(gd.DjangoObjectType):
         model = m.CurrentSailing
         filter_fields = {
             'sailing': [],
+            'ship': [],
             'actual_time': settings.DEFAULT_DATETIME_LOOKUPS,
             'arrival_time': settings.DEFAULT_DATETIME_LOOKUPS,
             'capacity': settings.DEFAULT_RANGE_LOOKUPS,
             'delayed': ['exact'],
             'status': ['exact'],
             **fkFilters(SailingNode, 'sailing'),
+            **fkFilters(ShipNode, 'ship'),
         }
         interfaces = (g.relay.Node, )
 
