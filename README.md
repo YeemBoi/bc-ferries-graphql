@@ -1,2 +1,226 @@
 # bc-ferries-graphql
-Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper
+Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper.
+
+
+Includes highly detailed data on locations, routes, schedules, and ships.
+
+## Schema
+GraphQL schema is available at [`schema.json`](schema.json)
+
+- Thanks to Graphene, a GraphiQL endpoint is available at `/graphql`
+- JWT auth (optional) with `django-graphql-jwt`
+- Extensive filtering options, including relations
+
+## Scraping data
+
+Scraping scripts are integrated with `django-extensions`,
+and should be run through `manage.py runscript scrape_foo`
+
+### Scrape everything
+To initialize the database with all data, run `manage.py runscript init_script_data`
+
+### Scrape specific elements
+- Routes, locations, cities, regions: `manage.py runscript scrape_routes`
+- Ships, services, amenities: `manage.py runscript scrape_fleet`
+- Sailings, scheduled sailings, en-route stops & transfers: `manage.py runscript scrape_schedule`
+
+### Performance
+Scraping should not be resource intensive, but by default there is a 10-second delay between http requests to BC Ferries to abide by [`robots.txt`](http://bcferries.com/robots.txt).
+This can be changed in `settings.SCRAPER_PAUSE_SECS`.
+
+## Example queries
+
+### Locations:
+```graphql
+query {
+  allLocations {
+    edges {
+      node {
+        city {
+          code
+          name
+          sortOrder
+          id
+        }
+        geoArea {
+          code
+          name
+          sortOrder
+          id
+        }
+        code
+        name
+        travelRouteName
+        id
+      }
+    }
+  }
+}
+```
+
+### Route:
+```graphql
+query ($originCode: String, $destCode: String) {
+  allRoutes(origin_Code: $originCode, dest_Code: $destCode) {
+    edges {
+      node {
+        origin {
+          code
+          name
+          travelRouteName
+          id
+        }
+        dest {
+          code
+          name
+          travelRouteName
+          id
+        }
+        lengthType
+        limitedAvailability
+        isBookable
+        isWalkOn
+        allowMotorcycles
+        allowLivestock
+        allowWalkOnOptions
+        allowAdditionalPassengerTypes
+        id
+      }
+    }
+  }
+}
+```
+
+### Ship:
+```graphql
+query ($code: String) {
+  allShips(code: $code) {
+    edges {
+      node {
+        services {
+          edges {
+            node {
+              name
+              isAdditional
+              id
+            }
+          }
+        }
+        code
+        name
+        built
+        carCapacity
+        humanCapacity
+        horsepower
+        maxDisplacement
+        maxSpeed
+        totalLength
+        id
+      }
+    }
+  }
+}
+```
+
+### Sailing:
+```graphql
+query ($originCode: String, $destCode: String $scheduledUntil: DateTime) {
+  allSailings(route_Origin_Code: $originCode, route_Dest_Code: $destCode) {
+    edges {
+      node {
+        current {
+          edges {
+            node {
+              actualTime
+              arrivalTime
+              capacity
+              delayed
+              status
+              id
+            }
+          }
+        }
+        scheduled(time_Lte: $scheduledUntil) {
+          edges {
+            node {
+              time
+              id
+            }
+          }
+        }
+        stops {
+          edges {
+            node {
+              location {
+                name
+                code
+                id
+              }
+              isTransfer
+              order
+              id
+            }
+          }
+        }
+        id
+      }
+    }
+  }
+}
+```
+
+## [Default settings](ferries/settings.py)
+```python
+# See http://bcferries.com/robots.txt
+SCRAPER_PAUSE_SECS            = 10
+
+SCRAPER_URL_PREFIX            = 'http://www.bcferries.com'
+SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
+SCRAPER_CONDITIONS_URL        = SCRAPER_URL_PREFIX + '/current-conditions'
+SCRAPER_DEPARTURES_URL        = SCRAPER_URL_PREFIX + '/current-conditions/departures'
+SCRAPER_ROUTES_URL            = SCRAPER_URL_PREFIX + '/route-info'
+SCRAPER_FLEET_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet?page={}'
+SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}-{}'
+SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
+SCRAPER_FLEET_PAGE_RANGE      = 2
+
+# How many days into the future to attempt to create schedules for
+SCRAPER_SCHEDULE_DATE_PERIODS = 100
+
+# BC Ferries doesn't use alt tags on all images, so map image src to amenities
+SCRAPER_AMENITY_IMAGE_PATHS = {
+    '/web_image/h8e/h8d/8800764362782.jpg': 'Arbutus Coffee Bar',
+    '/web_image/h81/h88/8798826168350.jpg': 'Aurora Lounge',
+    '/web_image/h03/h6d/8798746312734.jpg': 'Canoe Cafe',
+    '/web_image/h41/hd5/8798823022622.jpg': 'Coast Cafe Express',
+    '/web_image/hcb/hd0/8798832164894.jpg': 'Coastal Cafe',
+    '/web_image/h9d/h69/8800604258334.jpg': 'Pacific Buffet',
+    '/web_image/haa/hf3/8800605044766.jpg': 'Passages',
+    '/web_image/h20/h0b/8798760566814.jpg': 'SeaWest Lounge',
+    '/web_image/h44/h77/8798814371870.jpg': 'Sitka Coffee Place',
+    '/web_image/hf7/hb3/8798767808542.jpg': 'The Raven Lounge',
+    '/web_image/h6a/h96/8798810800158.jpg': 'Vista Restaurant',
+}
+
+# Used by init_scraped_data script
+SCRAPER_SCRIPTS = [
+    'scrape_routes',
+    'scrape_fleet',
+    'scrape_schedule',
+]
+
+CURRENT_SAILING_STATUS_CHOICES = [
+    ('GOOD', 'On time'),
+    ('MEDI', 'Medical emergency'),
+    ('PEAK', 'Peak travel; Loading max number of vehicles'),
+    ('VHCL', 'Loading as many vehicles as possible'),
+    ('ONGN', 'Earlier loading procedure causing ongoing delay'),
+    ('SHIP', 'Loading and unloading multiple ships'),
+    ('CREW', 'Crew member enroute to assist with boarding'),
+    ('CNCL', 'Cancelled'),
+    ('HELP', 'Helping customers'),
+]
+
+DEFAULT_STRING_FIELD_FILTERS = ['exact', 'icontains', 'istartswith']
+DEFAULT_RANGE_FIELD_FILTERS = ['exact', 'gt', 'lt', 'gte', 'lte']
+```
