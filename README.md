@@ -224,25 +224,25 @@ CURRENT_SAILING_STATUS_CHOICES = [
 DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'icontains', 'istartswith']
 DEFAULT_RANGE_LOOKUPS  = ['exact', 'gt', 'lt', 'gte', 'lte']
 
-use_default_range_lookups = lambda dt : [f'{dt}__{lookup}' for lookup in DEFAULT_RANGE_LOOKUPS]
-unnested_range_lookups    = lambda lt : itertools.chain(*[use_default_range_lookups(lookupType) for lookupType in lt])
+_use_default_range_lookups = lambda dt : [f'{dt}__{lookup}' for lookup in DEFAULT_RANGE_LOOKUPS]
+_unnested_range_lookups    = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
 
-DEFAULT_DATE_LOOKUP_TYPES = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day',  'quarter']
-DEFAULT_TIME_LOOKUP_TYPES = ['hour', 'minute', 'second']
+_DEFAULT_DATE_LOOKUP_TYPES = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
+_DEFAULT_TIME_LOOKUP_TYPES = ['hour', 'minute', 'second']
 
 DEFAULT_DATE_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
-    *unnested_range_lookups(DEFAULT_DATE_LOOKUP_TYPES),
+    *_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
 ]
 DEFAULT_TIME_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
-    *unnested_range_lookups(DEFAULT_TIME_LOOKUP_TYPES),
+    *_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
 ]
 DEFAULT_DATETIME_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
-    *use_default_range_lookups('date'),
-    *unnested_range_lookups(DEFAULT_DATE_LOOKUP_TYPES),
-    *use_default_range_lookups('time'),
-    *unnested_range_lookups(DEFAULT_TIME_LOOKUP_TYPES),
+    *_use_default_range_lookups('date'),
+    *_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
+    *_use_default_range_lookups('time'),
+    *_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
 ]
 ```
