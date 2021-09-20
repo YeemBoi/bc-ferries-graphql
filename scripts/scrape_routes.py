@@ -1,5 +1,5 @@
 from django.conf import settings
-import core.models as m
+from core import models as m
 
 import urllib3 # ha no requests
 import ujson

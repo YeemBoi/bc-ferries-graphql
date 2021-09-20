@@ -1,5 +1,5 @@
 from django.contrib import admin as a
-import core.models as m
+from . import models as m
 
 a.site.register([
     m.City,

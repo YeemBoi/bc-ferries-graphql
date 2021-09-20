@@ -1,6 +1,6 @@
 from django.conf import settings
 
-import core.models as m
+from . import models as m
 
 import graphene as g
 import graphene_django as gd

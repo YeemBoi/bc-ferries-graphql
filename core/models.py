@@ -1,6 +1,16 @@
-from django.conf import settings
 from django.db import models as m
 
+CURRENT_SAILING_STATUS_CHOICES = [
+    ('GOOD', 'On time'),
+    ('MEDI', 'Medical emergency'),
+    ('PEAK', 'Peak travel; Loading max number of vehicles'),
+    ('VHCL', 'Loading as many vehicles as possible'),
+    ('ONGN', 'Earlier loading procedure causing ongoing delay'),
+    ('SHIP', 'Loading and unloading multiple ships'),
+    ('CREW', 'Crew member enroute to assist with boarding'),
+    ('CNCL', 'Cancelled'),
+    ('HELP', 'Helping customers'),
+]
 
 def Code(length: int = 3) -> m.CharField:
     return m.CharField(max_length=length, unique=True)
@@ -113,4 +123,4 @@ class CurrentSailing(m.Model):
     arrival_time = m.DateTimeField()
     capacity =  m.PositiveIntegerField()
     delayed = m.BooleanField()
-    status = m.CharField(max_length=4, choices=settings.CURRENT_SAILING_STATUS_CHOICES)
+    status = m.CharField(max_length=4, choices=CURRENT_SAILING_STATUS_CHOICES)

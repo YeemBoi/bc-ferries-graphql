@@ -184,6 +184,11 @@ SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/se
 SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
 SCRAPER_FLEET_PAGE_RANGE      = 2
 
+SCRAPER_UNBOOKABLE_TIMETABLE_URLS = [
+    SCRAPER_URL_PREFIX + '/routes-fares/schedules/southern-gulf-islands',
+    SCRAPER_URL_PREFIX + '/routes-fares/schedules/gambier-keats',
+]
+
 # How many days into the future to attempt to create schedules for
 SCRAPER_SCHEDULE_DATE_PERIODS = 100
 
@@ -204,21 +209,10 @@ SCRAPER_AMENITY_IMAGE_PATHS = {
 
 # Used by init_scraped_data script
 SCRAPER_SCRIPTS = [
+    'save_sitemap',
     'scrape_routes',
     'scrape_fleet',
     'scrape_schedule',
-]
-
-CURRENT_SAILING_STATUS_CHOICES = [
-    ('GOOD', 'On time'),
-    ('MEDI', 'Medical emergency'),
-    ('PEAK', 'Peak travel; Loading max number of vehicles'),
-    ('VHCL', 'Loading as many vehicles as possible'),
-    ('ONGN', 'Earlier loading procedure causing ongoing delay'),
-    ('SHIP', 'Loading and unloading multiple ships'),
-    ('CREW', 'Crew member enroute to assist with boarding'),
-    ('CNCL', 'Cancelled'),
-    ('HELP', 'Helping customers'),
 ]
 
 DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'icontains', 'istartswith']

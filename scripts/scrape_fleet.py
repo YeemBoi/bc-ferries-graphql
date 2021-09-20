@@ -1,5 +1,5 @@
 from django.conf import settings
-import core.models as m
+from core import models as m
 
 from bs4 import BeautifulSoup as bs
 import html5lib

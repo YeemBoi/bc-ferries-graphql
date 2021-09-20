@@ -1,5 +1,5 @@
 import graphene as g
-import graphql_jwt as g_jwt
+import graphql_jwt as g_jwt # type: ignore
 
 import core.schema
 
