@@ -1,20 +1,17 @@
 from django.conf import settings
 from core import models as m
 
+import requests
 from bs4 import BeautifulSoup as bs
 import html5lib
-# import ujson
+
+from time import sleep
 
 from django.utils import timezone
 from datetime import datetime, timedelta
 from calendar import Calendar, month_abbr
 
 import pandas as pd
-
-import requests
-# from urllib.parse import urlparse
-from time import sleep
-
 from dataclasses import dataclass
 
 dateList = pd.date_range(datetime.today(),
@@ -26,10 +23,9 @@ dateList = pd.date_range(datetime.today(),
 @dataclass
 class ScrapedSchedule:
     findText: str
-
     def __str__(self) -> str:
         return self.findText
-
+   
 @dataclass
 class ScheduleTime(ScrapedSchedule):
     hour: int
@@ -84,7 +80,7 @@ def scrape_from_route(route: m.Route) -> m.Sailing:
     req = requests.get(settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.dest.code))
     req.encoding = req.apparent_encoding
     print(req.status_code, 'on', req.url)
-    soup = bs(req.text ,'html5lib')
+    soup = bs(req.text, 'html5lib')
     tbl = soup.select_one('.table-seasonal-schedule')
     if not tbl:
         print('Could not retrieve schedule table for', route)
@@ -103,10 +99,10 @@ def scrape_from_route(route: m.Route) -> m.Sailing:
         weekDayName = weekDay.getText(strip=True).upper()
         additionals = row.select_one('.progtrckr')
         if weekDayName:
-            hours, mins = additionals.select_one('span').getText(strip=True).split()
+            hours, mins = additionals.select_one('span').getText(strip=True).upper().split()
             sailing = m.Sailing.objects.create(
                 route = route,
-                duration= timedelta(minutes=int(mins.replace('m', '')), hours=int(hours.replace('h', '')))
+                duration= timedelta(minutes=int(mins.replace('M', '')), hours=int(hours.replace('H', '')))
             )
         else:
             weekDayName = prevWeekdayName
