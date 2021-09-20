@@ -1,4 +1,4 @@
-# bc-ferries-graphql
+# BC Ferries GraphQL API
 Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper.
 
 
