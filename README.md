@@ -1,5 +1,5 @@
 # BC Ferries GraphQL API
-Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper.
+Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper, built with Django.
 
 
 Includes highly detailed data on locations, routes, schedules, and ships.
