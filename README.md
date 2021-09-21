@@ -17,7 +17,7 @@ Scraping scripts are integrated with `django-extensions`,
 and should be run through `manage.py runscript scrape_foo`
 
 ### Scrape everything
-To initialize the database with all data, run `manage.py runscript init_script_data`
+To initialize the database with all data, run `manage.py runscript init_scraped_data`
 
 ### Scrape specific elements
 - Routes, locations, cities, regions: `manage.py runscript scrape_routes`
