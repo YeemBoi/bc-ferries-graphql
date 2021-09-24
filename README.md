@@ -14,7 +14,7 @@ GraphQL schema is available at [`schema.json`](schema.json)
 ## Scraping data
 
 Scraping scripts are integrated with `django-extensions`,
-and should be run through `manage.py runscript scrape_foo`
+and should be run through `manage.py runscript foo`
 
 ### Scrape everything
 To initialize the database with all data, run `manage.py runscript init_scraped_data`
