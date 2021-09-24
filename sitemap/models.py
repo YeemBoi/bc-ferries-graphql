@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models as m
 from urllib.parse import urlparse, ParseResult
-from usp.objects.page import SitemapPageChangeFrequency as SmPCF # type: ignore
+from usp.objects.page import SitemapPageChangeFrequency as SmPCF
 from datetime import timedelta
 
 SITEMAP_TYPE_CHOICES = [

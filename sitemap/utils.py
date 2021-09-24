@@ -1,5 +1,5 @@
 from . import models as m
-from usp.objects import page, sitemap # type: ignore
+from usp.objects import page, sitemap
 from typing import Optional
 
 def SaveSitemap(sm, indexSitemap: Optional[m.Sitemap] = None, parentSitemap: Optional[m.Sitemap] = None):

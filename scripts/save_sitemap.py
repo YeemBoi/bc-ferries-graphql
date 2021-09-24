@@ -1,4 +1,4 @@
-from usp.tree import sitemap_tree_for_homepage # type: ignore
+from usp.tree import sitemap_tree_for_homepage
 
 from django.conf import settings
 from sitemap.utils import SaveSitemap

@@ -148,7 +148,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # See http://bcferries.com/robots.txt
-SCRAPER_PAUSE_SECS            = 10
+SCRAPER_PAUSE_SECS = 10
+if DEBUG:
+    SCRAPER_PAUSE_SECS = 10
 
 SCRAPER_URL_PREFIX            = 'http://www.bcferries.com'
 SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
@@ -160,13 +162,13 @@ SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/se
 SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
 SCRAPER_FLEET_PAGE_RANGE      = 2
 
-SCRAPER_UNBOOKABLE_TIMETABLE_URLS = [
+SCRAPER_MISC_SCHEDULE_URLS = [
     SCRAPER_URL_PREFIX + '/routes-fares/schedules/southern-gulf-islands',
     SCRAPER_URL_PREFIX + '/routes-fares/schedules/gambier-keats',
 ]
 
 # How many days into the future to attempt to create schedules for
-SCRAPER_SCHEDULE_DATE_PERIODS = 100
+SCRAPER_FALLBACK_DATE_PERIODS = 100
 
 # BC Ferries doesn't use alt tags on all images, so map image src to amenities
 SCRAPER_AMENITY_IMAGE_PATHS = {
@@ -195,23 +197,23 @@ DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'icontains', 'istartswith']
 DEFAULT_RANGE_LOOKUPS  = ['exact', 'gt', 'lt', 'gte', 'lte']
 
 _use_default_range_lookups = lambda dt : [f'{dt}__{lookup}' for lookup in DEFAULT_RANGE_LOOKUPS]
-_unnested_range_lookups    = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
+_use_unnested_range_lookups    = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
 
 _DEFAULT_DATE_LOOKUP_TYPES = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
 _DEFAULT_TIME_LOOKUP_TYPES = ['hour', 'minute', 'second']
 
 DEFAULT_DATE_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
-    *_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
 ]
 DEFAULT_TIME_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
-    *_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
 ]
 DEFAULT_DATETIME_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
     *_use_default_range_lookups('date'),
-    *_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
     *_use_default_range_lookups('time'),
-    *_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
 ]
