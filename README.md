@@ -5,7 +5,7 @@ Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper, built with Dj
 Includes highly detailed data on locations, routes, schedules, and ships.
 
 ## Schema
-GraphQL schema is available at [`schema.json`](schema.json)
+GraphQL schema is available at [`schema.graphql`](schema.graphql). A JSON schema is also available.
 
 - Thanks to Graphene, a GraphiQL endpoint is available at `/graphql`
 - JWT auth (optional) with `django-graphql-jwt`
@@ -31,7 +31,6 @@ This can be changed in `settings.SCRAPER_PAUSE_SECS`.
 ## Example queries
 
 ```graphql
-
 query routeDemo($originCode: String, $destCode: String) {
   allRoutes(origin_Code: $originCode, destination_Code: $destCode) {
     edges {
