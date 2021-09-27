@@ -30,37 +30,9 @@ This can be changed in `settings.SCRAPER_PAUSE_SECS`.
 
 ## Example queries
 
-### Terminals:
 ```graphql
-query {
-  allTerminals- {
-    edges {
-      node {
-        city {
-          code
-          name
-          sortOrder
-          id
-        }
-        geoArea {
-          code
-          name
-          sortOrder
-          id
-        }
-        code
-        name
-        travelRouteName
-        id
-      }
-    }
-  }
-}
-```
 
-### Route:
-```graphql
-query ($originCode: String, $destCode: String) {
+query routeDemo($originCode: String, $destCode: String) {
   allRoutes(origin_Code: $originCode, destination_Code: $destCode) {
     edges {
       node {
@@ -79,6 +51,8 @@ query ($originCode: String, $destCode: String) {
         infoSet {
           edges {
             node {
+              originalIndex
+              conditionsAreTracked
               lengthType
               limitedAvailability
               isBookable
@@ -96,11 +70,8 @@ query ($originCode: String, $destCode: String) {
     }
   }
 }
-```
 
-### Ship:
-```graphql
-query ($code: String) {
+query shipDemo($code: String) {
   allShips(code: $code) {
     edges {
       node {
@@ -127,17 +98,19 @@ query ($code: String) {
     }
   }
 }
-```
 
-### Sailing:
-```graphql
-query ($originCode: String, $destCode: String $scheduledUntil: DateTime) {
+query sailingDemo($originCode: String, $destCode: String $scheduledUntil: DateTime) {
   allSailings(route_Origin_Code: $originCode, route_Destination_Code: $destCode) {
     edges {
       node {
         current {
           edges {
             node {
+              ship {
+                code
+                name
+                id
+              }
               actualTime
               arrivalTime
               capacity
@@ -158,7 +131,7 @@ query ($originCode: String, $destCode: String $scheduledUntil: DateTime) {
         stops {
           edges {
             node {
-              location {
+              terminal {
                 name
                 code
                 id
@@ -166,6 +139,15 @@ query ($originCode: String, $destCode: String $scheduledUntil: DateTime) {
               isTransfer
               order
               id
+            }
+          }
+        }
+        route {
+          infoSet {
+            edges {
+              node {
+                conditionsAreTracked
+              }
             }
           }
         }
