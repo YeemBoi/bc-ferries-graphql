@@ -27,34 +27,34 @@ def run():
             href = bx.find('a')['href']
             print('Found ferry url', href)
             sleep(settings.SCRAPER_PAUSE_SECS)
-            fReq = requests.get(settings.SCRAPER_URL_PREFIX+href)
-            fReq.encoding = fReq.apparent_encoding
-            fPage = bs(fReq.text ,'html5lib')
-            fDetails = fPage.select_one('.ferrydetails-accordion-sec')
-            fMain = fPage.find('div', id='ferryDetails')
+            f_req = requests.get(settings.SCRAPER_URL_PREFIX+href)
+            f_req.encoding = f_req.apparent_encoding
+            f_page = bs(f_req.text ,'html5lib')
+            f_details = f_page.select_one('.ferrydetails-accordion-sec')
+            f_main = f_page.find('div', id='ferryDetails')
             code = list(filter(None, urlparse(href).path.split('/')))[-1]
             print('Code:', code)
-            name = fMain.find('h3').find('strong').getText(strip=True)
+            name = f_main.find('h3').find('strong').get_text(strip=True)
             print('Name:', name)
 
-            onboardServiceC = fDetails.select_one('.tabel-ferry-build') # typo is in site
+            onboard_service_c = f_details.select_one('.tabel-ferry-build') # typo is in site
             
-            buildStats = dict()
-            buildStatItems = fDetails.select_one('.ferrydetails-build-statistics'
+            build_stats = dict()
+            build_statItems = f_details.select_one('.ferrydetails-build-statistics'
                 ).select('li[class="list-group-item"]')
-            for item in buildStatItems:
-                buildStatKey = item.select_one('.information-data').getText(strip=True).upper()
-                buildStatVal = item.select_one('.information-value').getText(strip=True).upper()
-                buildStats[buildStatKey] = buildStatVal
-            print('Build stats:', buildStats)
+            for item in build_statItems:
+                build_stat_key = item.select_one('.information-data').get_text(strip=True).upper()
+                build_stat_val = item.select_one('.information-value').get_text(strip=True).upper()
+                build_stats[build_stat_key] = build_stat_val
+            print('Build stats:', build_stats)
 
             services = []
-            for item in onboardServiceC.find('ul').find_all('img'):
+            for item in onboard_service_c.find('ul').find_all('img'):
                 amenityImgSrc = urlparse(ujson.loads(item['data-media'])["1"]).path
                 services.append(service(settings.SCRAPER_AMENITY_IMAGE_PATHS.get(amenityImgSrc, amenityImgSrc), False))
 
-            for item in onboardServiceC.select('.ferrydetails-onboard-sec'):
-                services.append(service(item.select_one('.col-lg-10').getText(strip=True), True))
+            for item in onboard_service_c.select('.ferrydetails-onboard-sec'):
+                services.append(service(item.select_one('.col-lg-10').get_text(strip=True), True))
             print('Services:', services)
 
             m.Ship.objects.filter(code=code).delete()
@@ -62,18 +62,18 @@ def run():
             ship = m.Ship(
                 code = code,
                 name = name,
-                car_capacity = int(buildStats.get('CAR CAPACITY', 0)),
-                human_capacity = int(buildStats.get('PASSENGER & CREW CAPACITY', 0)),
-                horsepower = int(buildStats.get('HORSEPOWER', 0)),
-                max_displacement = float(buildStats.get('MAXIMUM DISPLACEMENT (T)', 0)),
-                max_speed = float(buildStats.get('MAXIMUM SPEED (KNOTS)', 0)),
-                total_length = float(buildStats.get('OVERALL LENGTH (M)', 0)),
+                car_capacity = int(build_stats.get('CAR CAPACITY', 0)),
+                human_capacity = int(build_stats.get('PASSENGER & CREW CAPACITY', 0)),
+                horsepower = int(build_stats.get('HORSEPOWER', 0)),
+                max_displacement = float(build_stats.get('MAXIMUM DISPLACEMENT (T)', 0)),
+                max_speed = float(build_stats.get('MAXIMUM SPEED (KNOTS)', 0)),
+                total_length = float(build_stats.get('OVERALL LENGTH (M)', 0)),
             )
 
-            built = buildStats.get('BUILT', '').split(',')
-            for builtVal in built:
+            built = build_stats.get('BUILT', '').split(',')
+            for built_val in built:
                 try:
-                    ship.built = date(int(builtVal), 1, 1)
+                    ship.built = date(int(built_val), 1, 1)
                     print('Built:', ship.built)
                     break
                 except ValueError as e:
@@ -81,13 +81,13 @@ def run():
             
             ship.save()
 
-            for newService in services:
-                ship.services.add(newService)
+            for new_service in services:
+                ship.services.add(new_service)
 
             print('Created ship', ship)
             print('\n')
 
             #   sleep(settings.SCRAPER_PAUSE_SECS)
-            #   fModal = bs(
+            #   f_modal = bs(
             #   requests.get(settings.SCRAPER_URL_PREFIX+'/ship-info', {'code': ship.code}).json()['shipInfoModalHtml'],
             #       'html.parser')

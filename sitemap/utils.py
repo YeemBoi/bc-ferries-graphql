@@ -2,7 +2,7 @@ from . import models as m
 from usp.objects import page, sitemap
 from typing import Optional
 
-def SaveSitemap(sm, indexSitemap: Optional[m.Sitemap] = None, parentSitemap: Optional[m.Sitemap] = None):
+def save_sitemap(sm, indexSitemap: Optional[m.Sitemap] = None, parentSitemap: Optional[m.Sitemap] = None):
     smt = type(sm)
     sitemapM = m.Sitemap(
         url = sm.url,
@@ -14,7 +14,7 @@ def SaveSitemap(sm, indexSitemap: Optional[m.Sitemap] = None, parentSitemap: Opt
     if sitemapM.is_invalid:
         sitemapM.invalid_reason = sm.reason
 
-    smtStr = str
+    smtStr = None
     if issubclass(smt, sitemap.IndexRobotsTxtSitemap):
         smtStr = 'ROBO'
     elif issubclass(smt, sitemap.IndexXMLSitemap) or issubclass(smt, sitemap.PagesXMLSitemap):
@@ -29,18 +29,18 @@ def SaveSitemap(sm, indexSitemap: Optional[m.Sitemap] = None, parentSitemap: Opt
 
     sitemapM.save()
     sitemapM.index_sitemap = indexSitemap or sitemapM
-    sitemapM.parent_sitemap = parentSitemap or sitemapM
+    sitemapM.sitemap = parentSitemap or sitemapM
     sitemapM.save()
     
     if hasattr(sm, 'sub_sitemaps'):
         for newSitemap in sm.sub_sitemaps:
-            SaveSitemap(newSitemap, sitemapM.index_sitemap, sitemapM)
+            save_sitemap(newSitemap, sitemapM.index_sitemap, sitemapM)
     
     if hasattr(sm, 'pages'):
         pages = []
         for page in sm.pages:
             pageM = m.Page(
-                parent_sitemap = sitemapM,
+                sitemap = sitemapM,
                 url = page.url,
                 priority = page.priority,
                 last_modified = page.last_modified,

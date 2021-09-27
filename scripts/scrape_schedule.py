@@ -1,3 +1,4 @@
+from calendar import month_abbr
 from django.conf import settings
 from core import models as m
 
@@ -9,24 +10,109 @@ from django.utils import timezone
 from time import sleep
 from datetime import date, datetime, timedelta
 from dateutil import parser
+import pandas as pd
 
 import re
-from typing import Optional
+from typing import Optional, NamedTuple, Generator
 
-from . import utils as u
+from common import scraper_utils as u
 
 misc_schedule_soups = []
+
+def date_range_url_param(date_range: pd.DatetimeIndex) -> str:
+        return '-'.join([dateVal.strftime('%Y%m%d')
+            for dateVal in [date_range[0], date_range[-1]]])
+
+
+def make_scheduled_sailings(
+    sailing: m.Sailing,
+    time,
+    date_range: pd.DatetimeIndex,
+    skip: list,
+    only: list,
+    week_days: set[int],
+    ) -> Generator[m.ScheduledSailing, None, None]:
+
+    print('Time:', time)
+    u.soft_print_list('Only:', only)
+    u.soft_print_list('Skip:', skip)
+
+    if only:
+        insert_count = 0
+        for l_date in date_range:
+            if not u.schedule_includes(only, l_date):
+                continue
+            insert_count += 1
+            yield m.ScheduledSailing(
+                sailing = sailing,
+                time = datetime(
+                    year = l_date.year,
+                    month = l_date.month,
+                    day = l_date.day,
+                    hour = time.hour,
+                    minute = time.minute,
+                    tzinfo = timezone.get_current_timezone()
+                )
+            )
+        u.soft_print('Inserted', insert_count)
+    else:
+        skip_count = 0
+        for l_date in date_range:
+            if l_date.day_of_week not in week_days:
+                continue
+            if u.schedule_includes(skip, l_date):
+                skip_count += 1
+                continue
+            yield m.ScheduledSailing(
+                sailing = sailing,
+                time = datetime(
+                    year = l_date.year,
+                    month = l_date.month,
+                    day = l_date.day,
+                    hour = time.hour,
+                    minute = time.minute,
+                    tzinfo = timezone.get_current_timezone()
+                )
+            )
+        u.soft_print('Skipped', skip_count)
+
+
+def parse_noted_dates(note_text: str, date_range: pd.DatetimeIndex) -> Generator[date, None, None]:
+    # unfortunately the formatting on the website is not standardized on misc timetables
+    # use regex & fuzzy parsing to identify dates
+    for date_text in u.multi_split(
+        u.multi_split(
+            note_text.split('HOLIDAY MONDAY')[0].strip(), [':', ' ON ']
+                )[-1].strip(),
+            [',', '&', ' AND ', *{str(t.year) for t in date_range}]
+        ):
+        if len(date_text.strip()) > 5:
+            yield parser.parse(
+                f"{date_text.strip().upper()} {timezone.get_current_timezone_name()}",
+                fuzzy = True,
+            ).date()
+
+class LocationCertainty(NamedTuple):
+    terminal: m.Terminal
+    is_certain: bool
+
+def get_terminal(name: str) -> LocationCertainty:
+    print('Getting en-route stop:', name)
+    terminals = m.Terminal.objects.filter(name__icontains = name)
+    return LocationCertainty(terminals.first(), terminals.count() == 1)
+
+
 def scrape_from_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
     # cal = Calendar()
     # if not route.is_bookable:
-        # return ValueError(f'Cannot scrape non-bookable route {route}')
+        # return ValueError(f"Cannot scrape non-bookable route {route}')
     is_recursive = not url
     sleep(settings.SCRAPER_PAUSE_SECS)
     print('\n')
     req = requests.get(url or
-        settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.dest.code))
+        settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.destination.code))
     req.encoding = req.apparent_encoding
-    print(f'got {req.status_code} on {req.url}')
+    print(f"got {req.status_code} on {req.url}")
     soup = bs(req.text, 'html5lib')
     tbl = soup.select_one('.table-seasonal-schedule')
 
@@ -34,276 +120,245 @@ def scrape_from_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
         m.Sailing.objects.filter(route=route).delete()
     
     sailing = m.Sailing()
-    scheduledSailings = []
+    scheduled_sailings = []
+    en_route_stops = []
 
     if tbl:
-        dateSelections = soup.select_one('select')
-        dateRanges = []
-        dateRange = None
-        for dateOption in dateSelections.select('option'):
-            pDateRange = u.from_schedule_date_range(dateOption.getText(strip=True))
-            if dateOption.get('selected', 'UNSELECTED') == 'UNSELECTED':
-                dateRanges.append(pDateRange)
+        date_selections = soup.select_one('select')
+        date_ranges = []
+        date_range = None
+        for date_option in date_selections.select('option'):
+            p_date_range = u.from_schedule_date_range(date_option.get_text(strip=True), '%b %d, %Y')
+            if date_option.get('selected', 'UNSELECTED') == 'UNSELECTED':
+                date_ranges.append(p_date_range)
             else:
-                dateRange = pDateRange
+                date_range = p_date_range
         
-        if type(dateRange) == type(None):
-            dateRange = dateRanges.pop(0)
+        if type(date_range) == type(None):
+            date_range = date_ranges.pop(0)
         
         if is_recursive:
-            for otherDateRange in dateRanges:
-                dateRangeParam = u.date_range_url_param(otherDateRange)
+            for other_date_range in date_ranges:
+                date_rangeParam = date_range_url_param(other_date_range)
                 scrape_from_route(route, 
-                    f'{settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.dest.code)}?departureDate={dateRangeParam}'
+                    f"{settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.destination.code)}?departure_date={date_rangeParam}"
                 )
         
-        print('Date range:', u.pretty_date_range(dateRange))
+        print('Date range:', u.pretty_date_range(date_range))
     
-        prevWeekdayName = ''
+        prev_week_day_name = ''
         for row in tbl.select('tr'):
-            weekDay = row.select_one('.text-capitalize')
-            if not weekDay:
+            week_day = row.select_one('.text-capitalize')
+            if not week_day:
                 print('Skipping row')
                 continue
-            weekDayName = weekDay.getText(strip=True).upper()
+            week_day_name = week_day.get_text(strip=True).upper()
             additionals = row.select_one('.progtrckr')
-            if weekDayName:
-                hours, mins = additionals.select_one('span').getText(strip=True).upper().split()
+            if week_day_name:
+                hours, mins = additionals.select_one('span').get_text(strip=True).upper().split()
                 sailing = m.Sailing.objects.create(
                     route = route,
-                    duration= timedelta(minutes=int(mins.replace('M', '')), hours=int(hours.replace('H', '')))
+                    duration = timedelta(minutes=int(mins.replace('M', '')), hours=int(hours.replace('H', '')))
                 )
             else:
-                weekDayName = prevWeekdayName
+                week_day_name = prev_week_day_name
             
             for i, additional in enumerate(additionals.select('.prog-tracker-entry-seasonal-schedules')):
                 classes = additional.get('class', [])
-                addText = additional.getText(strip=True).upper()
+                add_text = additional.get_text(strip=True).upper()
                 if 'stop-over-blank-circle' in classes:
-                    m.EnRouteStop.objects.create(
+                    terminal, is_certain = get_terminal(add_text.replace('STOP AT ', ''))
+                    en_route_stops.append(m.EnRouteStop(
                         sailing = sailing,
-                        location = m.Location.objects.get(name__iexact = addText.replace('STOP AT ', '')),
+                        terminal = terminal,
+                        is_certain = is_certain,
                         is_transfer = False,
                         order = i,
-                    )
+                    ))
                 elif 'stop-over-line-circle' in classes:
-                    m.EnRouteStop.objects.create(
+                    terminal, is_certain = get_terminal(add_text.replace('TRANSFER AT ', ''))
+                    en_route_stops.append(m.EnRouteStop(
                         sailing = sailing,
-                        location = m.Location.objects.get(name__iexact = addText.replace('TRANSFER AT ', '')),
+                        terminal = terminal,
+                        is_certain = is_certain,
                         is_transfer = True,
                         order = i,
-                    )
+                    ))
                 
-            timeCol = row.select('td')[2]
-            # timeSep = '{NEW_TIME}'
-            timeStrs = timeCol.find_all(text=True, recursive=False)[0].getText(strip=True).split(',')
-            for infoTime in timeCol.select('.schedules-info-time'):
-                timeStrs.append(infoTime.getText(strip=True))
-            
-            for timeStr in timeStrs:
-                if not timeStr:
-                    continue
-                time = u.from_schedule_time(timeStr)
-                print('Time:', time.findText)
-                skipDates = []
-                onlyDates = []
-                for span in timeCol.select('.schedules-additional-info'):
-                    spanText = span.getText(strip=True).replace('*', '').upper()
-                    if spanText.endswith(','):
-                        spanText = spanText[:-1]
-                    if time.findText in spanText:
-                        spanDates = [
-                            u.from_schedule_date(dateText)
-                            for dateText in spanText.split(':')[-1].strip().split(',')
-                        ]
-                        if 'ONLY ON:' in spanText:
-                            onlyDates.extend(spanDates)
-                        elif 'NOT AVAILABLE ON:' in spanText:
-                            skipDates.extend(spanDates)
-                if onlyDates: print('Only:', *onlyDates)
-                if skipDates: print('Skip:', *skipDates)
-
-                if onlyDates:
-                    insertCount = 0
-                    for lDate in dateRange:
-                        if not u.schedule_includes(onlyDates, lDate):
-                            continue
-                        insertCount += 1
-                        scheduledSailings.append(m.ScheduledSailing(
-                            sailing = sailing,
-                            time = datetime(
-                                year = lDate.year,
-                                month = lDate.month,
-                                day = lDate.day,
-                                hour = time.hour,
-                                minute = time.minute,
-                                tzinfo = timezone.get_current_timezone()
-                            )
-                        ))
-                    if insertCount: print('Inserted', insertCount)
+            time_col = row.select('td')[2]
+            time_strs = time_col.find_all(text=True, recursive=False)[0].get_text(strip=True).split(',')
+            for info_time in time_col.select('.schedules-info-time'):
+                time_strs.append(info_time.get_text(strip=True))
+            note_texts = []
+            for info_time in time_col.select('.schedules-additional-info'):
+                info_text = info_time.get_text(strip=True).replace('*', '').upper()
+                if len(info_text) < 10: # eg: 12:00 PM*
+                    time_strs.append(info_text)
                 else:
-                    skipCount = 0
-                    for lDate in dateRange:
-                        if u.schedule_includes(skipDates, lDate):
-                            skipCount += 1
-                            continue
-                        scheduledSailings.append(m.ScheduledSailing(
-                            sailing = sailing,
-                            time = datetime(
-                                year = lDate.year,
-                                month = lDate.month,
-                                day = lDate.day,
-                                hour = time.hour,
-                                minute = time.minute,
-                                tzinfo = timezone.get_current_timezone()
-                            )
-                        ))
-                    if skipCount: print('Skipped', skipCount)
-            prevWeekdayName = weekDayName
+                    note_texts.append(info_text)
+            
+            for time_str in time_strs:
+                if not time_str:
+                    continue
+                time = u.from_schedule_time(time_str)
+                skip_dates = []
+                only_dates = []
+                for note_text in note_texts:
+                    if note_text.endswith(','):
+                        note_text = note_text[:-1]
+                    if time.find_text in note_text:
+                        span_dates = [
+                            u.from_schedule_date(date_text)
+                            for date_text in note_text.split(':')[-1].strip().split(',')
+                        ]
+                        if 'ONLY ON:' in note_text:
+                            only_dates.extend(span_dates)
+                        elif 'NOT AVAILABLE ON:' in note_text:
+                            skip_dates.extend(span_dates)
+                scheduled_sailings.extend(make_scheduled_sailings(
+                    sailing = sailing,
+                    time = time,
+                    date_range = date_range,
+                    skip = skip_dates,
+                    only = only_dates,
+                    week_days = {u.day_from_text(week_day_name)},
+                ))
+            prev_week_day_name = week_day_name
+    
 
+    ###### USE ALTERNATIVE SCHEDULES ######
     else:
         print('Could not retrieve schedule table for', route)
         if not is_recursive:
             return
         
-        for miscSoup in misc_schedule_soups:
+        for misc_soup in misc_schedule_soups:
             print('Trying misc schedule page')
-            mainElem = miscSoup.select_one(f'#{route.origin.code}-{route.dest.code}')
-            if not mainElem:
+            main_elem = misc_soup.select_one(f"#{route.origin.code}-{route.destination.code}")
+            if not main_elem:
                 print('Could not find alternate timetable')
                 continue
 
-            allDiv = mainElem.find_parent('div')
-            dateTitles = allDiv.select('.accordion-title')
-            timeTables = allDiv.select('tbody')
-            if len(dateTitles) != len(timeTables):
-                raise ValueError(f'found {len(dateTitles)} date titles but {len(timeTables)} schedules')
-            for i, dateTitle in enumerate(dateTitles):
-                dateRange = u.from_schedule_date_range(dateTitle.getText(strip=True))
-                print('Date range:', u.pretty_date_range(dateRange))
-                table = timeTables[i]
-                rows = table.select('tr')
+            allDiv = main_elem.find_parent('div')
+            date_titles = allDiv.select('.accordion-title')
+            time_tables = allDiv.select('tbody')
+            if unmatched_schedule_dates := len(date_titles) != len(time_tables):
+                print(f"Found {len(date_titles)} date titles but {len(time_tables)} schedules")
+                print("Using fallback dates")
+            for i, time_table in enumerate(time_tables):
+                date_range = u.from_schedule_date_range(date_titles[i].get_text(strip=True), '%B %d, %Y')\
+                    if not unmatched_schedule_dates else u.fallback_dates
+                
+                print('Date range:', u.pretty_date_range(date_range))
+                rows = time_table.select('tr')
                 NOTES_SEPARATOR = '{BLINGUS}'
                 notes = [
-                    noteText.strip().upper()
-                    for noteText in rows[-1].getText(strip=True, separator=NOTES_SEPARATOR).split(NOTES_SEPARATOR)
+                    note_text.strip().upper()
+                    for note_text in rows[-1].get_text(strip=True, separator=NOTES_SEPARATOR).split(NOTES_SEPARATOR)
                 ]
-                for row in rows[:-1]:
+                if len(rows[-1].select('td')) == 4:
+                    notes = []
+                
+                for row in rows:
                     cols = row.select('td')
                     if len(cols) != 4:
-                        print('Skipping row, found', cols, 'cols')
+                        print('Skipping row, found', len(cols), 'cols')
                         continue
-                    leaveText, daysText, stopsText, arriveText = [
-                        col.getText(strip=True)
+                    if not len(row.get_text(strip=True)):
+                        print('Skipping blank row')
+                        continue
+                    leave_text, days_text, stops_text, arrive_text = [
+                        col.get_text(strip=True)
                         for col in cols
                     ]
-                    days = []
-                    for dayText in daysText.split(','):
-                        dayText = dayText.strip().replace('*', '').upper()
-                        if '-' in dayText:
-                            startDay, endDay = dayText.split('-')
-                            days.extend([
-                                singleDay
-                                for singleDay in range(u.month_from_text(startDay), u.month_from_text(endDay) + 1)
-                            ])
-                        else:
-                            days.append(u.month_from_text(dayText))
- 
-                    leaveTime = u.from_schedule_time(leaveText)
-                    arriveTime = u.from_schedule_time(arriveText)
+                    leave_time = u.from_schedule_time(leave_text)
+                    arrive_time = u.from_schedule_time(arrive_text)
+                    days = set()
+
+                    note_indicator = ''
+                    holiday_mondays = False
+                    for c in range(1,4):
+                        if (indicator := '*' * c) in days_text:
+                            note_indicator = indicator
                     
-                    time = u.from_schedule_time(leaveText)
-                    print('Time:', time.findText)
+                    for day_text in days_text.split(','):
+                        day_text = day_text.strip().replace('*', '').upper()
+                        if '-' in day_text:
+                            startDay, endDay = day_text.split('-')
+                            days.update(range(u.day_from_text(startDay), u.day_from_text(endDay) + 1))
+                        else:
+                            try:
+                                if day_text.startswith('HOL '):
+                                    holiday_mondays = True
+                                days.add(u.day_from_text(day_text.replace('HOL ', '')))
+                            except ValueError as e:
+                                print(e)
+                                print('Trying to select individual dates...')
+                                month = 0
+                                for token in days_text.replace(',', '').split(' '):
+                                    try:
+                                        month = u.month_from_text(token)
+                                    except ValueError:
+                                        try:
+                                            sketchyDate = u.ScheduleDate(days_text, int(token), month)
+                                            print('Parsed date from', sketchyDate)
+                                            only_dates.append(sketchyDate)
+                                        except ValueError: pass
+                                break
+                    
                     sailing = m.Sailing.objects.create(
                         route = route,
                         duration = timedelta(
-                            hours = arriveTime.hour - leaveTime.hour,
-                            minutes = arriveTime.minute - leaveTime.minute,
+                            hours = arrive_time.hour - leave_time.hour,
+                            minutes = arrive_time.minute - leave_time.minute,
                         ),
                     )
-                    for i, stopText in enumerate(stopsText.split(',')):
-                        stopText = stopText.strip().upper()
-                        if 'TRANSFER' in stopText:
-                            m.EnRouteStop.objects.create(
+                    skip_dates = []
+                    only_dates = []
+                    for i, stop_text in enumerate(stops_text.split(',')):
+                        stop_text = stop_text.strip().upper()
+                        if stop_text == 'NON-STOP':
+                            continue
+                        if 'TRANSFER' in stop_text:
+                            terminal, is_certain = get_terminal(stop_text.replace('TRANSFER AT ', '').replace('TRANSFER ', ''))
+                            en_route_stops.append(m.EnRouteStop(
                                 sailing = sailing,
-                                location = m.Location.objects.get(
-                                    name__icontains = stopText.replace('TRANSFER AT ', '').replace('TRANSFER ', '')
-                                ),
+                                terminal = terminal,
+                                is_certain = is_certain,
                                 is_transfer = True,
                                 order = i,
-                            )
+                            ))
                         else:
-                            m.EnRouteStop.objects.create(
+                            terminal, is_certain = get_terminal(stop_text)
+                            en_route_stops.append(m.EnRouteStop(
                                 sailing = sailing,
-                                location = m.Location.objects.get(name__icontains = stopText),
-                                is_transfer = True,
+                                terminal = terminal,
+                                is_certain = is_certain,
+                                is_transfer = False,
                                 order = i,
-                            )
+                            ))
 
-                    skipDates = []
-                    onlyDates = []
-                    for noteText in notes:
-                        if noteText.endswith(','):
-                            noteText = noteText[:-1]
-                        if time.findText in noteText:
-                            # unfortunately the formatting on the website is not standardized here
-                            # use regex & fuzzy parsing to identify dates
-                            spanDates = [
-                                parser.parse(dateText.strip().upper(),
-                                    tzinfo = timezone.get_current_timezone(),
-                                    fuzzy = True,
-                                ).date()
-                                for dateText in u.multi_split(
-                                    noteText.split(':')[-1].strip(),
-                                    {str(t.year) for t in dateRange}
-                                )
-                            ]
-                            if 'ONLY ON:' in noteText:
-                                onlyDates.extend(spanDates)
-                            elif 'EXCEPT ON:' in noteText:
-                                skipDates.extend(spanDates)
-                    if onlyDates: print('Only:', *onlyDates)
-                    if skipDates: print('Skip:', *skipDates)
-                    
-                    if onlyDates:
-                        insertCount = 0
-                        for lDate in dateRange:
-                            if not u.schedule_includes(onlyDates, lDate):
-                                continue
-                            insertCount += 1
-                            scheduledSailings.append(m.ScheduledSailing(
-                                sailing = sailing,
-                                time = datetime(
-                                    year = lDate.year,
-                                    month = lDate.month,
-                                    day = lDate.day,
-                                    hour = time.hour,
-                                    minute = time.minute,
-                                    tzinfo = timezone.get_current_timezone()
-                                )
-                            ))
-                        if insertCount: print('Inserted', insertCount)
-                    else:
-                        skipCount = 0
-                        for lDate in dateRange:
-                            if u.schedule_includes(skipDates, lDate):
-                                skipCount += 1
-                                continue
-                            scheduledSailings.append(m.ScheduledSailing(
-                                sailing = sailing,
-                                time = datetime(
-                                    year = lDate.year,
-                                    month = lDate.month,
-                                    day = lDate.day,
-                                    hour = time.hour,
-                                    minute = time.minute,
-                                    tzinfo = timezone.get_current_timezone()
-                                )
-                            ))
-                        if skipCount: print('Skipped', skipCount)
+                    for note_text in notes:
+                        if len(note_indicator) and note_indicator in note_text:
+                            if 'ONLY ON' in note_text:
+                                only_dates.extend(parse_noted_dates(note_text, date_range))
+                            elif 'EXCEPT ON' in note_text:
+                                skip_dates.extend(parse_noted_dates(note_text, date_range))
+                        if (not holiday_mondays) and 'HOLIDAY MONDAY' in note_text:
+                            skip_dates.extend(parse_noted_dates(note_text, date_range))
+
+                    scheduled_sailings.extend(make_scheduled_sailings(
+                        sailing = sailing,
+                        time = leave_time,
+                        date_range = date_range,
+                        skip = skip_dates,
+                        only = only_dates,
+                        week_days = days,
+                    ))
             break
-    
-    m.ScheduledSailing.objects.bulk_create(scheduledSailings)
+
+    m.EnRouteStop.objects.bulk_create(en_route_stops)
+    m.ScheduledSailing.objects.bulk_create(scheduled_sailings)
     return sailing
 
 
@@ -314,7 +369,7 @@ def run():
         req = requests.get(url)
         req.encoding = req.apparent_encoding
         print('Adding misc table', url)
-        print(f'got {req.status_code} on {req.url}')
+        print(f"got {req.status_code} on {req.url}")
         misc_schedule_soups.append(bs(req.text, 'html5lib'))
 
     for route in m.Route.objects.all(): #filter(is_bookable=True):

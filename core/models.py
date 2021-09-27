@@ -34,7 +34,7 @@ class GeoArea(m.Model):
         return self.name
 
 
-class Location(m.Model):
+class Terminal(m.Model):
     code = Code()
     name = m.CharField(max_length=250)
     travel_route_name = m.CharField(max_length=250)
@@ -47,8 +47,18 @@ class Location(m.Model):
 
 
 class Route(m.Model):
-    origin = m.ForeignKey(Location, on_delete=m.CASCADE, related_name='destination_routes')
-    dest = m.ForeignKey(Location, on_delete=m.CASCADE, related_name='origin_routes')
+    origin = m.ForeignKey(Terminal, on_delete=m.CASCADE, related_name='destination_routes')
+    destination = m.ForeignKey(Terminal, on_delete=m.CASCADE, related_name='origin_routes')
+
+    def __str__(self) -> str:
+        return f"from {self.origin} to {self.destination}"
+
+
+class RouteInfo(m.Model):
+    route = m.ForeignKey(Route, on_delete=m.CASCADE, related_name='info_set')
+    original_index = m.PositiveIntegerField()
+    conditions_are_tracked = m.BooleanField(default=False)
+
     length_type = m.CharField(max_length=50)
 
     limited_availability = m.BooleanField()
@@ -62,7 +72,7 @@ class Route(m.Model):
     allow_additional_passenger_types = m.BooleanField()
 
     def __str__(self) -> str:
-        return f'from {self.origin} to {self.dest}'
+        return f"{self.route}"
 
 
 class Service(m.Model):
@@ -70,7 +80,7 @@ class Service(m.Model):
     is_additional = m.BooleanField()
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name}"
 
 
 class Ship(m.Model):
@@ -87,33 +97,37 @@ class Ship(m.Model):
     total_length = m.FloatField('Total length (m)')
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name}"
 
 
 class Sailing(m.Model):
     route = m.ForeignKey(Route, on_delete=m.CASCADE)
     duration = m.DurationField()
 
-    #stops = m.ManyToManyField(Location)
-    #transfer = m.ForeignKey('self', null=True, on_delete=m.SET_NULL)
+    #stops = m.ManyToManyField(Terminal)
+    #transfer = m.ForeignKey('self", null=True, on_delete=m.SET_NULL)
 
     def __str__(self) -> str:
-        return f'{self.route}'
+        return f"{self.route}"
 
 
 class EnRouteStop(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='stops')
-    location = m.ForeignKey(Location, on_delete=m.CASCADE)
+    terminal = m.ForeignKey(Terminal, on_delete=m.CASCADE)
+    is_certain = m.BooleanField()
     is_transfer = m.BooleanField()
     order = m.IntegerField()
 
     def __str__(self) -> str:
-        return '{} at {} on {}'.format('transfer' if self.is_transfer else 'stop', self.location, self.sailing)
+        return f"{'transfer' if self.is_transfer else 'stop'} at {self.terminal} on {self.sailing}"
 
 
 class ScheduledSailing(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='scheduled')
     time = m.DateTimeField()
+
+    def __str__(self) -> str:
+        return f"{self.sailing} at {self.time.strftime('%c')}"
 
 
 class CurrentSailing(m.Model):
@@ -122,5 +136,8 @@ class CurrentSailing(m.Model):
     actual_time = m.DateTimeField()
     arrival_time = m.DateTimeField()
     capacity =  m.PositiveIntegerField()
-    delayed = m.BooleanField()
+    is_delayed = m.BooleanField()
     status = m.CharField(max_length=4, choices=CURRENT_SAILING_STATUS_CHOICES)
+
+    def __str__(self) -> str:
+        return f"{self.sailing}"

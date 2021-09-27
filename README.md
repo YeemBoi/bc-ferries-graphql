@@ -30,10 +30,10 @@ This can be changed in `settings.SCRAPER_PAUSE_SECS`.
 
 ## Example queries
 
-### Locations:
+### Terminals:
 ```graphql
 query {
-  allLocations {
+  allTerminals- {
     edges {
       node {
         city {
@@ -61,7 +61,7 @@ query {
 ### Route:
 ```graphql
 query ($originCode: String, $destCode: String) {
-  allRoutes(origin_Code: $originCode, dest_Code: $destCode) {
+  allRoutes(origin_Code: $originCode, destination_Code: $destCode) {
     edges {
       node {
         origin {
@@ -70,20 +70,27 @@ query ($originCode: String, $destCode: String) {
           travelRouteName
           id
         }
-        dest {
+        destination {
           code
           name
           travelRouteName
           id
         }
-        lengthType
-        limitedAvailability
-        isBookable
-        isWalkOn
-        allowMotorcycles
-        allowLivestock
-        allowWalkOnOptions
-        allowAdditionalPassengerTypes
+        infoSet {
+          edges {
+            node {
+              lengthType
+              limitedAvailability
+              isBookable
+              isWalkOn
+              allowMotorcycles
+              allowLivestock
+              allowWalkOnOptions
+              allowAdditionalPassengerTypes
+              id
+            }
+          }
+        }
         id
       }
     }
@@ -125,7 +132,7 @@ query ($code: String) {
 ### Sailing:
 ```graphql
 query ($originCode: String, $destCode: String $scheduledUntil: DateTime) {
-  allSailings(route_Origin_Code: $originCode, route_Dest_Code: $destCode) {
+  allSailings(route_Origin_Code: $originCode, route_Destination_Code: $destCode) {
     edges {
       node {
         current {
@@ -134,7 +141,7 @@ query ($originCode: String, $destCode: String $scheduledUntil: DateTime) {
               actualTime
               arrivalTime
               capacity
-              delayed
+              isDelayed
               status
               id
             }
@@ -172,25 +179,26 @@ query ($originCode: String, $destCode: String $scheduledUntil: DateTime) {
 ## [Default settings](ferries/settings.py)
 ```python
 # See http://bcferries.com/robots.txt
-SCRAPER_PAUSE_SECS            = 10
+SCRAPER_PAUSE_SECS = 10
 
 SCRAPER_URL_PREFIX            = 'http://www.bcferries.com'
 SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
 SCRAPER_CONDITIONS_URL        = SCRAPER_URL_PREFIX + '/current-conditions'
 SCRAPER_DEPARTURES_URL        = SCRAPER_URL_PREFIX + '/current-conditions/departures'
 SCRAPER_ROUTES_URL            = SCRAPER_URL_PREFIX + '/route-info'
+SCRAPER_CC_ROUTES_URL         = SCRAPER_URL_PREFIX + '/cc-route-info'
 SCRAPER_FLEET_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet?page={}'
 SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}-{}'
 SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
+SCRAPER_SCHEDULE_URL          = SCRAPER_URL_PREFIX + '/getDepartureDates?origin={}&destination={}&selectedMonth=8&selectedYear={}'
 SCRAPER_FLEET_PAGE_RANGE      = 2
 
-SCRAPER_UNBOOKABLE_TIMETABLE_URLS = [
+SCRAPER_MISC_SCHEDULE_URLS = [
     SCRAPER_URL_PREFIX + '/routes-fares/schedules/southern-gulf-islands',
-    SCRAPER_URL_PREFIX + '/routes-fares/schedules/gambier-keats',
 ]
 
 # How many days into the future to attempt to create schedules for
-SCRAPER_SCHEDULE_DATE_PERIODS = 100
+SCRAPER_FALLBACK_DATE_PERIODS = 100
 
 # BC Ferries doesn't use alt tags on all images, so map image src to amenities
 SCRAPER_AMENITY_IMAGE_PATHS = {
@@ -215,28 +223,28 @@ SCRAPER_SCRIPTS = [
     'scrape_schedule',
 ]
 
-DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'icontains', 'istartswith']
+DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'regex', 'icontains', 'istartswith']
 DEFAULT_RANGE_LOOKUPS  = ['exact', 'gt', 'lt', 'gte', 'lte']
 
 _use_default_range_lookups = lambda dt : [f'{dt}__{lookup}' for lookup in DEFAULT_RANGE_LOOKUPS]
-_unnested_range_lookups    = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
+_use_unnested_range_lookups = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
 
 _DEFAULT_DATE_LOOKUP_TYPES = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
 _DEFAULT_TIME_LOOKUP_TYPES = ['hour', 'minute', 'second']
 
 DEFAULT_DATE_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
-    *_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
 ]
 DEFAULT_TIME_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
-    *_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
 ]
 DEFAULT_DATETIME_LOOKUPS = [
     *DEFAULT_RANGE_LOOKUPS,
     *_use_default_range_lookups('date'),
-    *_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
     *_use_default_range_lookups('time'),
-    *_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
+    *_use_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
 ]
 ```

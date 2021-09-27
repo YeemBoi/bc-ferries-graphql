@@ -150,21 +150,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # See http://bcferries.com/robots.txt
 SCRAPER_PAUSE_SECS = 10
 if DEBUG:
-    SCRAPER_PAUSE_SECS = 10
+    SCRAPER_PAUSE_SECS = 6
 
 SCRAPER_URL_PREFIX            = 'http://www.bcferries.com'
 SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
 SCRAPER_CONDITIONS_URL        = SCRAPER_URL_PREFIX + '/current-conditions'
 SCRAPER_DEPARTURES_URL        = SCRAPER_URL_PREFIX + '/current-conditions/departures'
 SCRAPER_ROUTES_URL            = SCRAPER_URL_PREFIX + '/route-info'
+SCRAPER_CC_ROUTES_URL         = SCRAPER_URL_PREFIX + '/cc-route-info'
 SCRAPER_FLEET_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet?page={}'
 SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}-{}'
 SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
+SCRAPER_SCHEDULE_URL          = SCRAPER_URL_PREFIX + '/getDepartureDates?origin={}&destination={}&selectedMonth=8&selectedYear={}'
 SCRAPER_FLEET_PAGE_RANGE      = 2
 
 SCRAPER_MISC_SCHEDULE_URLS = [
     SCRAPER_URL_PREFIX + '/routes-fares/schedules/southern-gulf-islands',
-    SCRAPER_URL_PREFIX + '/routes-fares/schedules/gambier-keats',
+    # SCRAPER_URL_PREFIX + '/routes-fares/schedules/gambier-keats',
 ]
 
 # How many days into the future to attempt to create schedules for
@@ -193,11 +195,11 @@ SCRAPER_SCRIPTS = [
     'scrape_schedule',
 ]
 
-DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'icontains', 'istartswith']
+DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'regex', 'icontains', 'istartswith']
 DEFAULT_RANGE_LOOKUPS  = ['exact', 'gt', 'lt', 'gte', 'lte']
 
 _use_default_range_lookups = lambda dt : [f'{dt}__{lookup}' for lookup in DEFAULT_RANGE_LOOKUPS]
-_use_unnested_range_lookups    = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
+_use_unnested_range_lookups = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
 
 _DEFAULT_DATE_LOOKUP_TYPES = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
 _DEFAULT_TIME_LOOKUP_TYPES = ['hour', 'minute', 'second']

@@ -29,7 +29,7 @@ class PageChangeFrequency(m.Model):
     duration_rep = m.DurationField(null=True)
 
     def __str__(self) -> str:
-        return self.value
+        return self.name
     
     def save(self, *args, **kwargs):
         if not self.duration_rep:
@@ -41,7 +41,7 @@ class Sitemap(m.Model):
     parent_sitemap = m.ForeignKey('self', null=True, on_delete=m.SET_NULL, related_name='sub_sitemaps')
     index_sitemap = m.ForeignKey('self', null=True, on_delete=m.SET_NULL, related_name='all_sitemaps')
     url = m.URLField()
-    sitemap_type = m.CharField(max_length=4, choices=SITEMAP_TYPE_CHOICES)
+    sitemap_type = m.CharField(null=True, max_length=4, choices=SITEMAP_TYPE_CHOICES)
     is_index = m.BooleanField()
     is_invalid = m.BooleanField()
     invalid_reason = m.CharField(max_length=511, null=True)
@@ -54,7 +54,7 @@ class Sitemap(m.Model):
 
 
 class Page(m.Model):
-    parent_sitemap = m.ForeignKey(Sitemap, null=True, on_delete=m.CASCADE, related_name='pages')
+    sitemap = m.ForeignKey(Sitemap, null=True, on_delete=m.CASCADE, related_name='pages')
     change_frequency = m.ForeignKey(PageChangeFrequency, on_delete=m.CASCADE)
     url = m.URLField()
     priority = m.FloatField()

@@ -1,18 +1,10 @@
 from django.conf import settings
 
 from . import models as m
+from common import graphene_utils as gu
 
 import graphene as g
 import graphene_django as gd
-import graphene_django.filter as gdf
-
-
-def fkFilters(relClass, relName: str) -> dict:
-    newFields = dict()
-    for field, filters in relClass._meta.filter_fields.items():
-        if len(filters):
-            newFields[f'{relName}__{field}'] = filters
-    return newFields
 
 
 class CityNode(gd.DjangoObjectType):
@@ -37,17 +29,17 @@ class GeoAreaNode(gd.DjangoObjectType):
         interfaces = (g.relay.Node, )
 
 
-class LocationNode(gd.DjangoObjectType):
+class TerminalNode(gd.DjangoObjectType):
     class Meta:
-        model = m.Location
+        model = m.Terminal
         filter_fields = {
             'city': [],
             'geo_area': [],
             'code': ['exact'],
             'name': settings.DEFAULT_STRING_LOOKUPS,
             'travel_route_name': settings.DEFAULT_STRING_LOOKUPS,
-            **fkFilters(CityNode, 'city'),
-            **fkFilters(GeoAreaNode, 'geo_area'),
+            **gu.fk_filters(CityNode, 'city'),
+            **gu.fk_filters(GeoAreaNode, 'geo_area'),
         }
         interfaces = (g.relay.Node, )
 
@@ -57,7 +49,19 @@ class RouteNode(gd.DjangoObjectType):
         model = m.Route
         filter_fields = {
             'origin': [],
-            'dest': [],
+            'destination': [],
+            **gu.fk_filters(TerminalNode, 'origin'),
+            **gu.fk_filters(TerminalNode, 'destination'),
+        }
+        interfaces = (g.relay.Node, )
+
+class RouteInfoNode(gd.DjangoObjectType):
+    class Meta:
+        model = m.RouteInfo
+        filter_fields = {
+            'route': [],
+            'conditions_are_tracked': ['exact'],
+            'original_index': settings.DEFAULT_RANGE_LOOKUPS,
             'length_type': ['exact'],
             'limited_availability': ['exact'],
             'is_bookable': ['exact'],
@@ -66,8 +70,7 @@ class RouteNode(gd.DjangoObjectType):
             'allow_livestock': ['exact'],
             'allow_walk_on_options': ['exact'],
             'allow_additional_passenger_types': ['exact'],
-            **fkFilters(LocationNode, 'origin'),
-            **fkFilters(LocationNode, 'dest'),
+            **gu.fk_filters(RouteNode, 'route'),
         }
         interfaces = (g.relay.Node, )
 
@@ -96,7 +99,7 @@ class ShipNode(gd.DjangoObjectType):
             'max_displacement': settings.DEFAULT_RANGE_LOOKUPS,
             'max_speed': settings.DEFAULT_RANGE_LOOKUPS,
             'total_length': settings.DEFAULT_RANGE_LOOKUPS,
-            **fkFilters(ServiceNode, 'services'),
+            **gu.fk_filters(ServiceNode, 'services'),
         }
         interfaces = (g.relay.Node, )
 
@@ -108,7 +111,7 @@ class SailingNode(gd.DjangoObjectType):
         filter_fields = {
             'route': [],
             'duration': settings.DEFAULT_RANGE_LOOKUPS,
-            **fkFilters(RouteNode, 'route'),
+            **gu.fk_filters(RouteNode, 'route'),
         }
         interfaces = (g.relay.Node, )
 
@@ -118,11 +121,11 @@ class EnRouteStopNode(gd.DjangoObjectType):
         model = m.EnRouteStop
         filter_fields = {
             'sailing': [],
-            'location': [],
+            'terminal': [],
             'is_transfer': ['exact'],
             'order': settings.DEFAULT_RANGE_LOOKUPS,
-            **fkFilters(SailingNode, 'sailing'),
-            **fkFilters(LocationNode, 'location'),
+            **gu.fk_filters(SailingNode, 'sailing'),
+            **gu.fk_filters(TerminalNode, 'terminal'),
         }
         interfaces = (g.relay.Node, )
 
@@ -133,7 +136,7 @@ class ScheduledSailingNode(gd.DjangoObjectType):
         filter_fields = {
             'sailing': [],
             'time': settings.DEFAULT_DATETIME_LOOKUPS,
-            **fkFilters(SailingNode, 'sailing'),
+            **gu.fk_filters(SailingNode, 'sailing'),
         }
         interfaces = (g.relay.Node, )
 
@@ -147,41 +150,23 @@ class CurrentSailingNode(gd.DjangoObjectType):
             'actual_time': settings.DEFAULT_DATETIME_LOOKUPS,
             'arrival_time': settings.DEFAULT_DATETIME_LOOKUPS,
             'capacity': settings.DEFAULT_RANGE_LOOKUPS,
-            'delayed': ['exact'],
+            'is_delayed': ['exact'],
             'status': ['exact'],
-            **fkFilters(SailingNode, 'sailing'),
-            **fkFilters(ShipNode, 'ship'),
+            **gu.fk_filters(SailingNode, 'sailing'),
+            **gu.fk_filters(ShipNode, 'ship'),
         }
         interfaces = (g.relay.Node, )
 
 
 class Query(g.ObjectType):
-    city = g.relay.Node.Field(CityNode)
-    all_cities = gdf.DjangoFilterConnectionField(CityNode)
-
-    geo_area = g.relay.Node.Field(GeoAreaNode)
-    all_geo_areas = gdf.DjangoFilterConnectionField(GeoAreaNode)
-
-    location = g.relay.Node.Field(LocationNode)
-    all_locations = gdf.DjangoFilterConnectionField(LocationNode)
-
-    route = g.relay.Node.Field(RouteNode)
-    all_routes = gdf.DjangoFilterConnectionField(RouteNode)
-
-    services = g.relay.Node.Field(ServiceNode)
-    all_services = gdf.DjangoFilterConnectionField(ServiceNode)
-    
-    ship = g.relay.Node.Field(ShipNode)
-    all_ships = gdf.DjangoFilterConnectionField(ShipNode)
-
-    sailing = g.relay.Node.Field(SailingNode)
-    all_sailings = gdf.DjangoFilterConnectionField(SailingNode)
-
-    en_route_stop = g.relay.Node.Field(EnRouteStopNode)
-    all_en_route_stops = gdf.DjangoFilterConnectionField(EnRouteStopNode)
-
-    scheduled_sailing = g.relay.Node.Field(ScheduledSailingNode)
-    all_scheduled_sailings = gdf.DjangoFilterConnectionField(ScheduledSailingNode)
-
-    current_sailing = g.relay.Node.Field(CurrentSailingNode)
-    all_current_sailings = gdf.DjangoFilterConnectionField(CurrentSailingNode)
+    city,               all_cities              = gu.make_filter_relay(CityNode)
+    geo_area,           all_geo_areas           = gu.make_filter_relay(GeoAreaNode)
+    terminal,           all_terminals           = gu.make_filter_relay(TerminalNode)
+    route,              all_routes              = gu.make_filter_relay(RouteNode)
+    route_info,         all_route_info          = gu.make_filter_relay(RouteInfoNode)
+    services,           all_services            = gu.make_filter_relay(ServiceNode)
+    ship,               all_ships               = gu.make_filter_relay(ShipNode)
+    sailing,            all_sailings            = gu.make_filter_relay(SailingNode)
+    en_route_stop,      all_en_route_stops      = gu.make_filter_relay(EnRouteStopNode)
+    scheduled_sailing,  all_scheduled_sailings  = gu.make_filter_relay(ScheduledSailingNode)
+    current_sailing,    all_current_sailings    = gu.make_filter_relay(CurrentSailingNode)

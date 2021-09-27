@@ -4,8 +4,9 @@ from . import models as m
 a.site.register([
     m.City,
     m.GeoArea,
-    m.Location,
+    m.Terminal,
     m.Route,
+    m.RouteInfo,
     m.Service,
     m.Ship,
     m.Sailing,
