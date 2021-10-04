@@ -4,181 +4,59 @@ Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper, built with Dj
 
 Includes highly detailed data on locations, routes, schedules, and ships.
 
-## Schema
+## GraphQL Schema
 GraphQL schema is available at [`schema.graphql`](schema.graphql). A JSON schema is also available.
 
 - Thanks to Graphene, a GraphiQL endpoint is available at `/graphql`
-- JWT auth (optional) with `django-graphql-jwt`
+- JWT auth (optional) with [`django-graphql-jwt`](https://django-extensions.readthedocs.io/)
 - Extensive filtering options, including relations
+
+Check out some example queries at [`examples.graphql`](examples.graphql)!
 
 ## Scraping data
 
-Scraping scripts are integrated with `django-extensions`,
-and should be run through `manage.py runscript foo`
+Scraping scripts are integrated with [`django-graphql-jwt`](https://django-graphql-jwt.domake.io/),
+and should be run through `./manage.py runscript foo`
 
 ### Scrape everything
-To initialize the database with all data, run `manage.py runscript init_scraped_data`
+To initialize the database with all data, run `./manage.py runscript init_scraped_data`
 
 ### Scrape specific elements
-- Routes, locations, cities, regions: `manage.py runscript scrape_routes`
-- Ships, services, amenities: `manage.py runscript scrape_fleet`
-- Sailings, scheduled sailings, en-route stops & transfers: `manage.py runscript scrape_schedule`
+- Routes, terminals, cities, regions: `./manage.py runscript scrape_routes`
+- Ships, services, amenities: `./manage.py runscript scrape_fleet`
+- Sailings, scheduled sailings, en-route stops & transfers: `./manage.py runscript scrape_schedule`
+- Current sailings / conditions (WIP): `./manage.py runscript scrape_current_conditions`
 
 ### Performance
 Scraping should not be resource intensive, but by default there is a 10-second delay between http requests to BC Ferries to abide by [`robots.txt`](http://bcferries.com/robots.txt).
 This can be changed in `settings.SCRAPER_PAUSE_SECS`.
 
-## Example queries
-
-```graphql
-query routeDemo($originCode: String, $destCode: String) {
-  allRoutes(origin_Code: $originCode, destination_Code: $destCode) {
-    edges {
-      node {
-        origin {
-          code
-          name
-          travelRouteName
-          id
-        }
-        destination {
-          code
-          name
-          travelRouteName
-          id
-        }
-        infoSet {
-          edges {
-            node {
-              originalIndex
-              conditionsAreTracked
-              lengthType
-              limitedAvailability
-              isBookable
-              isWalkOn
-              allowMotorcycles
-              allowLivestock
-              allowWalkOnOptions
-              allowAdditionalPassengerTypes
-              id
-            }
-          }
-        }
-        id
-      }
-    }
-  }
-}
-
-query shipDemo($code: String) {
-  allShips(code: $code) {
-    edges {
-      node {
-        services {
-          edges {
-            node {
-              name
-              isAdditional
-              id
-            }
-          }
-        }
-        code
-        name
-        built
-        carCapacity
-        humanCapacity
-        horsepower
-        maxDisplacement
-        maxSpeed
-        totalLength
-        id
-      }
-    }
-  }
-}
-
-query sailingDemo($originCode: String, $destCode: String $scheduledUntil: DateTime) {
-  allSailings(route_Origin_Code: $originCode, route_Destination_Code: $destCode) {
-    edges {
-      node {
-        current {
-          edges {
-            node {
-              ship {
-                code
-                name
-                id
-              }
-              actualTime
-              arrivalTime
-              capacity
-              isDelayed
-              status
-              id
-            }
-          }
-        }
-        scheduled(time_Lte: $scheduledUntil) {
-          edges {
-            node {
-              time
-              id
-            }
-          }
-        }
-        stops {
-          edges {
-            node {
-              terminal {
-                name
-                code
-                id
-              }
-              isTransfer
-              order
-              id
-            }
-          }
-        }
-        route {
-          infoSet {
-            edges {
-              node {
-                conditionsAreTracked
-              }
-            }
-          }
-        }
-        id
-      }
-    }
-  }
-}
-```
-
 ## [Default settings](ferries/settings.py)
 ```python
-# See http://bcferries.com/robots.txt
 SCRAPER_PAUSE_SECS = 10
 
-SCRAPER_URL_PREFIX            = 'http://www.bcferries.com'
+SCRAPER_URL_PREFIX            = 'https://www.bcferries.com'
 SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
 SCRAPER_CONDITIONS_URL        = SCRAPER_URL_PREFIX + '/current-conditions'
 SCRAPER_DEPARTURES_URL        = SCRAPER_URL_PREFIX + '/current-conditions/departures'
+SCRAPER_ROUTE_CONDITIONS_URL  = SCRAPER_URL_PREFIX + '/current-conditions/{}'
 SCRAPER_ROUTES_URL            = SCRAPER_URL_PREFIX + '/route-info'
 SCRAPER_CC_ROUTES_URL         = SCRAPER_URL_PREFIX + '/cc-route-info'
 SCRAPER_FLEET_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet?page={}'
-SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}-{}'
-SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
-SCRAPER_SCHEDULE_URL          = SCRAPER_URL_PREFIX + '/getDepartureDates?origin={}&destination={}&selectedMonth={}&selectedYear={}'
 SCRAPER_FLEET_PAGE_RANGE      = 2
+SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}'
+SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}'
+SCRAPER_SCHEDULE_DATES_URL    = SCRAPER_URL_PREFIX + '/getDepartureDates?origin={}&destination={}&selectedMonth={}&selectedYear={}'
+
+OFFICIAL_TERMINAL_URL         = SCRAPER_URL_PREFIX + '/travel-boarding/terminal-directions-parking-food/{}/{}'
+OFFICIAL_SHIP_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet/{}/{}'
 
 SCRAPER_MISC_SCHEDULE_URLS = [
     SCRAPER_URL_PREFIX + '/routes-fares/schedules/southern-gulf-islands',
+    # SCRAPER_URL_PREFIX + '/routes-fares/schedules/gambier-keats',
 ]
 
-# How many days into the future to attempt to create schedules for
+# How many days into the future to attempt to create schedules for, fallback only
 SCRAPER_FALLBACK_DATE_PERIODS = 100
 
 # BC Ferries doesn't use alt tags on all images, so map image src to amenities
@@ -202,6 +80,7 @@ SCRAPER_SCRIPTS = [
     'scrape_routes',
     'scrape_fleet',
     'scrape_schedule',
+    'scrape_current_conditions',
 ]
 
 DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'regex', 'icontains', 'istartswith']

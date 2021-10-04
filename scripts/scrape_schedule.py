@@ -1,12 +1,7 @@
 from django.conf import settings
+from django.utils import timezone
 from core import models as m
 
-import requests
-from bs4 import BeautifulSoup as bs
-import html5lib
-
-from django.utils import timezone
-from time import sleep
 from datetime import date, datetime, timedelta
 from calendar import day_name, day_abbr
 from dateutil import parser
@@ -14,10 +9,10 @@ import pandas as pd
 
 import re
 from typing import Optional, NamedTuple, Generator
-
+from bs4 import BeautifulSoup as bs
 from common import scraper_utils as u
 
-misc_schedule_soups = []
+misc_schedule_soups: list[bs] = []
 
 def date_range_url_param(date_range: pd.DatetimeIndex) -> str:
         return '-'.join([dateVal.strftime('%Y%m%d')
@@ -34,8 +29,8 @@ def make_scheduled_sailings(
     ) -> Generator[m.ScheduledSailing, None, None]:
 
     print(f"Time: {time} - Days: {', '.join([day_abbr[i] for i in week_days])}")
-    u.soft_print_list('Only:', only)
-    u.soft_print_list('Skip:', skip)
+    u.soft_print_iter('Only:', only)
+    u.soft_print_iter('Skip:', skip)
 
     if only:
         insert_count = 0
@@ -78,7 +73,7 @@ def make_scheduled_sailings(
 
 
 def parse_noted_dates(note_text: str, date_range: pd.DatetimeIndex) -> Generator[date, None, None]:
-    # unfortunately the formatting on the website is not standardized on misc timetables
+    # unfortunately the formatting on the misc timetables is not standardized
     # use regex & fuzzy parsing to identify dates
     for date_text in u.multi_split(
         u.multi_split(
@@ -102,18 +97,11 @@ def get_terminal(name: str) -> LocationCertainty:
     return LocationCertainty(terminals.first(), terminals.count() == 1)
 
 
-def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
-    # cal = Calendar()
-    # if not route.is_bookable:
-        # return ValueError(f"Cannot scrape non-bookable route {route}')
+def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
     is_recursive = not url
-    sleep(settings.SCRAPER_PAUSE_SECS)
-    print('\n')
-    req = requests.get(url or
-        settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.destination.code))
-    req.encoding = req.apparent_encoding
-    print(f"got {req.status_code} on {req.url}")
-    soup = bs(req.text, 'html5lib')
+    if is_recursive:
+        url = settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.scraper_url_param())
+    soup = u.request_soup(url)
     tbl = soup.select_one('.table-seasonal-schedule')
 
     if is_recursive:
@@ -139,10 +127,7 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
         
         if is_recursive:
             for other_date_range in date_ranges:
-                date_rangeParam = date_range_url_param(other_date_range)
-                scrape_route(route, 
-                    f"{settings.SCRAPER_SCHEDULE_SEASONAL_URL.format(route.origin.code, route.destination.code)}?departure_date={date_rangeParam}"
-                )
+                scrape_route(route, f"{url}?departure_date={date_range_url_param(other_date_range)}")
         
         print('Date range:', u.pretty_date_range(date_range))
     
@@ -150,13 +135,14 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
         is_short_format = False
         for row in tbl.select_one('tbody').select('tr'):
             week_day_name = ''
+            cols = row.select('td')
             if week_day := row.select_one('.text-capitalize'):
                 week_day_name = week_day.get_text(strip=True).upper()
                 is_short_format = False
             else:
-                if (potential_week_day := row.select('td')[1].get_text(strip=True).split()[0].strip().title())\
+                if (potential_week_day := cols[1].get_text(strip=True).split()[0].strip().title())\
                     in day_name:
-                    if not is_short_format:
+                    if not is_short_format: # Only print once
                         print('Parsing shortened schedule format')
                     is_short_format = True
                     week_day_name = potential_week_day[:3].upper()
@@ -169,6 +155,7 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
                 hours, mins = additionals.select_one('span').get_text(strip=True).upper().split()
                 sailing = m.Sailing.objects.create(
                     route = route,
+                    official_page = url,
                     duration = timedelta(minutes=int(mins.replace('M', '')), hours=int(hours.replace('H', '')))
                 )
             else:
@@ -196,13 +183,13 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
                         order = i,
                     ))
                 
-            time_col = row.select('td')[2]
+            time_col = cols[2]
             time_strs = time_col.find_all(text=True, recursive=False)[0].get_text(strip=True).split(',')
             for info_time in time_col.select('.schedules-info-time'):
                 time_strs.append(info_time.get_text(strip=True))
             note_texts = []
             if is_short_format:
-                if note := ' '.join(row.select('td')[1].get_text(strip=True).split()[1:]).upper():
+                if note := ' '.join(cols[1].get_text(strip=True).split()[1:]).upper():
                     note_texts.append(note)
             else:
                 for info_time in time_col.select('.schedules-additional-info'):
@@ -241,7 +228,7 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
             prev_week_day_name = week_day_name
     
 
-    ###### USE ALTERNATIVE SCHEDULES ######
+    ########  USE ALTERNATIVE SCHEDULES  ########
     else:
         print('Could not retrieve schedule table for', route)
         if not is_recursive:
@@ -249,7 +236,7 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
         
         for misc_soup in misc_schedule_soups:
             print('Trying misc schedule page')
-            main_elem = misc_soup.select_one(f"#{route.origin.code}-{route.destination.code}")
+            main_elem = misc_soup.select_one('#' + route.scraper_url_param())
             if not main_elem:
                 print('Could not find alternate timetable')
                 continue
@@ -310,6 +297,7 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
                                 print(e)
                                 print('Trying to select individual dates...')
                                 month = 0
+                                skipped_tokens = []
                                 for token in days_text.replace(',', '').split():
                                     try:
                                         month = u.month_from_text(token)
@@ -318,11 +306,14 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
                                             sketchyDate = u.ScheduleDate(days_text, int(token), month)
                                             print('Parsed date from', sketchyDate)
                                             only_dates.append(sketchyDate)
-                                        except ValueError: pass
+                                        except ValueError:
+                                            skipped_tokens.append(token)
+                                u.soft_print_iter('Skipped tokens:', skipped_tokens)
                                 break
                     
                     sailing = m.Sailing.objects.create(
                         route = route,
+                        official_page = url,
                         duration = timedelta(
                             hours = arrive_time.hour - leave_time.hour,
                             minutes = arrive_time.minute - leave_time.minute,
@@ -379,14 +370,10 @@ def scrape_route(route: m.Route, url: Optional[bool] = None) -> m.Sailing:
 def init_misc_schedules():
     global misc_schedule_soups
     for url in settings.SCRAPER_MISC_SCHEDULE_URLS:
-        sleep(settings.SCRAPER_PAUSE_SECS)
-        req = requests.get(url)
-        req.encoding = req.apparent_encoding
         print('Adding misc table', url)
-        print(f"got {req.status_code} on {req.url}")
-        misc_schedule_soups.append(bs(req.text, 'html5lib'))
+        misc_schedule_soups.append(u.request_soup(url))
 
 def run():
     init_misc_schedules()
-    for route in m.Route.objects.all(): #filter(is_bookable=True):
+    for route in m.Route.objects.all(): # filter(is_bookable=True):
         scrape_route(route)

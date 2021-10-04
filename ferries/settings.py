@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'django_filters',
-    'graphene_django',
+    'graphene_django', 
     'django_extensions',
     'sitemap',
     'core',
@@ -116,9 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-ca'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Vancouver'
 
 USE_I18N = True
 
@@ -127,14 +127,18 @@ USE_L10N = True
 USE_TZ = True
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
-
 GRAPHENE = {
     'SCHEMA': 'ferries.schema.schema',
     'RELAY_CONNECTION_MAX_LIMIT': 250,
     'MIDDLEWARE': [
+        'graphene_django.debug.DjangoDebugMiddleware',
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
+
+
+# if DEBUG:
+#     GRAPHENE['MIDDLEWARE'].append('graphene_django.debug.DjangoDebugMiddleware')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -152,17 +156,21 @@ SCRAPER_PAUSE_SECS = 10
 if DEBUG:
     SCRAPER_PAUSE_SECS = 0
 
-SCRAPER_URL_PREFIX            = 'http://www.bcferries.com'
+SCRAPER_URL_PREFIX            = 'https://www.bcferries.com'
 SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
 SCRAPER_CONDITIONS_URL        = SCRAPER_URL_PREFIX + '/current-conditions'
 SCRAPER_DEPARTURES_URL        = SCRAPER_URL_PREFIX + '/current-conditions/departures'
+SCRAPER_ROUTE_CONDITIONS_URL  = SCRAPER_URL_PREFIX + '/current-conditions/{}'
 SCRAPER_ROUTES_URL            = SCRAPER_URL_PREFIX + '/route-info'
 SCRAPER_CC_ROUTES_URL         = SCRAPER_URL_PREFIX + '/cc-route-info'
 SCRAPER_FLEET_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet?page={}'
-SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}-{}'
-SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}-{}'
-SCRAPER_SCHEDULE_URL          = SCRAPER_URL_PREFIX + '/getDepartureDates?origin={}&destination={}&selectedMonth={}&selectedYear={}'
 SCRAPER_FLEET_PAGE_RANGE      = 2
+SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}'
+SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}'
+SCRAPER_SCHEDULE_DATES_URL    = SCRAPER_URL_PREFIX + '/getDepartureDates?origin={}&destination={}&selectedMonth={}&selectedYear={}'
+
+OFFICIAL_TERMINAL_URL         = SCRAPER_URL_PREFIX + '/travel-boarding/terminal-directions-parking-food/{}/{}'
+OFFICIAL_SHIP_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet/{}/{}'
 
 SCRAPER_MISC_SCHEDULE_URLS = [
     SCRAPER_URL_PREFIX + '/routes-fares/schedules/southern-gulf-islands',
@@ -193,6 +201,7 @@ SCRAPER_SCRIPTS = [
     'scrape_routes',
     'scrape_fleet',
     'scrape_schedule',
+    'scrape_current_conditions',
 ]
 
 DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'regex', 'icontains', 'istartswith']

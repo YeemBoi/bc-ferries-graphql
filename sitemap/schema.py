@@ -8,7 +8,6 @@ import graphene_django as gd
 import django_filters as df
 
 
-
 class SitemapNode(gd.DjangoObjectType):
     class Meta:
         model = m.Sitemap

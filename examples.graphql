@@ -1,0 +1,154 @@
+query routeDemo {
+  allRoutes(origin_Name_Icontains: "galiano", destination_Name_Icontains: "mayne") {
+    edges {
+      node {
+        origin {
+          city {
+            code
+            name
+            sortOrder
+            id
+          }
+          geoArea {
+            code
+            name
+            sortOrder
+            id
+          }
+          code
+          name
+          travelRouteName
+          id
+        }
+        destination {
+          city {
+            code
+            name
+            sortOrder
+            id
+          }
+          geoArea {
+            code
+            name
+            sortOrder
+            id
+          }
+          code
+          name
+          travelRouteName
+          id
+        }
+        infoSet {
+          edges {
+            node {
+              current {
+                edges {
+                  node {
+                    ferry {
+                      code
+                      name
+                      id
+                    }
+                    fetchedTime
+                    officialPage
+                    actualTime
+                    arrivalTime
+                    capacity
+                    isDelayed
+                    status
+                    id
+                  }
+                }
+              }
+              originalIndex
+              conditionsAreTracked
+              lengthType
+              limitedAvailability
+              isBookable
+              isWalkOn
+              allowMotorcycles
+              allowLivestock
+              allowWalkOnOptions
+              allowAdditionalPassengerTypes
+              id
+            }
+          }
+        }
+        id
+      }
+    }
+  }
+}
+
+query ferryDemo {
+  allFerries(name_Istartswith: "queen of") {
+    edges {
+      node {
+        services {
+          edges {
+            node {
+              name
+              isAdditional
+              id
+            }
+          }
+        }
+        officialPage
+        code
+        name
+        built
+        carCapacity
+        humanCapacity
+        horsepower
+        maxDisplacement
+        maxSpeed
+        totalLength
+        id
+      }
+    }
+  }
+}
+
+query sailingDemo {
+  allSailings(route_Origin_Code: "TSA", route_Destination_Code: "SWB") {
+    edges {
+      node {
+        scheduled(time_Date_Lte: "2021-10-05T00") {
+          edges {
+            node {
+              time
+              id
+            }
+          }
+        }
+        stops {
+          edges {
+            node {
+              terminal {
+                name
+                code
+                id
+              }
+              isTransfer
+              order
+              id
+            }
+          }
+        }
+        route {
+          infoSet {
+            edges {
+              node {
+                conditionsAreTracked
+                id
+              }
+            }
+          }
+        }
+        fetchedTime
+        officialPage
+        id
+      }
+    }
+  }
+}

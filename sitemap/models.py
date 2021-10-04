@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models as m
 from urllib.parse import urlparse, ParseResult
+
 from usp.objects.page import SitemapPageChangeFrequency as SmPCF
 from datetime import timedelta
 
@@ -41,6 +42,7 @@ class Sitemap(m.Model):
     parent_sitemap = m.ForeignKey('self', null=True, on_delete=m.SET_NULL, related_name='sub_sitemaps')
     index_sitemap = m.ForeignKey('self', null=True, on_delete=m.SET_NULL, related_name='all_sitemaps')
     url = m.URLField()
+    time_fetched = m.DateTimeField(auto_now_add=True)
     sitemap_type = m.CharField(null=True, max_length=4, choices=SITEMAP_TYPE_CHOICES)
     is_index = m.BooleanField()
     is_invalid = m.BooleanField()

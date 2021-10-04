@@ -1,15 +1,11 @@
 from django.conf import settings
 from core import models as m
 
-from bs4 import BeautifulSoup as bs
-import html5lib
+from common.scraper_utils import request_soup
+from urllib.parse import urlparse
 import ujson
 
 from datetime import date
-
-import requests
-from urllib.parse import urlparse
-from time import sleep
 
 def service(name: str, is_additional: bool) -> m.Service:
     amenity, created = m.Service.objects.get_or_create(name=name, is_additional=is_additional)
@@ -19,20 +15,14 @@ def service(name: str, is_additional: bool) -> m.Service:
 
 def run():
     for n in range(settings.SCRAPER_FLEET_PAGE_RANGE):
-        sleep(settings.SCRAPER_PAUSE_SECS)
-        req = requests.get(settings.SCRAPER_FLEET_URL.format(n))
-        req.encoding = req.apparent_encoding
-        soup = bs(req.text ,'html5lib')
+        soup = request_soup(settings.SCRAPER_FLEET_URL.format(n))
         for bx in soup.select('div[class="ferry-bx"]'):
-            href = bx.find('a')['href']
-            print('Found ferry url', href)
-            sleep(settings.SCRAPER_PAUSE_SECS)
-            f_req = requests.get(settings.SCRAPER_URL_PREFIX+href)
-            f_req.encoding = f_req.apparent_encoding
-            f_page = bs(f_req.text ,'html5lib')
+            ferry_url =  settings.SCRAPER_URL_PREFIX + bx.find('a')['href']
+            print('Found ferry url', ferry_url)
+            f_page = request_soup(ferry_url)
             f_details = f_page.select_one('.ferrydetails-accordion-sec')
             f_main = f_page.find('div', id='ferryDetails')
-            code = list(filter(None, urlparse(href).path.split('/')))[-1]
+            code = list(filter(None, urlparse(ferry_url).path.split('/')))[-1]
             print('Code:', code)
             name = f_main.find('h3').find('strong').get_text(strip=True)
             print('Name:', name)
@@ -40,9 +30,9 @@ def run():
             onboard_service_c = f_details.select_one('.tabel-ferry-build') # typo is in site
             
             build_stats = dict()
-            build_statItems = f_details.select_one('.ferrydetails-build-statistics'
+            build_stat_items = f_details.select_one('.ferrydetails-build-statistics'
                 ).select('li[class="list-group-item"]')
-            for item in build_statItems:
+            for item in build_stat_items:
                 build_stat_key = item.select_one('.information-data').get_text(strip=True).upper()
                 build_stat_val = item.select_one('.information-value').get_text(strip=True).upper()
                 build_stats[build_stat_key] = build_stat_val
@@ -57,11 +47,11 @@ def run():
                 services.append(service(item.select_one('.col-lg-10').get_text(strip=True), True))
             print('Services:', services)
 
-            m.Ship.objects.filter(code=code).delete()
-
-            ship = m.Ship(
+            m.Ferry.objects.filter(code=code).delete()
+            ferry = m.Ferry(
                 code = code,
                 name = name,
+                official_page = ferry_url,
                 car_capacity = int(build_stats.get('CAR CAPACITY', 0)),
                 human_capacity = int(build_stats.get('PASSENGER & CREW CAPACITY', 0)),
                 horsepower = int(build_stats.get('HORSEPOWER', 0)),
@@ -69,25 +59,21 @@ def run():
                 max_speed = float(build_stats.get('MAXIMUM SPEED (KNOTS)', 0)),
                 total_length = float(build_stats.get('OVERALL LENGTH (M)', 0)),
             )
-
             built = build_stats.get('BUILT', '').split(',')
             for built_val in built:
                 try:
-                    ship.built = date(int(built_val), 1, 1)
-                    print('Built:', ship.built)
+                    ferry.built = date(int(built_val), 1, 1)
+                    print('Built:', ferry.built)
                     break
                 except ValueError as e:
                     print(e)
             
-            ship.save()
-
-            for new_service in services:
-                ship.services.add(new_service)
-
-            print('Created ship', ship)
+            ferry.save()
+            ferry.services.set(services)
+            print('Created ferry', ferry)
             print('\n')
 
             #   sleep(settings.SCRAPER_PAUSE_SECS)
             #   f_modal = bs(
-            #   requests.get(settings.SCRAPER_URL_PREFIX+'/ship-info', {'code': ship.code}).json()['shipInfoModalHtml'],
+            #   requests.get(settings.SCRAPER_URL_PREFIX+'/ferry-info', {'code': ferry.code}).json()['ferryInfoModalHtml'],
             #       'html.parser')

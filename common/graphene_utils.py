@@ -20,5 +20,5 @@ def fk_filters(rel_class: gd.DjangoObjectType, rel_name: str) -> dict[str, list[
     newFields = dict()
     for field, filters in rel_class._meta.filter_fields.items():
         if len(filters):
-            newFields[f'{rel_name}__{field}'] = filters
+            newFields['__'.join([rel_name, field])] = filters
     return newFields

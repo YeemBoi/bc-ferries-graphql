@@ -1,8 +1,6 @@
 from django.conf import settings
-
 from . import models as m
 from common import graphene_utils as gu
-
 import graphene as g
 import graphene_django as gd
 
@@ -17,7 +15,6 @@ class CityNode(gd.DjangoObjectType):
         }
         interfaces = (g.relay.Node, )
 
-
 class GeoAreaNode(gd.DjangoObjectType):
     class Meta:
         model = m.GeoArea
@@ -28,7 +25,6 @@ class GeoAreaNode(gd.DjangoObjectType):
         }
         interfaces = (g.relay.Node, )
 
-
 class TerminalNode(gd.DjangoObjectType):
     class Meta:
         model = m.Terminal
@@ -38,11 +34,11 @@ class TerminalNode(gd.DjangoObjectType):
             'code': ['exact'],
             'name': settings.DEFAULT_STRING_LOOKUPS,
             'travel_route_name': settings.DEFAULT_STRING_LOOKUPS,
+            'official_page': [],
             **gu.fk_filters(CityNode, 'city'),
             **gu.fk_filters(GeoAreaNode, 'geo_area'),
         }
         interfaces = (g.relay.Node, )
-
 
 class RouteNode(gd.DjangoObjectType):
     class Meta:
@@ -74,7 +70,6 @@ class RouteInfoNode(gd.DjangoObjectType):
         }
         interfaces = (g.relay.Node, )
 
-
 class ServiceNode(gd.DjangoObjectType):
     class Meta:
         model = m.Service
@@ -84,10 +79,9 @@ class ServiceNode(gd.DjangoObjectType):
         }
         interfaces = (g.relay.Node, )
 
-
-class ShipNode(gd.DjangoObjectType):
+class FerryNode(gd.DjangoObjectType):
     class Meta:
-        model = m.Ship
+        model = m.Ferry
         filter_fields = {
             'services': [],
             'code': ['exact'],
@@ -99,10 +93,10 @@ class ShipNode(gd.DjangoObjectType):
             'max_displacement': settings.DEFAULT_RANGE_LOOKUPS,
             'max_speed': settings.DEFAULT_RANGE_LOOKUPS,
             'total_length': settings.DEFAULT_RANGE_LOOKUPS,
+            'official_page': [],
             **gu.fk_filters(ServiceNode, 'services'),
         }
         interfaces = (g.relay.Node, )
-
 
 class SailingNode(gd.DjangoObjectType):
     duration = g.String()
@@ -114,7 +108,6 @@ class SailingNode(gd.DjangoObjectType):
             **gu.fk_filters(RouteNode, 'route'),
         }
         interfaces = (g.relay.Node, )
-
 
 class EnRouteStopNode(gd.DjangoObjectType):
     class Meta:
@@ -129,7 +122,6 @@ class EnRouteStopNode(gd.DjangoObjectType):
         }
         interfaces = (g.relay.Node, )
 
-
 class ScheduledSailingNode(gd.DjangoObjectType):
     class Meta:
         model = m.ScheduledSailing
@@ -140,20 +132,19 @@ class ScheduledSailingNode(gd.DjangoObjectType):
         }
         interfaces = (g.relay.Node, )
 
-
 class CurrentSailingNode(gd.DjangoObjectType):
     class Meta:
         model = m.CurrentSailing
         filter_fields = {
-            'sailing': [],
-            'ship': [],
+            'route_info': [],
+            'ferry': [],
             'actual_time': settings.DEFAULT_DATETIME_LOOKUPS,
             'arrival_time': settings.DEFAULT_DATETIME_LOOKUPS,
             'capacity': settings.DEFAULT_RANGE_LOOKUPS,
             'is_delayed': ['exact'],
             'status': ['exact'],
-            **gu.fk_filters(SailingNode, 'sailing'),
-            **gu.fk_filters(ShipNode, 'ship'),
+            **gu.fk_filters(RouteInfoNode, 'route_info'),
+            **gu.fk_filters(FerryNode, 'ferry'),
         }
         interfaces = (g.relay.Node, )
 
@@ -165,7 +156,7 @@ class Query(g.ObjectType):
     route,              all_routes              = gu.make_filter_relay(RouteNode)
     route_info,         all_route_info          = gu.make_filter_relay(RouteInfoNode)
     services,           all_services            = gu.make_filter_relay(ServiceNode)
-    ship,               all_ships               = gu.make_filter_relay(ShipNode)
+    ferry,              all_ferries             = gu.make_filter_relay(FerryNode)
     sailing,            all_sailings            = gu.make_filter_relay(SailingNode)
     en_route_stop,      all_en_route_stops      = gu.make_filter_relay(EnRouteStopNode)
     scheduled_sailing,  all_scheduled_sailings  = gu.make_filter_relay(ScheduledSailingNode)

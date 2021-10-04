@@ -1,5 +1,4 @@
 from django.conf import settings
-
 from django.utils import timezone
 from datetime import date, datetime, timedelta
 from calendar import Calendar, month_abbr, day_abbr
@@ -8,6 +7,9 @@ import re
 import pandas as pd
 from dataclasses import dataclass
 
+import requests
+from bs4 import BeautifulSoup as bs
+from time import sleep
 
 fallback_dates = pd.date_range(
     start = datetime.today(),
@@ -24,14 +26,14 @@ def schedule_clean(text: str) -> str:
 
 def multi_split(main_str: str, delimiters: list[str]) -> list[str]:
     return re.split(
-        '|'.join({re.escape(delimiter) for delimiter in delimiters}),
+        '|'.join(map(re.escape, set(delimiters))),
         main_str
     )
 
 def soft_print(pre: str, val):
     if val: print(pre, val)
 
-def soft_print_list(pre: str, vals: list):
+def soft_print_iter(pre: str, vals):
     if len(vals): print(pre, ', '.join(map(str, vals)))
 
 def _calendar_abbr_to_int(text: str, abbrs: list[str]) -> int:
@@ -77,7 +79,7 @@ def from_schedule_time(schedule: str) -> ScheduleTime:
     split_text = schedule.split()
     hour, minute = split_text[0].split(':')
     hour = int(hour) -1
-    if minute.endswith('M'): # eg "6:00pm"
+    if minute.endswith('M'): # eg "6:00PM"
         split_text.append(minute[-2:])
         minute = minute[:-2]
     minute = int(minute)
@@ -106,3 +108,12 @@ def from_schedule_date_range(dates_text: str, parser_format: str) -> pd.Datetime
         print(e)
         print('Using fallback dates')
         return fallback_dates
+
+
+def request_soup(url: str) -> bs:
+    sleep(settings.SCRAPER_PAUSE_SECS)
+    print('\n')
+    req = requests.get(url)
+    req.encoding = req.apparent_encoding
+    print(f"Got {req.status_code} on {req.url}")
+    return bs(req.text, 'html5lib')

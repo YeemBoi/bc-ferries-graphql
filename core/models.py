@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.db import models as m
+
 
 CURRENT_SAILING_STATUS_CHOICES = [
     ('GOOD', 'On time'),
@@ -12,6 +14,12 @@ CURRENT_SAILING_STATUS_CHOICES = [
     ('HELP', 'Helping customers'),
 ]
 
+class ScrapedModel(m.Model):
+    official_page = m.URLField()
+    fetched_time = m.DateTimeField(auto_now_add=True)
+    class Meta:
+        abstract = True
+
 def Code(length: int = 3) -> m.CharField:
     return m.CharField(max_length=length, unique=True)
 
@@ -24,34 +32,38 @@ class City(m.Model):
     def __str__(self) -> str:
         return self.name
 
-
 class GeoArea(m.Model):
-    code = Code()
+    code = Code(2)
     name = m.CharField(max_length=250)
     sort_order = m.PositiveIntegerField()
 
     def __str__(self) -> str:
         return self.name
 
-
-class Terminal(m.Model):
+class Terminal(ScrapedModel):
+    city = m.ForeignKey(City, on_delete=m.CASCADE)
+    geo_area = m.ForeignKey(GeoArea, on_delete=m.CASCADE)
     code = Code()
     name = m.CharField(max_length=250)
     travel_route_name = m.CharField(max_length=250)
 
-    city = m.ForeignKey(City, on_delete=m.CASCADE)
-    geo_area = m.ForeignKey(GeoArea, on_delete=m.CASCADE)
+    def save(self, *args, **kwargs):
+        if not self.official_page:
+            self.official_page = settings.OFFICIAL_TERMINAL_URL.format(self.travel_route_name, self.code)
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.name
-
 
 class Route(m.Model):
     origin = m.ForeignKey(Terminal, on_delete=m.CASCADE, related_name='destination_routes')
     destination = m.ForeignKey(Terminal, on_delete=m.CASCADE, related_name='origin_routes')
 
+    def scraper_url_param(self) -> str:
+        return '-'.join([self.origin.code, self.destination.code])
+
     def __str__(self) -> str:
-        return f"from {self.origin} to {self.destination}"
+        return f"{self.origin} to {self.destination}"
 
 
 class RouteInfo(m.Model):
@@ -72,7 +84,7 @@ class RouteInfo(m.Model):
     allow_additional_passenger_types = m.BooleanField()
 
     def __str__(self) -> str:
-        return f"{self.route}"
+        return f"info #{self.original_index}: {self.route}"
 
 
 class Service(m.Model):
@@ -80,13 +92,12 @@ class Service(m.Model):
     is_additional = m.BooleanField()
 
     def __str__(self) -> str:
-        return f"{self.name}"
+        return self.name
 
-
-class Ship(m.Model):
+class Ferry(ScrapedModel):
     code = Code(4)
     name = m.CharField(max_length=250)
-    services = m.ManyToManyField(Service, related_name='providing_ships')
+    services = m.ManyToManyField(Service, related_name='providing_ferries')
 
     built = m.DateField(null=True)
     car_capacity = m.PositiveIntegerField()
@@ -97,11 +108,11 @@ class Ship(m.Model):
     total_length = m.FloatField('Total length (m)')
 
     def __str__(self) -> str:
-        return f"{self.name}"
+        return self.name
 
 
-class Sailing(m.Model):
-    route = m.ForeignKey(Route, on_delete=m.CASCADE)
+class Sailing(ScrapedModel):
+    route = m.ForeignKey(Route, on_delete=m.CASCADE, related_name='sailings')
     duration = m.DurationField()
 
     #stops = m.ManyToManyField(Terminal)
@@ -109,7 +120,6 @@ class Sailing(m.Model):
 
     def __str__(self) -> str:
         return f"{self.route}"
-
 
 class EnRouteStop(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='stops')
@@ -121,7 +131,6 @@ class EnRouteStop(m.Model):
     def __str__(self) -> str:
         return f"{'transfer' if self.is_transfer else 'stop'} at {self.terminal} on {self.sailing}"
 
-
 class ScheduledSailing(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='scheduled')
     time = m.DateTimeField()
@@ -130,14 +139,15 @@ class ScheduledSailing(m.Model):
         return f"{self.sailing} at {self.time.strftime('%c')}"
 
 
-class CurrentSailing(m.Model):
-    sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='current')
-    ship = m.ForeignKey(Ship, on_delete=m.CASCADE)
+class CurrentSailing(ScrapedModel):
+    route_info = m.ForeignKey(RouteInfo, on_delete=m.CASCADE, related_name='current_sailings')
+    ferry = m.ForeignKey(Ferry, on_delete=m.CASCADE)
     actual_time = m.DateTimeField()
     arrival_time = m.DateTimeField()
     capacity =  m.PositiveIntegerField()
     is_delayed = m.BooleanField()
-    status = m.CharField(max_length=4, choices=CURRENT_SAILING_STATUS_CHOICES)
+    has_arrived = m.BooleanField()
+    status = m.CharField(max_length=4, null=True, choices=CURRENT_SAILING_STATUS_CHOICES)
 
     def __str__(self) -> str:
         return f"{self.sailing}"

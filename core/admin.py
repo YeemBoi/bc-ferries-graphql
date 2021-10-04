@@ -8,7 +8,7 @@ a.site.register([
     m.Route,
     m.RouteInfo,
     m.Service,
-    m.Ship,
+    m.Ferry,
     m.Sailing,
     m.EnRouteStop,
     m.ScheduledSailing,
