@@ -8,14 +8,14 @@ Includes highly detailed data on locations, routes, schedules, and ships.
 GraphQL schema is available at [`schema.graphql`](schema.graphql). A JSON schema is also available.
 
 - Thanks to Graphene, a GraphiQL endpoint is available at `/graphql`
-- JWT auth (optional) with [`django-graphql-jwt`](https://django-extensions.readthedocs.io/)
+- JWT auth (optional) with [`django-graphql-jwt`](https://django-graphql-jwt.domake.io/)
 - Extensive filtering options, including relations
 
 Check out some example queries at [`examples.graphql`](examples.graphql)!
 
 ## Scraping data
 
-Scraping scripts are integrated with [`django-graphql-jwt`](https://django-graphql-jwt.domake.io/),
+Scraping scripts are integrated with [`django-extensions`](https://django-extensions.readthedocs.io/),
 and should be run through `./manage.py runscript foo`
 
 ### Scrape everything
