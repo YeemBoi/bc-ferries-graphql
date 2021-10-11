@@ -93,5 +93,6 @@ DEFAULT_LOOKUPS = {
         *_use_range_lookups('time'),
         *_use_unnested_range_lookups(_TIME_LOOKUPS),
     ],
+    timedelta: _RANGE_LOOKUPS,
 }
 ```

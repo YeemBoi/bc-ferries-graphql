@@ -184,7 +184,7 @@ _use_unnested_range_lookups = lambda lt: itertools.chain(*[_use_range_lookups(lo
 _DATE_LOOKUPS = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
 _TIME_LOOKUPS = ['hour', 'minute', 'second']
 
-from datetime import date, time, datetime
+from datetime import date, time, datetime, timedelta
 DEFAULT_LOOKUPS = {
     str: ['exact', 'iexact', 'regex', 'icontains', 'istartswith'],
     bool: ['exact'],
@@ -204,4 +204,5 @@ DEFAULT_LOOKUPS = {
         *_use_range_lookups('time'),
         *_use_unnested_range_lookups(_TIME_LOOKUPS),
     ],
+    timedelta: _RANGE_LOOKUPS,
 }

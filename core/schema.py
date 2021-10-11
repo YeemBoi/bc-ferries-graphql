@@ -1,5 +1,5 @@
 from . import models as m
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from common import graphene_utils as u
 import graphene as g
 import graphene_django as gd
@@ -11,7 +11,6 @@ class CityNode(gd.DjangoObjectType):
         filter_fields = {
             'code': ['exact'],
             'name': u.lookups(str),
-            'sort_order': u.lookups(int),
         }
         interfaces = (g.relay.Node, )
 
@@ -21,7 +20,6 @@ class GeoAreaNode(gd.DjangoObjectType):
         filter_fields = {
             'code': ['exact'],
             'name': u.lookups(str),
-            'sort_order': u.lookups(int),
         }
         interfaces = (g.relay.Node, )
 
@@ -31,8 +29,7 @@ class TerminalNode(gd.DjangoObjectType):
         filter_fields = {
             'code': ['exact', 'iexact'],
             'name': u.lookups(str),
-            'travel_route_name': u.lookups(str),
-            'official_page': [],
+            'travel_route_name': ['exact'],
             **u.fk_filters(CityNode, 'city'),
             **u.fk_filters(GeoAreaNode, 'geo_area'),
         }
@@ -51,7 +48,7 @@ class RouteInfoNode(gd.DjangoObjectType):
     class Meta:
         model = m.RouteInfo
         filter_fields = {
-            'conditions_are_tracked': ['exact'],
+            'conditions_are_tracked': u.lookups(bool),
             'original_index': u.lookups(int),
             'length_type': ['exact'],
             'limited_availability': u.lookups(bool),
@@ -83,11 +80,6 @@ class FerryNode(gd.DjangoObjectType):
             'built': u.lookups(date),
             'car_capacity': u.lookups(int),
             'human_capacity': u.lookups(int),
-            'horsepower': u.lookups(int),
-            'max_displacement': u.lookups(int),
-            'max_speed': u.lookups(int),
-            'total_length': u.lookups(int),
-            'official_page': [],
             **u.fk_filters(ServiceNode, 'services'),
         }
         interfaces = (g.relay.Node, )
@@ -97,7 +89,7 @@ class SailingNode(gd.DjangoObjectType):
     class Meta:
         model = m.Sailing
         filter_fields = {
-            'duration': u.lookups(int),
+            'duration': u.lookups(timedelta),
             **u.fk_filters(RouteNode, 'route'),
         }
         interfaces = (g.relay.Node, )
@@ -134,7 +126,6 @@ class CurrentSailingNode(gd.DjangoObjectType):
             'mixed_vehicle_percentage': u.lookups(int),
             'total_capacity_percentage': u.lookups(int),
             'status': ['exact', 'iexact'],
-            'official_page': [],
             **u.fk_filters(RouteInfoNode, 'route_info'),
             **u.fk_filters(FerryNode, 'ferry'),
         }

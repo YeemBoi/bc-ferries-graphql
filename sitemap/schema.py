@@ -13,8 +13,6 @@ class SitemapNode(gd.DjangoObjectType):
             'sitemap_type': ['exact', 'iexact'],
             'is_index': u.lookups(bool),
             'is_invalid': u.lookups(bool),
-            'is_invalid': u.lookups(bool),
-            'invalid_reason': u.lookups(str),
         }
         interfaces = (g.relay.Node, )
 
@@ -23,7 +21,6 @@ class PageNode(gd.DjangoObjectType):
     class Meta:
         model = m.Page
         filter_fields = {
-            'change_frequency': [],
             'url': u.lookups(str),
             'priority': u.lookups(int),
             'last_modified': u.lookups(datetime),
