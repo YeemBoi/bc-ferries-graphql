@@ -100,7 +100,7 @@ def from_schedule_time(schedule: str) -> ScheduleTime:
         split_text.append(minute[-2:])
         minute = minute[:-2]
     minute = int(minute)
-    if split_text[1] == 'PM':
+    if (split_text[1] == 'PM' and hour != 12) or (hour == 12 and split_text[1] == 'AM'):
         hour += 12
     return ScheduleTime(schedule, hour, minute)
 
