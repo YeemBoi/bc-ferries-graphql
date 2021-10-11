@@ -2,6 +2,15 @@ from . import models as m
 from usp.objects import page, sitemap
 from typing import Optional
 
+SITEMAP_CLASS_TYPES = {
+    sitemap.IndexRobotsTxtSitemap: 'ROBO',
+    sitemap.IndexXMLSitemap: 'XML',
+    sitemap.PagesXMLSitemap: 'XML',
+    sitemap.PagesAtomSitemap: 'ATOM',
+    sitemap.PagesRSSSitemap: 'RSS',
+    sitemap.PagesTextSitemap: 'TEXT',
+}
+
 def save_sitemap(sm, indexSitemap: Optional[m.Sitemap] = None, parentSitemap: Optional[m.Sitemap] = None):
     smt = type(sm)
     sitemapM = m.Sitemap(
@@ -10,22 +19,13 @@ def save_sitemap(sm, indexSitemap: Optional[m.Sitemap] = None, parentSitemap: Op
         is_index = issubclass(smt, sitemap.AbstractIndexSitemap),
         is_invalid = issubclass(smt, sitemap.InvalidSitemap),
     )
-
     if sitemapM.is_invalid:
         sitemapM.invalid_reason = sm.reason
 
-    smtStr = None
-    if issubclass(smt, sitemap.IndexRobotsTxtSitemap):
-        smtStr = 'ROBO'
-    elif issubclass(smt, sitemap.IndexXMLSitemap) or issubclass(smt, sitemap.PagesXMLSitemap):
-        smtStr = 'XML'
-    elif issubclass(smt, sitemap.PagesAtomSitemap):
-        smtStr = 'ATOM'
-    elif issubclass(smt, sitemap.PagesRSSSitemap):
-        smtStr = 'RSS'
-    elif issubclass(smt, sitemap.PagesTextSitemap):
-        smtStr = 'TEXT'
-    sitemapM.sitemap_type = smtStr
+    for sm_class, type_name in SITEMAP_CLASS_TYPES.items():
+        if issubclass(smt, sm_class):
+            sitemapM.sitemap_type = type_name
+            break
 
     sitemapM.save()
     sitemapM.index_sitemap = indexSitemap or sitemapM
