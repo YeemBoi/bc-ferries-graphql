@@ -1,6 +1,5 @@
-from django.conf import settings
 from core import models as m
-from common.scraper_utils import get_url
+from common.scraper_utils import get_url, SCRAPER_SETTINGS
 
 import urllib3
 import ujson
@@ -33,7 +32,7 @@ def terminals_including(search: list[dict[str]], terminal: m.Terminal) -> list[d
 
 
 def quick_json(url: str):
-    sleep(settings.SCRAPER['PAUSE_SECS'])
+    sleep(SCRAPER_SETTINGS.PAUSE_SECS)
     return ujson.loads(http.request('GET', get_url(url)).data.decode('utf-8'))
 
 def run():

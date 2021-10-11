@@ -1,12 +1,9 @@
-from django.conf import settings
 from core import models as m
 
-from common.scraper_utils import get_url, request_soup, soft_print_iter, clean_tag_text
+from common.scraper_utils import get_url, request_soup, soft_print_iter, clean_tag_text, SCRAPER_SETTINGS
 from urllib.parse import urlparse
-import ujson
-
 from datetime import date
-from collections import namedtuple
+import ujson
 
 def service(name: str, is_additional: bool) -> m.Service:
     amenity, created = m.Service.objects.get_or_create(name=name, is_additional=is_additional)
@@ -19,7 +16,6 @@ def _built_date(data = None):
         try: return date(int(built_val), 1, 1)
         except ValueError as e: print(e)
 
-BuildStat = namedtuple('BuildStat', 'attr text func')
 BUILD_STATS = [
     ('car_capacity', 'CAR CAPACITY', int),
     ('human_capacity', 'PASSENGER & CREW CAPACITY', int),
@@ -29,7 +25,6 @@ BUILD_STATS = [
     ('total_length', 'OVERALL LENGTH (M)', float),
     ('built', 'BUILT', _built_date),
 ]
-
 AMENITY_IMAGE_PATHS = {
     '/web_image/h8e/h8d/8800764362782.jpg':'Arbutus Coffee Bar',
     '/web_image/h81/h88/8798826168350.jpg':'Aurora Lounge',
@@ -58,10 +53,10 @@ def scrape_ferry(url: str) -> m.Ferry:
         item.select_one('.information-value').get_text(strip=True)
         for item in f_details.select_one('.ferrydetails-build-statistics').select('li[class="list-group-item"]')
     }
-    for stat in BUILD_STATS:
-        stat = BuildStat(*stat)
-        attrs[stat.attr] = stat.func(build_stats.get(stat.text, stat.func()))
-    
+    attrs.update({
+        attr_name: clean_func(build_stats.get(find_text, clean_func()))
+        for attr_name, find_text, clean_func in BUILD_STATS
+    })
     onboard_service_c = f_details.select_one('.tabel-ferry-build') # typo is in site  
     services = [
         service(item.select_one('.col-lg-10').get_text(strip=True), True)
@@ -81,8 +76,8 @@ def scrape_ferry(url: str) -> m.Ferry:
 
 
 def run():
-    for n in range(settings.SCRAPER['FLEET_PAGE_RANGE']):
+    for n in range(SCRAPER_SETTINGS.FLEET_PAGE_RANGE):
         soup = request_soup(get_url('FLEET').format(n))
         for bx in soup.select('div[class="ferry-bx"]'):
-            scrape_ferry(settings.SCRAPER['URL_PREFIX'] + bx.find('a')['href'])
+            scrape_ferry(SCRAPER_SETTINGS.URL_PREFIX + bx.find('a')['href'])
             print('\n')
