@@ -107,6 +107,7 @@ query ferryDemo {
         maxDisplacement
         maxSpeed
         totalLength
+        fetchedTime
         officialPage
         id
       }
@@ -150,6 +151,7 @@ query sailingDemo {
             }
           }
         }
+        duration
         fetchedTime
         officialPage
         id
@@ -166,10 +168,9 @@ query currentSailingDemo {
           code
           name
           carCapacity
-        	humanCapacity
+          humanCapacity
           id
         }
-        fetchedTime
         scheduledTime
         actualTime
         arrivalTime
@@ -178,6 +179,7 @@ query currentSailingDemo {
         mixedVehiclePercentage
         standardVehiclePercentage
         status
+        fetchedTime
         officialPage
         id
       }
