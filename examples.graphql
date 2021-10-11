@@ -1,5 +1,5 @@
 query routeDemo {
-  allRoutes(origin_Name_Icontains: "galiano", destination_Name_Icontains: "mayne") {
+  allRoutes(origin_Name_Icontains: "horseshoe bay", destination_Name_Icontains: "langdale") {
     edges {
       node {
         origin {
@@ -18,6 +18,7 @@ query routeDemo {
           code
           name
           travelRouteName
+          officialPage
           id
         }
         destination {
@@ -36,12 +37,13 @@ query routeDemo {
           code
           name
           travelRouteName
+          officialPage
           id
         }
         infoSet {
           edges {
             node {
-              current {
+              currentSailings {
                 edges {
                   node {
                     ferry {
@@ -50,12 +52,15 @@ query routeDemo {
                       id
                     }
                     fetchedTime
-                    officialPage
+                    scheduledTime
                     actualTime
                     arrivalTime
-                    capacity
-                    isDelayed
+                    hasArrived
+                    totalCapacityPercentage
+                    mixedVehiclePercentage
+                    standardVehiclePercentage
                     status
+                    officialPage
                     id
                   }
                 }
@@ -93,7 +98,6 @@ query ferryDemo {
             }
           }
         }
-        officialPage
         code
         name
         built
@@ -103,6 +107,7 @@ query ferryDemo {
         maxDisplacement
         maxSpeed
         totalLength
+        officialPage
         id
       }
     }
@@ -113,7 +118,7 @@ query sailingDemo {
   allSailings(route_Origin_Code: "TSA", route_Destination_Code: "SWB") {
     edges {
       node {
-        scheduled(time_Date_Lte: "2021-10-05T00") {
+        scheduled(time_Date_Lte: "2022-01-01T00") {
           edges {
             node {
               time
@@ -146,6 +151,33 @@ query sailingDemo {
           }
         }
         fetchedTime
+        officialPage
+        id
+      }
+    }
+  }
+}
+
+query currentSailingDemo {
+  allCurrentSailings(routeInfo_Route_Origin_Code: "TSA", routeInfo_Route_Destination_Code: "SWB") {
+    edges {
+      node {
+        ferry {
+          code
+          name
+          carCapacity
+        	humanCapacity
+          id
+        }
+        fetchedTime
+        scheduledTime
+        actualTime
+        arrivalTime
+        hasArrived
+        totalCapacityPercentage
+        mixedVehiclePercentage
+        standardVehiclePercentage
+        status
         officialPage
         id
       }

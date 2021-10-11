@@ -1,19 +1,20 @@
+from typing import Union
 from django.conf import settings
 from django.utils import timezone
-from datetime import date, datetime, timedelta
-from calendar import Calendar, month_abbr, day_abbr
-
-import re
+from datetime import datetime
+from calendar import month_abbr, day_abbr
 import pandas as pd
 from dataclasses import dataclass
 
+import re
 import requests
 from bs4 import BeautifulSoup as bs
+from bs4.element import Tag
 from time import sleep
 
 fallback_dates = pd.date_range(
-    start = datetime.today(),
-    periods = settings.SCRAPER_FALLBACK_DATE_PERIODS,
+    start = datetime.now(),
+    periods = settings.SCRAPER['FALLBACK_DAY_PERIODS'],
     freq = '1D',
     tz = timezone.get_current_timezone(),
 )
@@ -21,20 +22,36 @@ fallback_dates = pd.date_range(
 def clean(text: str) -> str:
     return text.strip().upper()
 
-def schedule_clean(text: str) -> str:
-    return clean(text.replace('*', '').replace(',', ''))
+def clean_tag_text(tag: Tag, preserve_newlines: bool = False, **kwargs) -> str:
+    text = tag.get_text(strip=True, **kwargs)
+    if preserve_newlines:
+        return clean('\n'.join([
+            ' '.join(line.split())
+            for line in text.split('\n')
+        ]))
+    return ' '.join(text.split()).upper()
 
-def multi_split(main_str: str, delimiters: list[str]) -> list[str]:
-    return re.split(
-        '|'.join(map(re.escape, set(delimiters))),
-        main_str
-    )
+def schedule_clean(text: str) -> str:
+    return text.replace('*', '').replace(',', '')
+
+def multi_split(main_str: str, delimiters) -> list[str]:
+    return re.split('|'.join(set(delimiters)), main_str)
 
 def soft_print(pre: str, val):
     if val: print(pre, val)
 
 def soft_print_iter(pre: str, vals):
     if len(vals): print(pre, ', '.join(map(str, vals)))
+
+def date_time_combine(date_val, time_val) -> datetime:
+    return datetime(
+        year = date_val.year,
+        month = date_val.month,
+        day = date_val.day,
+        hour = time_val.hour,
+        minute = time_val.minute,
+        tzinfo = timezone.get_current_timezone(),
+    )
 
 def _calendar_abbr_to_int(text: str, abbrs: list[str]) -> int:
     cleanedText = clean(text)
@@ -109,11 +126,16 @@ def from_schedule_date_range(dates_text: str, parser_format: str) -> pd.Datetime
         print('Using fallback dates')
         return fallback_dates
 
+def get_url(name: str) -> Union[str, list[str]]:
+    prefix = settings.SCRAPER['URL_PREFIX']
+    path = settings.SCRAPER['URL_PATHS'][name]
+    if isinstance(path, list):
+        return [prefix + one_path for one_path in path]
+    return prefix + path
 
 def request_soup(url: str) -> bs:
-    sleep(settings.SCRAPER_PAUSE_SECS)
-    print('\n')
+    sleep(settings.SCRAPER['PAUSE_SECS'])
     req = requests.get(url)
     req.encoding = req.apparent_encoding
-    print(f"Got {req.status_code} on {req.url}")
-    return bs(req.text, 'html5lib')
+    print(f"\nGot {req.status_code} on {req.url}\n")
+    return bs(req.text, settings.SCRAPER['PARSER'])

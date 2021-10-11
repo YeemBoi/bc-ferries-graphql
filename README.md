@@ -2,7 +2,7 @@
 Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper, built with Django.
 
 
-Includes highly detailed data on locations, routes, schedules, and ships.
+Includes highly detailed data on locations, routes, schedules, conditions, and ships.
 
 ## GraphQL Schema
 GraphQL schema is available at [`schema.graphql`](schema.graphql). A JSON schema is also available.
@@ -25,7 +25,7 @@ To initialize the database with all data, run `./manage.py runscript init_scrape
 - Routes, terminals, cities, regions: `./manage.py runscript scrape_routes`
 - Ships, services, amenities: `./manage.py runscript scrape_fleet`
 - Sailings, scheduled sailings, en-route stops & transfers: `./manage.py runscript scrape_schedule`
-- Current sailings / conditions (WIP): `./manage.py runscript scrape_current_conditions`
+- Current sailings / conditions: `./manage.py runscript scrape_current_conditions`
 
 ### Performance
 Scraping should not be resource intensive, but by default there is a 10-second delay between http requests to BC Ferries to abide by [`robots.txt`](http://bcferries.com/robots.txt).
@@ -33,78 +33,65 @@ This can be changed in `settings.SCRAPER_PAUSE_SECS`.
 
 ## [Default settings](ferries/settings.py)
 ```python
-SCRAPER_PAUSE_SECS = 10
-
-SCRAPER_URL_PREFIX            = 'https://www.bcferries.com'
-SCRAPER_SCHEDULES_URL         = SCRAPER_URL_PREFIX + '/routes-fares/schedules'
-SCRAPER_CONDITIONS_URL        = SCRAPER_URL_PREFIX + '/current-conditions'
-SCRAPER_DEPARTURES_URL        = SCRAPER_URL_PREFIX + '/current-conditions/departures'
-SCRAPER_ROUTE_CONDITIONS_URL  = SCRAPER_URL_PREFIX + '/current-conditions/{}'
-SCRAPER_ROUTES_URL            = SCRAPER_URL_PREFIX + '/route-info'
-SCRAPER_CC_ROUTES_URL         = SCRAPER_URL_PREFIX + '/cc-route-info'
-SCRAPER_FLEET_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet?page={}'
-SCRAPER_FLEET_PAGE_RANGE      = 2
-SCRAPER_SCHEDULE_SEASONAL_URL = SCRAPER_URL_PREFIX + '/routes-fares/schedules/seasonal/{}'
-SCRAPER_SCHEDULE_DAILY_URL    = SCRAPER_URL_PREFIX + '/routes-fares/schedules/daily/{}'
-SCRAPER_SCHEDULE_DATES_URL    = SCRAPER_URL_PREFIX + '/getDepartureDates?origin={}&destination={}&selectedMonth={}&selectedYear={}'
-
-OFFICIAL_TERMINAL_URL         = SCRAPER_URL_PREFIX + '/travel-boarding/terminal-directions-parking-food/{}/{}'
-OFFICIAL_SHIP_URL             = SCRAPER_URL_PREFIX + '/on-the-ferry/our-fleet/{}/{}'
-
-SCRAPER_MISC_SCHEDULE_URLS = [
-    SCRAPER_URL_PREFIX + '/routes-fares/schedules/southern-gulf-islands',
-    # SCRAPER_URL_PREFIX + '/routes-fares/schedules/gambier-keats',
-]
-
-# How many days into the future to attempt to create schedules for, fallback only
-SCRAPER_FALLBACK_DATE_PERIODS = 100
-
-# BC Ferries doesn't use alt tags on all images, so map image src to amenities
-SCRAPER_AMENITY_IMAGE_PATHS = {
-    '/web_image/h8e/h8d/8800764362782.jpg': 'Arbutus Coffee Bar',
-    '/web_image/h81/h88/8798826168350.jpg': 'Aurora Lounge',
-    '/web_image/h03/h6d/8798746312734.jpg': 'Canoe Cafe',
-    '/web_image/h41/hd5/8798823022622.jpg': 'Coast Cafe Express',
-    '/web_image/hcb/hd0/8798832164894.jpg': 'Coastal Cafe',
-    '/web_image/h9d/h69/8800604258334.jpg': 'Pacific Buffet',
-    '/web_image/haa/hf3/8800605044766.jpg': 'Passages',
-    '/web_image/h20/h0b/8798760566814.jpg': 'SeaWest Lounge',
-    '/web_image/h44/h77/8798814371870.jpg': 'Sitka Coffee Place',
-    '/web_image/hf7/hb3/8798767808542.jpg': 'The Raven Lounge',
-    '/web_image/h6a/h96/8798810800158.jpg': 'Vista Restaurant',
+SCRAPER = {
+    'PARSER':               'html5lib',         # used by bs4
+    'PAUSE_SECS':           0 if DEBUG else 10, # See http://bcferries.com/robots.txt
+    'FALLBACK_DAY_PERIODS': 100,                # How many days into the future to attempt to create schedules for
+    'FLEET_PAGE_RANGE':     2,
+    'INIT_SCRIPTS': [       # Used by init_scraped_data script
+        'save_sitemap',
+        'scrape_routes',
+        'scrape_fleet',
+        'scrape_schedule',
+        'scrape_current_conditions',
+    ],
+    'URL_PREFIX': 'https://www.bcferries.com',
+    'URL_PATHS': {
+        'SCHEDULES':            '/routes-fares/schedules',
+        'CONDITIONS':           '/current-conditions',
+        'DEPARTURES':           '/current-conditions/departures',
+        'ROUTE_CONDITIONS':     '/current-conditions/{}',
+        'ROUTES':               '/route-info',
+        'CC_ROUTES':            '/cc-route-info',
+        'FLEET':                '/on-the-ferry/our-fleet?page={}',
+        'SCHEDULE_SEASONAL':    '/routes-fares/schedules/seasonal/{}',
+        'SCHEDULE_DATES':       '/getDepartureDates?origin={}&destination={}&selectedMonth={}&selectedYear={}',
+        'DEPARTURES':           '/current-conditions/departures',
+        'TERMINAL':             '/travel-boarding/terminal-directions-parking-food/{}/{}',
+        'SHIP':                 '/on-the-ferry/our-fleet/{}/{}',
+        'SCHEDULES':            '/routes-fares/schedules',
+        'MISC_SCHEDULES': [
+            '/routes-fares/schedules/southern-gulf-islands',
+          # '/routes-fares/schedules/gambier-keats',
+        ],
+    },
 }
 
-# Used by init_scraped_data script
-SCRAPER_SCRIPTS = [
-    'save_sitemap',
-    'scrape_routes',
-    'scrape_fleet',
-    'scrape_schedule',
-    'scrape_current_conditions',
-]
+_RANGE_LOOKUPS  = ['exact', 'gt', 'lt', 'gte', 'lte']
+_use_range_lookups = lambda dt: [f'{dt}__{lookup}' for lookup in _RANGE_LOOKUPS]
+_use_unnested_range_lookups = lambda lt: itertools.chain(*[_use_range_lookups(lookupType) for lookupType in lt])
+_DATE_LOOKUPS = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
+_TIME_LOOKUPS = ['hour', 'minute', 'second']
 
-DEFAULT_STRING_LOOKUPS = ['exact', 'iexact', 'regex', 'icontains', 'istartswith']
-DEFAULT_RANGE_LOOKUPS  = ['exact', 'gt', 'lt', 'gte', 'lte']
-
-_use_default_range_lookups = lambda dt : [f'{dt}__{lookup}' for lookup in DEFAULT_RANGE_LOOKUPS]
-_use_unnested_range_lookups = lambda lt : itertools.chain(*[_use_default_range_lookups(lookupType) for lookupType in lt])
-
-_DEFAULT_DATE_LOOKUP_TYPES = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
-_DEFAULT_TIME_LOOKUP_TYPES = ['hour', 'minute', 'second']
-
-DEFAULT_DATE_LOOKUPS = [
-    *DEFAULT_RANGE_LOOKUPS,
-    *_use_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
-]
-DEFAULT_TIME_LOOKUPS = [
-    *DEFAULT_RANGE_LOOKUPS,
-    *_use_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
-]
-DEFAULT_DATETIME_LOOKUPS = [
-    *DEFAULT_RANGE_LOOKUPS,
-    *_use_default_range_lookups('date'),
-    *_use_unnested_range_lookups(_DEFAULT_DATE_LOOKUP_TYPES),
-    *_use_default_range_lookups('time'),
-    *_use_unnested_range_lookups(_DEFAULT_TIME_LOOKUP_TYPES),
-]
+from datetime import date, time, datetime
+DEFAULT_LOOKUPS = {
+    str: ['exact', 'iexact', 'regex', 'icontains', 'istartswith'],
+    bool: ['exact'],
+    int: _RANGE_LOOKUPS,
+    date: [
+        *_RANGE_LOOKUPS,
+        *_use_unnested_range_lookups(_DATE_LOOKUPS),
+    ],
+    time: [
+        *_RANGE_LOOKUPS,
+        *_use_unnested_range_lookups(_TIME_LOOKUPS),
+    ],
+    datetime: [
+        *_RANGE_LOOKUPS,
+        *_use_range_lookups('date'),
+        *_use_unnested_range_lookups(_DATE_LOOKUPS),
+        *_use_range_lookups('time'),
+        *_use_unnested_range_lookups(_TIME_LOOKUPS),
+    ],
+}
 ```

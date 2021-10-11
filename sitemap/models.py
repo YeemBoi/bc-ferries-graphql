@@ -14,7 +14,7 @@ SITEMAP_TYPE_CHOICES = [
 ]
 
 SITEMAP_PCF_DURATIONS = {
-    SmPCF.ALWAYS.name:  timedelta(seconds=settings.SCRAPER_PAUSE_SECS),
+    SmPCF.ALWAYS.name:  timedelta(seconds=settings.SCRAPER['PAUSE_SECS']),
     SmPCF.DAILY.name:   timedelta(days=1),
     SmPCF.HOURLY.name:  timedelta(hours=1),
     SmPCF.MONTHLY.name: timedelta(days=30),

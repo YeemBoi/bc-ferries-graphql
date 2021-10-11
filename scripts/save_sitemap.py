@@ -6,7 +6,7 @@ from sitemap import models as m
 
 # See https://github.com/mediacloud/ultimate-sitemap-parser/issues/1
 def run():
-    full_sitemap = sitemap_tree_for_homepage(settings.SCRAPER_URL_PREFIX+'/')
+    full_sitemap = sitemap_tree_for_homepage(settings.SCRAPER['URL_PREFIX']+'/')
     m.Sitemap.objects.all().delete()
     m.Page.objects.all().delete()
     save_sitemap(full_sitemap)

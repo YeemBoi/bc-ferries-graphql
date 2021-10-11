@@ -1,5 +1,5 @@
-from django.conf import settings
 from django.db import models as m
+from common.scraper_utils import get_url
 
 
 CURRENT_SAILING_STATUS_CHOICES = [
@@ -8,6 +8,7 @@ CURRENT_SAILING_STATUS_CHOICES = [
     ('PEAK', 'Peak travel; Loading max number of vehicles'),
     ('VHCL', 'Loading as many vehicles as possible'),
     ('ONGN', 'Earlier loading procedure causing ongoing delay'),
+    ('DELA', 'Vessel start up delay, departing ASAP'),
     ('SHIP', 'Loading and unloading multiple ships'),
     ('CREW', 'Crew member enroute to assist with boarding'),
     ('CNCL', 'Cancelled'),
@@ -16,7 +17,7 @@ CURRENT_SAILING_STATUS_CHOICES = [
 
 class ScrapedModel(m.Model):
     official_page = m.URLField()
-    fetched_time = m.DateTimeField(auto_now_add=True)
+    fetched_time = m.DateTimeField(auto_now=True)
     class Meta:
         abstract = True
 
@@ -27,7 +28,7 @@ def Code(length: int = 3) -> m.CharField:
 class City(m.Model):
     code = Code()
     name = m.CharField(max_length=250)
-    sort_order = m.PositiveIntegerField()
+    sort_order = m.PositiveIntegerField(null=True) # required for "Southern Gulf Islands" cc
 
     def __str__(self) -> str:
         return self.name
@@ -35,7 +36,7 @@ class City(m.Model):
 class GeoArea(m.Model):
     code = Code(2)
     name = m.CharField(max_length=250)
-    sort_order = m.PositiveIntegerField()
+    sort_order = m.PositiveIntegerField(null=True)
 
     def __str__(self) -> str:
         return self.name
@@ -49,7 +50,7 @@ class Terminal(ScrapedModel):
 
     def save(self, *args, **kwargs):
         if not self.official_page:
-            self.official_page = settings.OFFICIAL_TERMINAL_URL.format(self.travel_route_name, self.code)
+            self.official_page = get_url('TERMINAL').format(self.travel_route_name, self.code)
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
@@ -141,13 +142,20 @@ class ScheduledSailing(m.Model):
 
 class CurrentSailing(ScrapedModel):
     route_info = m.ForeignKey(RouteInfo, on_delete=m.CASCADE, related_name='current_sailings')
-    ferry = m.ForeignKey(Ferry, on_delete=m.CASCADE)
-    actual_time = m.DateTimeField()
-    arrival_time = m.DateTimeField()
-    capacity =  m.PositiveIntegerField()
-    is_delayed = m.BooleanField()
+    ferry = m.ForeignKey(Ferry, null=True, on_delete=m.SET_NULL)
+    scheduled_time = m.DateTimeField(null=True)
+    actual_time = m.DateTimeField(null=True)
+    arrival_time = m.DateTimeField(null=True)
     has_arrived = m.BooleanField()
+    standard_vehicle_percentage = m.PositiveIntegerField(default=0)
+    mixed_vehicle_percentage = m.PositiveIntegerField(default=0)
+    total_capacity_percentage = m.PositiveIntegerField(default=0)
     status = m.CharField(max_length=4, null=True, choices=CURRENT_SAILING_STATUS_CHOICES)
 
+    def save(self, *args, **kwargs):
+        if not self.official_page:
+            self.official_page = get_url('ROUTE_CONDITIONS').format(self.route_info.route.scraper_url_param())
+        super().save(*args, **kwargs)
+
     def __str__(self) -> str:
-        return f"{self.sailing}"
+        return f"{self.route_info.route}"

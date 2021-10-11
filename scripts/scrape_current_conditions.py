@@ -1,14 +1,15 @@
-from django.conf import settings
 from django.utils import timezone
 from core import models as m
 
-from datetime import datetime, timedelta, tzinfo
+from datetime import datetime, timedelta
 from common import scraper_utils as u
 
-from typing import Optional
 from dataclasses import dataclass
+from bs4.element import Tag
+import re
 
-@dataclass(frozen=True)
+
+@dataclass
 class CurrentScheduleTime(u.ScheduleTime):
     is_tomorrow: bool
 
@@ -16,36 +17,157 @@ class CurrentScheduleTime(u.ScheduleTime):
         base_date = timezone.now().date()
         if self.is_tomorrow:
             base_date += timedelta(days=1)
-        return datetime(
-            year = base_date.year,
-            month = base_date.month,
-            day = base_date.day,
-            hour = self.hour,
-            minute = self.minute,
-            tzinfo = timezone.get_current_timezone()
-        )
+        return u.date_time_combine(base_date, self)
+
+def from_current_datetime(base_time: str, is_tomorrow: bool) -> datetime:
+    schedule_time = u.from_schedule_time(base_time)
+    return CurrentScheduleTime(
+        find_text = schedule_time.find_text,
+        hour = schedule_time.hour,
+        minute = schedule_time.minute,
+        is_tomorrow = is_tomorrow,
+    ).to_datetime()
+
+def get_ferry_from_href(a: Tag) -> m.Ferry:
+    code = list(filter(None, a['href'].split('/')))[-1] or a.get_text(strip=True)
+    try: return m.Ferry.objects.get(code=code)
+    except m.Ferry.DoesNotExist: return None
+
+def lazy_print_times(times: dict[str]):
+    for name, time in times.items():
+        print(f"{name}: {time.strftime('%X') if isinstance(time, datetime) else time}")
 
 # used for getting more details on past departures
-conditions_soup = u.request_soup(settings.SCRAPER_DEPARTURES_URL)
+conditions_tables = u.request_soup(u.get_url('DEPARTURES')).select('.departures-tbl')
+
+STATUS_TEXTS = {
+    'ON TIME': 'GOOD',
+    'EARLIER LOADING PROCEDURE IS CAUSING ONGOING DELAY': 'ONGN',
+    'CANCELLED': 'CNCL',
+    'VESSEL START UP DELAY. DEPARTING AS SOON POSSIBLE.': 'DELA',
+    'PEAK TRAVEL. LOADING MAXIMUM NUMBER OF VEHICLES': 'VHCL',
+    'WE ARE LOADING AND UNLOADING MULTIPLE SHIPS': 'SHIP',
+    'HELPING CUSTOMERS WHO NEED ASSISTANCE BOARDING': 'HELP',
+}
 
 def get_current_sailings(route_info: m.RouteInfo):
+    time_initiated = timezone.now()
     if not route_info.conditions_are_tracked:
         raise ValueError(f"conditions on {route_info} are not tracked")
     route: m.Route = route_info.route
+    print('Getting conditions on', route)
     # used for getting more details on future departures
-    soup = u.request_soup(settings.SCRAPER_ROUTE_CONDITIONS_URL.format(route.scraper_url_param()))
+    url = u.get_url('ROUTE_CONDITIONS').format(route.scraper_url_param())
+    soup = u.request_soup(url)
     main_rows = soup.select_one('.detail-departure-table').find('tbody').select('tr')
-    timed_departures: dict[CurrentScheduleTime, m.CurrentSailing] = dict()
-    last_row: Optional[CurrentScheduleTime] = None
-    for i, row in enumerate(main_rows):
+    tbl_search_title = f"{route.origin} - {route.destination}".upper()
+    conditions_rows = []
+    for table in conditions_tables:
+        if u.clean_tag_text(table.find('b')) == tbl_search_title:
+            conditions_rows = table.select('.padding-departures-td') # actually a tr tag
+    print('Found', len(conditions_rows), 'conditions entries on main departures page')
+    sailings: list[tuple[dict[str]]] = []
+    for row in main_rows:
+        if 'toggle-div' in row.get('class', []):
+            if not len(sailings): continue
+            sailings[-1][1]['ferry'] = get_ferry_from_href(row.select_one('.sailing-ferry-name'))
+            CAPACITY_PERCENTAGES = [
+                'total_capacity_percentage',
+                'standard_vehicle_percentage',
+                'mixed_vehicle_percentage',
+            ]
+            for i, bar in enumerate(row.select('.progress-bar')):
+                sailings[-1][1][CAPACITY_PERCENTAGES[i]] = int(bar['aria-valuenow'])
+        else:
+            cols = list(map(u.clean_tag_text, row.select('td', limit=2)))
+            if len(cols) != 2:
+                print('Skipping row, found', len(cols), 'cols')
+                continue
+            time_text, mid_col_text = cols
+            key_time = from_current_datetime(' '.join(time_text.split()[:2]), ('TOMORROW' in time_text))
+            scheduled_time = None
+            actual_time = None
+            arrival_time = None
+            if has_arrived := 'ARRIVED: ' in mid_col_text:
+                mid_col_text = mid_col_text.replace('ARRIVED: ', '')
+            if has_arrived or ('ETA: ' in mid_col_text):
+                actual_time = key_time
+                arrival_time = from_current_datetime(mid_col_text.replace('ETA: ', ''), False)
+            else:
+                scheduled_time = key_time
+            print(mid_col_text)
+            sailings.append(({
+                'scheduled_time': scheduled_time,
+                'actual_time': actual_time,
+                'arrival_time': arrival_time,
+                'has_arrived': has_arrived,
+            }, dict()))
+    for core_times, extra_details in sailings:
+        print('Core times:')
+        lazy_print_times(core_times)
+        m.CurrentSailing.objects.update_or_create(
+            route_info = route_info,
+            **core_times,
+            defaults = {
+                'official_page': url,
+                **extra_details,
+            },
+        )
+    for row in conditions_rows:
         cols = row.select('td')
         if len(cols) != 3:
             print('Skipping row, found', len(cols), 'cols')
             continue
+        times: dict[str, datetime] = dict()
+        for time_l in cols[1].select('.departures-time-ul'):
+            if not u.clean_tag_text(time_l): continue
+            time_name, time_val = list(map(u.clean_tag_text, time_l.select('li')))
+            try: times[time_name.replace(':', '')] = from_current_datetime(time_val, False)
+            except ValueError as e: print(e)
+        
+        sailing: m.CurrentSailing
+        arrival_time = None
+        has_arrived = False
+        if 'ARRIVAL' in times:
+            arrival_time = times['ARRIVAL']
+            has_arrived = True
+        elif 'ETA' in times and times['ETA'] != 'VARIABLE':
+            arrival_time = times['ETA']
+        if 'ACTUAL' in times:
+            sailing = m.CurrentSailing.objects.get(
+                route_info = route_info,
+                actual_time = times['ACTUAL'],
+                arrival_time = arrival_time,
+                scheduled_time = None,
+                has_arrived = has_arrived,
+            )
+            if 'SCHEDULED' in times: sailing.scheduled_time = times['SCHEDULED']
+        else:
+            sailing = m.CurrentSailing.objects.get(
+                route_info = route_info,
+                scheduled_time = times['SCHEDULED'],
+                arrival_time = None,
+                actual_time = None,
+                has_arrived = False,
+            )
+            sailing.arrival_time = arrival_time
+                
+        sailing.ferry = get_ferry_from_href(cols[0].find('a'))
+        sailing.status = STATUS_TEXTS.get(u.clean_tag_text(cols[2]))
+        lazy_print_times({
+            name: getattr(sailing, name)
+            for name in ['scheduled_time', 'actual_time', 'arrival_time', 'has_arrived',
+                'total_capacity_percentage', 'standard_vehicle_percentage', 'mixed_vehicle_percentage',
+                'ferry', 'status',]
+        })
 
-    
+        sailing.save()
+    m.CurrentSailing.objects.filter(
+        route_info = route_info,
+        fetched_time__lt = time_initiated - timedelta(minutes=1)
+    ).delete()
 
 def run():
     for tracked_route_info in m.RouteInfo.objects.filter(conditions_are_tracked=True):
         get_current_sailings(tracked_route_info)
-
+        print('\n')
