@@ -1,4 +1,3 @@
-from typing import Union
 from django.conf import settings
 from django.utils import timezone
 from datetime import datetime
@@ -126,7 +125,7 @@ def from_schedule_date_range(dates_text: str, parser_format: str) -> pd.Datetime
         print('Using fallback dates')
         return fallback_dates
 
-def get_url(name: str) -> Union[str, list[str]]:
+def get_url(name: str) -> str | list[str]:
     prefix = settings.SCRAPER['URL_PREFIX']
     path = settings.SCRAPER['URL_PATHS'][name]
     if isinstance(path, list):
