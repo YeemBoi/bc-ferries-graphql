@@ -1,7 +1,6 @@
 from django.db import models as m
 from common.scraper_utils import get_url
 
-
 CURRENT_SAILING_STATUS_CHOICES = [
     ('GOOD', 'On time'),
     ('MEDI', 'Medical emergency'),
@@ -62,6 +61,10 @@ class Route(m.Model):
 
     def scraper_url_param(self) -> str:
         return '-'.join([self.origin.code, self.destination.code])
+    
+    def scrape(self):
+        from .tasks import scrape_route_schedule_task
+        return scrape_route_schedule_task.delay(self.pk)
 
     def __str__(self) -> str:
         return f"{self.origin} to {self.destination}"
@@ -83,6 +86,11 @@ class RouteInfo(m.Model):
     allow_livestock = m.BooleanField()
     allow_walk_on_options = m.BooleanField()
     allow_additional_passenger_types = m.BooleanField()
+
+    def scrape_current_conditions(self):
+        from .tasks import scrape_route_schedule_task
+        return scrape_route_schedule_task.delay(self.pk)
+
 
     def __str__(self) -> str:
         return f"info #{self.original_index}: {self.route}"

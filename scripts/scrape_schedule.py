@@ -1,5 +1,5 @@
 from django.utils import timezone
-from core import models as m
+from ferries import models as m
 
 from datetime import date, datetime, timedelta
 from calendar import day_name, day_abbr
@@ -339,9 +339,7 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
 
 def init_misc_schedules():
     global misc_schedule_soups
-    for url in u.get_url('MISC_SCHEDULES'):
-        print('Adding misc table', url)
-        misc_schedule_soups.append(u.request_soup(url))
+    misc_schedule_soups = list(map(u.request_soup, u.get_url('MISC_SCHEDULES')))
 
 def run():
     init_misc_schedules()

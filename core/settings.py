@@ -18,11 +18,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'definitely a very secret default')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+# SECURITY WARNING: keep the secret key used in production secret!
+if DEBUG:
+    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'definitely a very secret default')
+else:
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 ALLOWED_HOSTS = []
 
@@ -40,8 +44,9 @@ INSTALLED_APPS = [
     'django_filters',
     'graphene_django', 
     'django_extensions',
+    #'tasks',
     'sitemap',
-    'core',
+    'ferries',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +67,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-ROOT_URLCONF = 'ferries.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -80,18 +85,19 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ferries.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 
 
 # Password validation
@@ -132,8 +138,9 @@ USE_L10N = True
 USE_TZ = True
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
+
 GRAPHENE = {
-    'SCHEMA': 'ferries.schema.schema',
+    'SCHEMA': 'core.schema.schema',
     'RELAY_CONNECTION_MAX_LIMIT': 250,
     'MIDDLEWARE': [
         'graphene_django.debug.DjangoDebugMiddleware',
@@ -143,6 +150,12 @@ GRAPHENE = {
 # if DEBUG:
 #     GRAPHENE['MIDDLEWARE'].append('graphene_django.debug.DjangoDebugMiddleware')
 
+CELERY_BROKER_URL           = os.environ.get('CELERY_BROKER', 'redis://127.0.0.1:6379/0')
+CELERY_RESULT_BACKEND       = os.environ.get('CELERY_BROKER', 'redis://127.0.0.1:6379/0')
+CELERY_ACCEPT_CONTENT       = ['application/json']
+CELERY_TASK_SERIALIZER      = 'json'
+CELERY_RESULT_SERIALIZER    = 'json'
+CELERY_TIMEZONE             = 'America/Vancouver'
 
 SCRAPER = {
     'PARSER':               'html5lib',         # used by bs4

@@ -1,4 +1,4 @@
-from core import models as m
+from ferries import models as m
 
 from common.scraper_utils import get_url, request_soup, soft_print_iter, clean_tag_text, SCRAPER_SETTINGS
 from urllib.parse import urlparse

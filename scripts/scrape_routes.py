@@ -1,4 +1,4 @@
-from core import models as m
+from ferries import models as m
 from common.scraper_utils import get_url, SCRAPER_SETTINGS
 
 import urllib3
