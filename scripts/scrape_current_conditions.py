@@ -1,5 +1,5 @@
 from django.utils import timezone
-from core import models as m
+from ferries import models as m
 
 from datetime import datetime, timedelta
 from common import scraper_utils as u
@@ -37,8 +37,9 @@ def lazy_print_times(times: dict[str]):
     for name, time in times.items():
         print(f"{name}: {time.strftime('%X') if isinstance(time, datetime) else time}")
 
-# used for getting more details on past departures
-conditions_tables = u.request_soup(u.get_url('DEPARTURES')).select('.departures-tbl')
+def scrape_conditions_tables():
+    global conditions_tables # used for getting more details on past departures
+    conditions_tables = u.request_soup(u.get_url('DEPARTURES')).select('.departures-tbl')
 
 STATUS_TEXTS = {
     'ON TIME': 'GOOD',
@@ -125,7 +126,6 @@ def get_current_sailings(route_info: m.RouteInfo):
             try: times[time_name.replace(':', '')] = from_current_datetime(time_val, False)
             except ValueError as e: print(e)
         
-        sailing: m.CurrentSailing
         arrival_time = None
         has_arrived = False
         if 'ARRIVAL' in times:
@@ -133,41 +133,50 @@ def get_current_sailings(route_info: m.RouteInfo):
             has_arrived = True
         elif 'ETA' in times and times['ETA'] != 'VARIABLE':
             arrival_time = times['ETA']
+        defaults = {
+            'status': STATUS_TEXTS.get(u.clean_tag_text(cols[2])),
+            'ferry': get_ferry_from_href(cols[0].find('a'))
+        }
+        sailing: m.CurrentSailing
+        created: bool
         if 'ACTUAL' in times:
-            sailing = m.CurrentSailing.objects.get(
+            if 'SCHEDULED' in times: defaults['scheduled_time'] = times['SCHEDULED']
+            sailing, created = m.CurrentSailing.objects.update_or_create(
                 route_info = route_info,
                 actual_time = times['ACTUAL'],
                 arrival_time = arrival_time,
                 scheduled_time = None,
                 has_arrived = has_arrived,
+                defaults = defaults,
             )
-            if 'SCHEDULED' in times: sailing.scheduled_time = times['SCHEDULED']
         else:
-            sailing = m.CurrentSailing.objects.get(
+            sailing, created = m.CurrentSailing.objects.update_or_create(
                 route_info = route_info,
                 scheduled_time = times['SCHEDULED'],
                 arrival_time = None,
                 actual_time = None,
                 has_arrived = False,
+                defaults = {
+                    'arrival_time': arrival_time,
+                    **defaults,
+                }
             )
-            sailing.arrival_time = arrival_time
-                
-        sailing.ferry = get_ferry_from_href(cols[0].find('a'))
-        sailing.status = STATUS_TEXTS.get(u.clean_tag_text(cols[2]))
+        if created: print('Created new sailing from departures page')
         lazy_print_times({
             name: getattr(sailing, name)
             for name in ['scheduled_time', 'actual_time', 'arrival_time', 'has_arrived',
                 'total_capacity_percentage', 'standard_vehicle_percentage', 'mixed_vehicle_percentage',
-                'ferry', 'status',]
+                'ferry', 'status',
+            ]
         })
-
-        sailing.save()
+        # sailing.save()
     m.CurrentSailing.objects.filter(
         route_info = route_info,
         fetched_time__lt = time_initiated - timedelta(minutes=1)
     ).delete()
 
 def run():
+    scrape_conditions_tables()
     for tracked_route_info in m.RouteInfo.objects.filter(conditions_are_tracked=True):
         get_current_sailings(tracked_route_info)
         print('\n')
