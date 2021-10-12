@@ -10,7 +10,7 @@ class SitemapNode(gd.DjangoObjectType):
         model = m.Sitemap
         filter_fields = {
             'url': u.lookups(str),
-            'sitemap_type': ['exact', 'iexact'],
+            'sitemap_type': ['exact'],
             'is_index': u.lookups(bool),
             'is_invalid': u.lookups(bool),
         }

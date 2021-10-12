@@ -217,12 +217,12 @@ SCRAPER = {
 _RANGE_LOOKUPS  = ['exact', 'gt', 'lt', 'gte', 'lte']
 _use_range_lookups = lambda dt: [f'{dt}__{lookup}' for lookup in _RANGE_LOOKUPS]
 _use_unnested_range_lookups = lambda lt: itertools.chain(*[_use_range_lookups(lookupType) for lookupType in lt])
-_DATE_LOOKUPS = ['year', 'iso_year', 'month', 'day', 'week', 'week_day', 'iso_week_day', 'quarter']
-_TIME_LOOKUPS = ['hour', 'minute', 'second']
+_DATE_LOOKUPS = ['year', 'month', 'day', 'week_day']
+_TIME_LOOKUPS = ['hour', 'minute']
 
 from datetime import date, time, datetime, timedelta
 DEFAULT_LOOKUPS = {
-    str: ['exact', 'iexact', 'regex', 'icontains', 'istartswith'],
+    str: ['exact', 'iexact', 'regex', 'icontains'],
     bool: ['exact'],
     int: _RANGE_LOOKUPS,
     date: [

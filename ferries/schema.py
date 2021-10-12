@@ -27,7 +27,7 @@ class TerminalNode(gd.DjangoObjectType):
     class Meta:
         model = m.Terminal
         filter_fields = {
-            'code': ['exact', 'iexact'],
+            'code': ['exact'],
             'name': u.lookups(str),
             'travel_route_name': ['exact'],
             **u.fk_filters(CityNode, 'city'),
@@ -75,12 +75,11 @@ class FerryNode(gd.DjangoObjectType):
     class Meta:
         model = m.Ferry
         filter_fields = {
-            'code': ['exact', 'iexact'],
+            'code': ['exact'],
             'name': u.lookups(str),
             'built': u.lookups(date),
             'car_capacity': u.lookups(int),
             'human_capacity': u.lookups(int),
-            **u.fk_filters(ServiceNode, 'services'),
         }
         interfaces = (g.relay.Node, )
 
@@ -100,8 +99,6 @@ class EnRouteStopNode(gd.DjangoObjectType):
         filter_fields = {
             'is_transfer': u.lookups(bool),
             'order': u.lookups(int),
-            **u.fk_filters(SailingNode, 'sailing'),
-            **u.fk_filters(TerminalNode, 'terminal'),
         }
         interfaces = (g.relay.Node, )
 
@@ -125,7 +122,7 @@ class CurrentSailingNode(gd.DjangoObjectType):
             'standard_vehicle_percentage': u.lookups(int),
             'mixed_vehicle_percentage': u.lookups(int),
             'total_capacity_percentage': u.lookups(int),
-            'status': ['exact', 'iexact'],
+            'status': ['exact'],
             **u.fk_filters(RouteInfoNode, 'route_info'),
             **u.fk_filters(FerryNode, 'ferry'),
         }
@@ -141,6 +138,6 @@ class Query(g.ObjectType):
     services,           all_services            = u.make_filter_relay(ServiceNode)
     ferry,              all_ferries             = u.make_filter_relay(FerryNode)
     sailing,            all_sailings            = u.make_filter_relay(SailingNode)
-    en_route_stop,      all_en_route_stops      = u.make_filter_relay(EnRouteStopNode)
+    en_route_stop,      _                       = u.make_filter_relay(EnRouteStopNode)
     scheduled_sailing,  all_scheduled_sailings  = u.make_filter_relay(ScheduledSailingNode)
     current_sailing,    all_current_sailings    = u.make_filter_relay(CurrentSailingNode)
