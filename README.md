@@ -79,7 +79,7 @@ _TIME_LOOKUPS = ['hour', 'minute']
 
 from datetime import date, time, datetime, timedelta
 DEFAULT_LOOKUPS = {
-    str: ['exact', 'iexact', 'regex', 'icontains'],
+    str: ['exact', 'iexact', 'regex', 'iregex', 'icontains'],
     bool: ['exact'],
     int: _RANGE_LOOKUPS,
     date: [

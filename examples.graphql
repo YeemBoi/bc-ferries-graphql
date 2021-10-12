@@ -86,7 +86,7 @@ query routeDemo {
 }
 
 query ferryDemo {
-  allFerries(name_Istartswith: "queen of") {
+  allFerries(name_Iregex: "^queen of") {
     edges {
       node {
         services {
@@ -142,10 +142,9 @@ query sailingDemo {
           }
         }
         route {
-          infoSet {
+          infoSet(conditionsAreTracked: true) {
             edges {
               node {
-                conditionsAreTracked
                 id
               }
             }

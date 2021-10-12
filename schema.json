@@ -177,6 +177,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "url_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "url_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -328,6 +338,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "url_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "url_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -877,6 +897,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sitemap_Url_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sitemap_Url_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1047,6 +1077,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1178,6 +1218,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -1327,6 +1377,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1387,6 +1447,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "city_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "city_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1428,6 +1498,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "geoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -1577,6 +1657,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1637,6 +1727,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1687,6 +1787,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1728,6 +1838,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -1797,6 +1917,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -1838,6 +1968,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2127,6 +2267,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -2187,6 +2337,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -2237,6 +2397,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -2278,6 +2448,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2347,6 +2527,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -2388,6 +2578,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2518,6 +2718,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2668,6 +2878,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -3217,6 +3437,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -3277,6 +3507,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -3327,6 +3567,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -3368,6 +3618,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -3437,6 +3697,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -3478,6 +3748,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -4277,6 +4557,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -4337,6 +4627,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -4387,6 +4687,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -4428,6 +4738,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -4497,6 +4817,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -4538,6 +4868,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -6347,6 +6687,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -6407,6 +6757,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -6457,6 +6817,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -6498,6 +6868,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "routeInfo_Route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "routeInfo_Route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -6567,6 +6947,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -6617,6 +7007,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Destination_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Destination_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -6658,6 +7058,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "ferry_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "ferry_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -7271,6 +7681,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "url_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "url_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -7408,6 +7828,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "url_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "url_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -7536,6 +7966,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "url_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "url_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8076,6 +8516,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sitemap_Url_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sitemap_Url_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8843,6 +9293,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -8903,6 +9363,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "city_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "city_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -8944,6 +9414,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "geoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9301,6 +9781,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9361,6 +9851,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9411,6 +9911,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9452,6 +9962,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9521,6 +10041,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9562,6 +10092,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9688,6 +10228,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9748,6 +10298,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9798,6 +10358,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9839,6 +10409,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9908,6 +10488,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -9949,6 +10539,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -10279,6 +10879,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -10339,6 +10949,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "city_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "city_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -10380,6 +11000,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "geoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "geoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -10797,6 +11427,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -10857,6 +11497,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -10907,6 +11557,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -10948,6 +11608,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -11017,6 +11687,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -11058,6 +11738,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -11234,6 +11924,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -11294,6 +11994,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -11344,6 +12054,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -11385,6 +12105,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -11454,6 +12184,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -11495,6 +12235,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "route_Destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "route_Destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -13576,6 +14326,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -13636,6 +14396,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -13686,6 +14456,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -13727,6 +14507,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "routeInfo_Route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "routeInfo_Route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -13796,6 +14586,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -13846,6 +14646,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Destination_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Destination_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -13887,6 +14697,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "ferry_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "ferry_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -14732,6 +15552,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -16636,6 +17466,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -16696,6 +17536,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -16746,6 +17596,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -16787,6 +17647,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "routeInfo_Route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "routeInfo_Route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -16856,6 +17726,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -16906,6 +17786,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "routeInfo_Route_Destination_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "routeInfo_Route_Destination_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -16947,6 +17837,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "ferry_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "ferry_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -17565,6 +18465,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -19014,6 +19924,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -19074,6 +19994,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -19124,6 +20054,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Origin_GeoArea_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Origin_GeoArea_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -19165,6 +20105,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Destination_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Destination_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -19234,6 +20184,16 @@
                 {
                   "defaultValue": null,
                   "description": null,
+                  "name": "sailing_Route_Destination_City_Name_Iregex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
                   "name": "sailing_Route_Destination_City_Name_Icontains",
                   "type": {
                     "kind": "SCALAR",
@@ -19275,6 +20235,16 @@
                   "defaultValue": null,
                   "description": null,
                   "name": "sailing_Route_Destination_GeoArea_Name_Regex",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                {
+                  "defaultValue": null,
+                  "description": null,
+                  "name": "sailing_Route_Destination_GeoArea_Name_Iregex",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",

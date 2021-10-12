@@ -186,6 +186,7 @@ SCRAPER = {
     'PAUSE_SECS':           0 if DEBUG else 10, # See http://bcferries.com/robots.txt
     'FALLBACK_DAY_PERIODS': 100,                # How many days into the future to attempt to create schedules for
     'FLEET_PAGE_RANGE':     2,
+    'LOG_LEVEL':            logging.DEBUG,
     'INIT_SCRIPTS': [       # Used by init_scraped_data script
         'save_sitemap',
         'scrape_routes',
