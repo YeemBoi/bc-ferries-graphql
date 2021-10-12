@@ -2,7 +2,7 @@
 Unofficial but comprehensive BC Ferries GraphQL API &amp; scraper, built with Django.
 
 
-Includes highly detailed data on locations, routes, schedules, conditions, and ships.
+Includes highly detailed data on locations, terminals, routes, schedules, conditions, ferries, and services.
 
 ## GraphQL Schema
 GraphQL schema is available at [`schema.graphql`](schema.graphql). A JSON schema is also available.
@@ -23,13 +23,16 @@ To initialize the database with all data, run `./manage.py runscript init_scrape
 
 ### Scrape specific elements
 - Routes, terminals, cities, regions: `./manage.py runscript scrape_routes`
-- Ships, services, amenities: `./manage.py runscript scrape_fleet`
+- Ferries, services, amenities: `./manage.py runscript scrape_fleet`
 - Sailings, scheduled sailings, en-route stops & transfers: `./manage.py runscript scrape_schedule`
 - Current sailings / conditions: `./manage.py runscript scrape_current_conditions`
 
 ### Performance
 Scraping should not be resource intensive, but by default there is a 10-second delay between http requests to BC Ferries to abide by [`robots.txt`](http://bcferries.com/robots.txt).
 This can be changed in `settings.SCRAPER_PAUSE_SECS`.
+
+### Scheduling
+Scraping operations can also be run as asynchronous tasks via Celery (Redis as a broker and result backend). By default these are scheduled in Celery Beat, running no more than weekly with the exception of current conditions scraping, which runs every 5 minutes. Keep in mind that these tasks will be most effective after initializing other data, e.g. routes and ferries.
 
 ## [Default settings](ferries/settings.py)
 ```python
