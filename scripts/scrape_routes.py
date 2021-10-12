@@ -1,9 +1,11 @@
 from ferries import models as m
-from common.scraper_utils import get_url, SCRAPER_SETTINGS
+from common.scraper_utils import Logger, get_url, SCRAPER_SETTINGS
 
 import urllib3
 import ujson
 from time import sleep
+import logging
+log: Logger = logging.getLogger(__name__)
 http = urllib3.PoolManager()
 
 def make_geo_area(objs, o: dict[str]):
@@ -12,7 +14,7 @@ def make_geo_area(objs, o: dict[str]):
         name = o['name'],
         sort_order = o['sortOrder']
     )
-    if created: print('Created area', area)
+    if created: log.info(f"Created area {area}")
     return area
 
 
@@ -24,7 +26,7 @@ def make_terminal(t: dict[str, str]) -> m.Terminal:
         geo_area = make_geo_area(m.GeoArea.objects, t['geoGraphicalArea']),
         city = make_geo_area(m.City.objects, t['city']),
     )
-    if created: print('Created terminal', terminal)
+    if created: log.info(f"Created terminal {terminal}")
     return terminal
 
 def terminals_including(search: list[dict[str]], terminal: m.Terminal) -> list[dict[str]]:
@@ -50,7 +52,7 @@ def run():
                 destination = make_terminal(r_dest),
             )
             if created:
-                print('Created route', route)
+                log.info(f"Created route {route}")
             
             bulk_route_info.append(m.RouteInfo(
                 route = route,

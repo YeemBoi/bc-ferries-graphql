@@ -21,6 +21,8 @@ def scrape_schedule_task():
 @shared_task
 def scrape_routes_task():
     scrape_routes.run()
+    scrape_schedule.run()
+    scrape_current_conditions.run()
     return True
 
 @shared_task
@@ -41,7 +43,7 @@ def scrape_route_schedule_task(route_pk):
 
 @shared_task
 def scrape_current_conditions_task():
-    save_sitemap.run()
+    scrape_current_conditions.run()
     return True
 
 @shared_task

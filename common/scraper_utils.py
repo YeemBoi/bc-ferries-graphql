@@ -1,3 +1,4 @@
+import logging
 from django.conf import settings
 from munch import Munch
 from django.utils import timezone
@@ -21,6 +22,33 @@ fallback_dates = pd.date_range(
     tz = timezone.get_current_timezone(),
 )
 
+class Logger(logging.Logger):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setLevel(logging.DEBUG)
+
+    def soft_print(self, pre: str, val, level: int = logging.DEBUG):
+        if val: self.log(level, f"{pre} {val}")
+    
+    def soft_print_iter(self, pre: str, vals, level: int = logging.DEBUG):
+        if len(vals): self.log(level, f"{pre} {', '.join(map(str, vals))}")
+    
+    def lazy_print_times(self, pre: str, times: dict[str], level: int = logging.DEBUG):
+        self.log(level, '%s:\n%s', pre, '\n'.join([
+            f"{name}: {time.strftime('%X') if isinstance(time, datetime) else time}"
+            for name, time in times.items()
+        ]))
+    
+    def request_soup(self, url: str) -> bs:
+        sleep(SCRAPER_SETTINGS.PAUSE_SECS)
+        req = requests.get(url)
+        req.encoding = req.apparent_encoding
+        self.info(f"\nGot {req.status_code} on {req.url}\n")
+        return bs(req.text, SCRAPER_SETTINGS.PARSER)
+
+logging.setLoggerClass(Logger)
+logging.basicConfig()
+
 def clean(text: str) -> str:
     return text.strip().upper()
 
@@ -38,12 +66,6 @@ def schedule_clean(text: str) -> str:
 
 def multi_split(main_str: str, delimiters) -> list[str]:
     return re.split('|'.join(set(delimiters)), main_str)
-
-def soft_print(pre: str, val):
-    if val: print(pre, val)
-
-def soft_print_iter(pre: str, vals):
-    if len(vals): print(pre, ', '.join(map(str, vals)))
 
 def date_time_combine(date_val, time_val) -> datetime:
     is_next_day = (time_val.hour == 24)
@@ -73,7 +95,7 @@ def day_from_text(text: str) -> int:
     return _calendar_abbr_to_int(text, day_abbr)
 
 def pretty_date_range(date_range: pd.DatetimeIndex) -> str:
-    return f'{date_range[0].strftime("%x")} - {date_range[-1].strftime("%x")}'
+    return f"{date_range[0].strftime('%x')} - {date_range[-1].strftime('%x')}"
 
 @dataclass
 class ScrapedSchedule:
@@ -117,7 +139,7 @@ def from_schedule_date(schedule: str) -> ScheduleDate:
     month = month_from_text(split_text[1])
     return ScheduleDate(schedule, day, month)
 
-def from_schedule_date_range(dates_text: str, parser_format: str) -> pd.DatetimeIndex:
+def from_schedule_date_range(l: Logger, dates_text: str, parser_format: str) -> pd.DatetimeIndex:
     try:
         from_time, to_time = [
             datetime.strptime(date_text.strip(), parser_format)
@@ -129,8 +151,8 @@ def from_schedule_date_range(dates_text: str, parser_format: str) -> pd.Datetime
             tz = timezone.get_current_timezone(),
         )
     except ValueError as e:
-        print(e)
-        print('Using fallback dates')
+        l.warning(e)
+        l.warning('Using fallback dates')
         return fallback_dates
 
 def get_url(name: str) -> str | list[str]:
@@ -138,10 +160,3 @@ def get_url(name: str) -> str | list[str]:
     if isinstance(path, list):
         return [SCRAPER_SETTINGS.URL_PREFIX + one_path for one_path in path]
     return SCRAPER_SETTINGS.URL_PREFIX + path
-
-def request_soup(url: str) -> bs:
-    sleep(SCRAPER_SETTINGS.PAUSE_SECS)
-    req = requests.get(url)
-    req.encoding = req.apparent_encoding
-    print(f"\nGot {req.status_code} on {req.url}\n")
-    return bs(req.text, SCRAPER_SETTINGS.PARSER)

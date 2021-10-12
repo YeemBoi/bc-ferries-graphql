@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import itertools
 from pathlib import Path
+from celery.schedules import crontab
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'django_filters',
     'graphene_django', 
     'django_extensions',
-    #'tasks',
     'sitemap',
     'ferries',
 ]
@@ -156,6 +156,29 @@ CELERY_ACCEPT_CONTENT       = ['application/json']
 CELERY_TASK_SERIALIZER      = 'json'
 CELERY_RESULT_SERIALIZER    = 'json'
 CELERY_TIMEZONE             = 'America/Vancouver'
+CELERY_BEAT_SCHEDULE        = {
+    'scrape_current_conditions': {
+        'task': 'ferries.tasks.scrape_current_conditions_task',
+        'schedule': crontab(minute='*/5'),
+    },
+    'scrape_schedule': {
+        'task': 'ferries.tasks.scrape_schedule_task',
+        'schedule': crontab(0, 23, day_of_week=1),
+    },
+    'save_sitemap': {
+        'task': 'ferries.tasks.save_sitemap_task',
+        'schedule': crontab(0, 21, day_of_week=2),
+    },
+    'scrape_fleet': {
+        'task': 'ferries.tasks.scrape_fleet_task',
+        'schedule': crontab(10, 21, day_of_month=2),
+    },
+    'scrape_routes': {
+        'task': 'ferries.tasks.scrape_routes_task',
+        'schedule': crontab(0, 21, day_of_month=1, month_of_year='*/2'),
+    },
+}
+
 
 SCRAPER = {
     'PARSER':               'html5lib',         # used by bs4

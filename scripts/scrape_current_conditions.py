@@ -1,3 +1,4 @@
+from logging import INFO
 from django.utils import timezone
 from ferries import models as m
 
@@ -7,7 +8,8 @@ from common import scraper_utils as u
 from dataclasses import dataclass
 from bs4.element import Tag
 import re
-
+import logging
+log: u.Logger = logging.getLogger(__name__)
 
 @dataclass
 class CurrentScheduleTime(u.ScheduleTime):
@@ -33,13 +35,9 @@ def get_ferry_from_href(a: Tag) -> m.Ferry:
     try: return m.Ferry.objects.get(code=code)
     except m.Ferry.DoesNotExist: return None
 
-def lazy_print_times(times: dict[str]):
-    for name, time in times.items():
-        print(f"{name}: {time.strftime('%X') if isinstance(time, datetime) else time}")
-
 def scrape_conditions_tables():
     global conditions_tables # used for getting more details on past departures
-    conditions_tables = u.request_soup(u.get_url('DEPARTURES')).select('.departures-tbl')
+    conditions_tables = log.request_soup(u.get_url('DEPARTURES')).select('.departures-tbl')
 
 STATUS_TEXTS = {
     'ON TIME': 'GOOD',
@@ -56,17 +54,17 @@ def get_current_sailings(route_info: m.RouteInfo):
     if not route_info.conditions_are_tracked:
         raise ValueError(f"conditions on {route_info} are not tracked")
     route: m.Route = route_info.route
-    print('Getting conditions on', route)
+    log.info(f"Getting conditions on {route}")
     # used for getting more details on future departures
     url = u.get_url('ROUTE_CONDITIONS').format(route.scraper_url_param())
-    soup = u.request_soup(url)
+    soup = log.request_soup(url)
     main_rows = soup.select_one('.detail-departure-table').find('tbody').select('tr')
     tbl_search_title = f"{route.origin} - {route.destination}".upper()
     conditions_rows = []
     for table in conditions_tables:
         if u.clean_tag_text(table.find('b')) == tbl_search_title:
             conditions_rows = table.select('.padding-departures-td') # actually a tr tag
-    print('Found', len(conditions_rows), 'conditions entries on main departures page')
+    log.info(f"Found {len(conditions_rows)} conditions entries on main departures page")
     sailings: list[tuple[dict[str]]] = []
     for row in main_rows:
         if 'toggle-div' in row.get('class', []):
@@ -82,7 +80,7 @@ def get_current_sailings(route_info: m.RouteInfo):
         else:
             cols = list(map(u.clean_tag_text, row.select('td', limit=2)))
             if len(cols) != 2:
-                print('Skipping row, found', len(cols), 'cols')
+                log.info(f"Skipping row, found {len(cols)} cols")
                 continue
             time_text, mid_col_text = cols
             key_time = from_current_datetime(' '.join(time_text.split()[:2]), ('TOMORROW' in time_text))
@@ -96,7 +94,7 @@ def get_current_sailings(route_info: m.RouteInfo):
                 arrival_time = from_current_datetime(mid_col_text.replace('ETA: ', ''), False)
             else:
                 scheduled_time = key_time
-            print(mid_col_text)
+            log.debug(mid_col_text)
             sailings.append(({
                 'scheduled_time': scheduled_time,
                 'actual_time': actual_time,
@@ -104,8 +102,7 @@ def get_current_sailings(route_info: m.RouteInfo):
                 'has_arrived': has_arrived,
             }, dict()))
     for core_times, extra_details in sailings:
-        print('Core times:')
-        lazy_print_times(core_times)
+        log.lazy_print_times('Core times', core_times)
         m.CurrentSailing.objects.update_or_create(
             route_info = route_info,
             **core_times,
@@ -117,14 +114,14 @@ def get_current_sailings(route_info: m.RouteInfo):
     for row in conditions_rows:
         cols = row.select('td')
         if len(cols) != 3:
-            print('Skipping row, found', len(cols), 'cols')
+            u.debug('Skipping row, found', len(cols), 'cols')
             continue
         times: dict[str, datetime] = dict()
         for time_l in cols[1].select('.departures-time-ul'):
             if not u.clean_tag_text(time_l): continue
             time_name, time_val = list(map(u.clean_tag_text, time_l.select('li')))
             try: times[time_name.replace(':', '')] = from_current_datetime(time_val, False)
-            except ValueError as e: print(e)
+            except ValueError as e: log.info(e)
         
         arrival_time = None
         has_arrived = False
@@ -161,8 +158,8 @@ def get_current_sailings(route_info: m.RouteInfo):
                     **defaults,
                 }
             )
-        if created: print('Created new sailing from departures page')
-        lazy_print_times({
+        if created: log.warning('Created new sailing from departures page')
+        log.lazy_print_times('Sailing attributes', {
             name: getattr(sailing, name)
             for name in ['scheduled_time', 'actual_time', 'arrival_time', 'has_arrived',
                 'total_capacity_percentage', 'standard_vehicle_percentage', 'mixed_vehicle_percentage',
@@ -179,4 +176,3 @@ def run():
     scrape_conditions_tables()
     for tracked_route_info in m.RouteInfo.objects.filter(conditions_are_tracked=True):
         get_current_sailings(tracked_route_info)
-        print('\n')

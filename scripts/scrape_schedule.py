@@ -10,6 +10,8 @@ import re
 from typing import Optional, NamedTuple, Generator
 from bs4 import BeautifulSoup as bs
 from common import scraper_utils as u
+import logging
+log: u.Logger = logging.getLogger(__name__)
 
 misc_schedule_soups: list[bs] = []
 
@@ -27,9 +29,9 @@ def make_scheduled_sailings(
     week_days: set[int],
     ) -> Generator[m.ScheduledSailing, None, None]:
 
-    print(f"Time: {time} - Days: {', '.join([day_abbr[i] for i in week_days])}")
-    u.soft_print_iter('Only:', only)
-    u.soft_print_iter('Skip:', skip)
+    log.debug(f"Time: {time} - Days: {', '.join([day_abbr[i] for i in week_days])}")
+    log.soft_print_iter('Only:', only)
+    log.soft_print_iter('Skip:', skip)
 
     if only:
         insert_count = 0
@@ -38,7 +40,7 @@ def make_scheduled_sailings(
                 continue
             insert_count += 1
             yield m.ScheduledSailing(sailing=sailing, time=u.date_time_combine(l_date, time))
-        u.soft_print('Inserted', insert_count)
+        log.soft_print('Inserted', insert_count)
     else:
         skip_count = 0
         for l_date in date_range:
@@ -48,7 +50,7 @@ def make_scheduled_sailings(
                 skip_count += 1
                 continue
             yield m.ScheduledSailing(sailing=sailing, time=u.date_time_combine(l_date, time))
-        u.soft_print('Skipped', skip_count)
+        log.soft_print('Skipped', skip_count)
 
 
 def parse_noted_dates(note_text: str, date_range: pd.DatetimeIndex) -> Generator[date, None, None]:
@@ -70,7 +72,7 @@ class LocationCertainty(NamedTuple):
     is_certain: bool
 
 def get_terminal(name: str) -> LocationCertainty:
-    print('Getting en-route stop:', name)
+    log.debug(f"Getting en-route stop: {name}")
     terminals = m.Terminal.objects.filter(name__icontains = name)
     return LocationCertainty(terminals.first(), terminals.count() == 1)
 
@@ -81,7 +83,7 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
     if is_recursive:
         time_initiated = timezone.now()
         url = u.get_url('SCHEDULE_SEASONAL').format(route.scraper_url_param())
-    soup = u.request_soup(url)
+    soup = log.request_soup(url)
     tbl = soup.select_one('.table-seasonal-schedule')
     
     sailing = m.Sailing()
@@ -93,7 +95,7 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
         date_ranges = []
         date_range = None
         for date_option in date_selections.select('option'):
-            p_date_range = u.from_schedule_date_range(date_option.get_text(strip=True), '%b %d, %Y')
+            p_date_range = u.from_schedule_date_range(log, date_option.get_text(strip=True), '%b %d, %Y')
             if date_option.get('selected', 'UNSELECTED') == 'UNSELECTED':
                 date_ranges.append(p_date_range)
             else:
@@ -104,7 +106,7 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
             for other_date_range in date_ranges:
                 scrape_route(route, f"{url}?departure_date={date_range_url_param(other_date_range)}")
         
-        print('Date range:', u.pretty_date_range(date_range))
+        log.debug(f"Date range: {u.pretty_date_range(date_range)}")
     
         prev_week_day_name = ''
         is_short_format = False
@@ -119,11 +121,11 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
                 if (potential_week_day := second_text.split()[0].strip().title())\
                     in day_name:
                     if not is_short_format: # Only print once
-                        print('Parsing shortened schedule format')
+                        log.info('Parsing shortened schedule format')
                     is_short_format = True
                     week_day_name = potential_week_day[:3]
                 else: 
-                    print(f'Skipping row - found "{potential_week_day}"')
+                    log.info(f'Skipping row - found "{potential_week_day}"')
                     continue
                 
             additionals = row.select_one('.progtrckr')
@@ -202,28 +204,28 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
 
     ########  USE ALTERNATIVE SCHEDULES  ########
     else:
-        print('Could not retrieve schedule table for', route)
+        log.info(f"Could not retrieve schedule table for {route}")
         if not is_recursive:
             return
         
         for misc_soup in misc_schedule_soups:
-            print('Trying misc schedule page')
+            log.info('Trying misc schedule page')
             main_elem = misc_soup.select_one('#' + route.scraper_url_param())
             if not main_elem:
-                print('Could not find alternate timetable')
+                log.info('Could not find alternate timetable')
                 continue
 
             allDiv = main_elem.find_parent('div')
             date_titles = allDiv.select('.accordion-title')
             time_tables = allDiv.select('tbody')
             if unmatched_schedule_dates := len(date_titles) != len(time_tables):
-                print(f"Found {len(date_titles)} date titles but {len(time_tables)} schedules")
-                print("Using fallback dates")
+                log.warning(f"Found {len(date_titles)} date titles but {len(time_tables)} schedules")
+                log.warning("Using fallback dates")
             for i, time_table in enumerate(time_tables):
-                date_range = u.from_schedule_date_range(date_titles[i].get_text(strip=True), '%B %d, %Y')\
+                date_range = u.from_schedule_date_range(log, date_titles[i].get_text(strip=True), '%B %d, %Y')\
                     if not unmatched_schedule_dates else u.fallback_dates
                 
-                print('Date range:', u.pretty_date_range(date_range))
+                log.info(f"Date range: {u.pretty_date_range(date_range)}")
                 rows = time_table.select('tr')
                 if len(rows[-1].select('td')) == 4:
                     notes = []
@@ -233,10 +235,10 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
                 for row in rows:
                     cols = list(map(u.clean_tag_text, row.select('td')))
                     if len(cols) != 4:
-                        print('Skipping row, found', len(cols), 'cols')
+                        log.info(f"Skipping row, found {len(cols)} cols")
                         continue
                     if not len(row.get_text(strip=True)):
-                        print('Skipping blank row')
+                        log.info('Skipping blank row')
                         continue
                     leave_text, days_text, stops_text, arrive_text = cols
                     leave_time = u.from_schedule_time(leave_text)
@@ -259,8 +261,8 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
                                     holiday_mondays = True
                                 days.add(u.day_from_text(day_text.replace('HOL ', '')))
                             except ValueError as e:
-                                print(e)
-                                print('Trying to select individual dates...')
+                                log.info(e)
+                                log.info('Trying to select individual dates...')
                                 month = 0
                                 skipped_tokens = []
                                 for token in days_text.replace(',', '').split():
@@ -269,11 +271,11 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
                                     except ValueError:
                                         try:
                                             sketchyDate = u.ScheduleDate(days_text, int(token), month)
-                                            print('Parsed date from', sketchyDate)
+                                            log.info(f"Parsed date from {sketchyDate}")
                                             only_dates.append(sketchyDate)
                                         except ValueError:
                                             skipped_tokens.append(token)
-                                u.soft_print_iter('Skipped tokens:', skipped_tokens)
+                                log.soft_print_iter('Skipped tokens:', skipped_tokens)
                                 break
                     
                     sailing = m.Sailing.objects.create(
@@ -339,10 +341,9 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
 
 def init_misc_schedules():
     global misc_schedule_soups
-    misc_schedule_soups = list(map(u.request_soup, u.get_url('MISC_SCHEDULES')))
+    misc_schedule_soups = list(map(log.request_soup, u.get_url('MISC_SCHEDULES')))
 
 def run():
     init_misc_schedules()
     for route in m.Route.objects.all(): # filter(is_bookable=True):
         scrape_route(route)
-        print('\n')

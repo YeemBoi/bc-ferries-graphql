@@ -1,20 +1,21 @@
 from ferries import models as m
-
-from common.scraper_utils import get_url, request_soup, soft_print_iter, clean_tag_text, SCRAPER_SETTINGS
+from common.scraper_utils import get_url, Logger, clean_tag_text, SCRAPER_SETTINGS
 from urllib.parse import urlparse
 from datetime import date
+import logging
 import ujson
+log: Logger = logging.getLogger(__name__)
 
 def service(name: str, is_additional: bool) -> m.Service:
     amenity, created = m.Service.objects.get_or_create(name=name, is_additional=is_additional)
-    if created: print('Created service', amenity)
+    if created: log.info(f"Created service {amenity}")
     return amenity
 
 def _built_date(data = None):
     if not data: return None
     for built_val in data.split(','):
         try: return date(int(built_val), 1, 1)
-        except ValueError as e: print(e)
+        except ValueError as e: log.info(e)
 
 BUILD_STATS = [
     ('car_capacity', 'CAR CAPACITY', int),
@@ -39,11 +40,11 @@ AMENITY_IMAGE_PATHS = {
 }
 
 def scrape_ferry(url: str) -> m.Ferry:
-    soup = request_soup(url)
+    soup = log.request_soup(url)
     f_details = soup.select_one('.ferrydetails-accordion-sec')
     f_main = soup.find('div', id='ferryDetails')
     code = list(filter(None, urlparse(url).path.split('/')))[-1]
-    print('Code:', code)
+    log.info(f"Code: {code}")
     attrs = {
         'name': f_main.find('h3').find('strong').get_text(strip=True),
         'official_page': url,
@@ -65,19 +66,16 @@ def scrape_ferry(url: str) -> m.Ferry:
     for item in onboard_service_c.find('ul').select('img'):
         amenityImgSrc = urlparse(ujson.loads(item['data-media'])["1"]).path
         services.append(service(AMENITY_IMAGE_PATHS.get(amenityImgSrc, amenityImgSrc), False))
-    soft_print_iter('Services:', services)
-    print('Attributes:')
-    for key, val in attrs.items():
-        print(f"{key}: {val}")
+    log.soft_print_iter('Services:', services)
+    log.lazy_print_times('Attributes', attrs)
     ferry, created = m.Ferry.objects.update_or_create(code=code, defaults=attrs)
     ferry.services.set(services)
-    if created: print('Created ferry', ferry)
+    if created: log.info(f"Created ferry {ferry}")
     return ferry
 
 
 def run():
     for n in range(SCRAPER_SETTINGS.FLEET_PAGE_RANGE):
-        soup = request_soup(get_url('FLEET').format(n))
+        soup = log.request_soup(get_url('FLEET').format(n))
         for bx in soup.select('div[class="ferry-bx"]'):
             scrape_ferry(SCRAPER_SETTINGS.URL_PREFIX + bx.find('a')['href'])
-            print('\n')
