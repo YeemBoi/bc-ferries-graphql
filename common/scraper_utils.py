@@ -25,7 +25,7 @@ fallback_dates = pd.date_range(
 class Logger(logging.Logger):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.setLevel(logging.DEBUG)
+        self.setLevel(SCRAPER_SETTINGS.LOG_LEVEL)
 
     def soft_print(self, pre: str, val, level: int = logging.DEBUG):
         if val: self.log(level, f"{pre} {val}")
