@@ -41,8 +41,8 @@ class GeoArea(m.Model):
         return self.name
 
 class Terminal(ScrapedModel):
-    city = m.ForeignKey(City, on_delete=m.CASCADE)
-    geo_area = m.ForeignKey(GeoArea, on_delete=m.CASCADE)
+    city = m.ForeignKey(City, on_delete=m.CASCADE, related_name='terminals')
+    geo_area = m.ForeignKey(GeoArea, on_delete=m.CASCADE, related_name='terminals')
     code = Code()
     name = m.CharField(max_length=250)
     travel_route_name = m.CharField(max_length=250)
@@ -132,7 +132,7 @@ class Sailing(ScrapedModel):
 
 class EnRouteStop(m.Model):
     sailing = m.ForeignKey(Sailing, on_delete=m.CASCADE, related_name='stops')
-    terminal = m.ForeignKey(Terminal, on_delete=m.CASCADE)
+    terminal = m.ForeignKey(Terminal, on_delete=m.CASCADE, related_name='sailing_stops')
     is_certain = m.BooleanField()
     is_transfer = m.BooleanField()
     order = m.IntegerField()
@@ -150,7 +150,7 @@ class ScheduledSailing(m.Model):
 
 class CurrentSailing(ScrapedModel):
     route_info = m.ForeignKey(RouteInfo, on_delete=m.CASCADE, related_name='current_sailings')
-    ferry = m.ForeignKey(Ferry, null=True, on_delete=m.SET_NULL)
+    ferry = m.ForeignKey(Ferry, null=True, on_delete=m.SET_NULL, related_name='current_sailings')
     scheduled_time = m.DateTimeField(null=True)
     actual_time = m.DateTimeField(null=True)
     arrival_time = m.DateTimeField(null=True)
