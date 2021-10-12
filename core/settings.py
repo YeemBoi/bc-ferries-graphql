@@ -156,7 +156,7 @@ CELERY_ACCEPT_CONTENT       = ['application/json']
 CELERY_TASK_SERIALIZER      = 'json'
 CELERY_RESULT_SERIALIZER    = 'json'
 CELERY_TIMEZONE             = 'America/Vancouver'
-CELERY_BEAT_SCHEDULE        = {
+CELERY_BEAT_SCHEDULE = {    # Odd timings are in consideration of http://bcferries.com/robots.txt
     'scrape_current_conditions': {
         'task': 'ferries.tasks.scrape_current_conditions_task',
         'schedule': crontab(minute='*/5'),
