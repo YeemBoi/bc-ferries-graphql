@@ -1,4 +1,3 @@
-from logging import INFO
 from django.utils import timezone
 from ferries import models as m
 
@@ -80,7 +79,7 @@ def get_current_sailings(route_info: m.RouteInfo):
         else:
             cols = list(map(u.clean_tag_text, row.select('td', limit=2)))
             if len(cols) != 2:
-                log.info(f"Skipping row, found {len(cols)} cols")
+                log.debug(f"Skipping row, found {len(cols)} cols")
                 continue
             time_text, mid_col_text = cols
             key_time = from_current_datetime(' '.join(time_text.split()[:2]), ('TOMORROW' in time_text))
@@ -121,7 +120,7 @@ def get_current_sailings(route_info: m.RouteInfo):
             if not u.clean_tag_text(time_l): continue
             time_name, time_val = list(map(u.clean_tag_text, time_l.select('li')))
             try: times[time_name.replace(':', '')] = from_current_datetime(time_val, False)
-            except ValueError as e: log.info(e)
+            except ValueError as e: log.warning("Could not parse time", exc_info=e)
         
         arrival_time = None
         has_arrived = False

@@ -15,11 +15,12 @@ from time import sleep
 
 SCRAPER_SETTINGS = Munch(settings.SCRAPER)
 
+tz = timezone.get_current_timezone() if settings.USE_TZ else None
+
 fallback_dates = pd.date_range(
-    start = datetime.now(),
+    start = timezone.now(),
     periods = SCRAPER_SETTINGS.FALLBACK_DAY_PERIODS,
     freq = '1D',
-    tz = timezone.get_current_timezone(),
 )
 
 class Logger(logging.Logger):
@@ -80,7 +81,7 @@ def date_time_combine(date_val, time_val) -> datetime:
         day = date_val.day,
         hour = 0 if is_next_day else time_val.hour,
         minute = time_val.minute,
-        tzinfo = timezone.get_current_timezone(),
+        tzinfo = tz,
     )
     if is_next_day:
         combined += timedelta(days=1)
@@ -153,7 +154,7 @@ def from_schedule_date_range(l: Logger, dates_text: str, parser_format: str) -> 
         return pd.date_range(
             start = from_time,
             end = to_time,
-            tz = timezone.get_current_timezone(),
+            tz = tz,
         )
     except ValueError as e:
         l.warning(e)

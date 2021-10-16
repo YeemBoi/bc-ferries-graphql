@@ -61,11 +61,10 @@ def parse_noted_dates(note_text: str, date_range: pd.DatetimeIndex) -> Generator
             note_text.split('HOLIDAY MONDAY')[0].strip(), [':', ' ON '])[-1].strip(),
             map(re.escape, [',', '&', ' AND ', *{str(t.year) for t in date_range}])
         ):
-        if len(date_text.strip()) > 5:
-            yield parser.parse(
-                f"{date_text.strip().upper()} {timezone.get_current_timezone_name()}",
-                fuzzy = True,
-            ).date()
+        if len(date_text := date_text.strip()) > 5:
+            if u.tz:
+                date_text += f" {u.tz.zone}"
+            yield parser.parse(date_text, fuzzy=True).date()
 
 class LocationCertainty(NamedTuple):
     terminal: m.Terminal
@@ -212,7 +211,7 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
             log.info('Trying misc schedule page')
             main_elem = misc_soup.select_one('#' + route.scraper_url_param())
             if not main_elem:
-                log.info('Could not find alternate timetable')
+                log.warning('Could not find alternate timetable')
                 continue
 
             allDiv = main_elem.find_parent('div')
@@ -235,10 +234,10 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
                 for row in rows:
                     cols = list(map(u.clean_tag_text, row.select('td')))
                     if len(cols) != 4:
-                        log.info(f"Skipping row, found {len(cols)} cols")
+                        log.debug(f"Skipping row, found {len(cols)} cols")
                         continue
                     if not len(row.get_text(strip=True)):
-                        log.info('Skipping blank row')
+                        log.debug('Skipping blank row')
                         continue
                     leave_text, days_text, stops_text, arrive_text = cols
                     leave_time = u.from_schedule_time(leave_text)

@@ -136,7 +136,7 @@ LANGUAGE_CODE = 'en-ca'
 TIME_ZONE = 'America/Vancouver'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
+USE_TZ = DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql_psycopg2'
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 
@@ -155,7 +155,7 @@ CELERY_RESULT_BACKEND       = CELERY_BROKER_URL
 CELERY_ACCEPT_CONTENT       = ['application/json']
 CELERY_TASK_SERIALIZER      = 'json'
 CELERY_RESULT_SERIALIZER    = 'json'
-CELERY_TIMEZONE             = 'America/Vancouver'
+CELERY_TIMEZONE             = TIME_ZONE
 CELERY_BEAT_SCHEDULE = {    # Odd timings are in consideration of http://bcferries.com/robots.txt
     'scrape_current_conditions': {
         'task': 'ferries.tasks.scrape_current_conditions_task',
