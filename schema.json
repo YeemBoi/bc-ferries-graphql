@@ -1397,7 +1397,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "travelRouteName",
+                  "name": "slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -1677,7 +1677,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "origin_TravelRouteName",
+                  "name": "origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -1867,7 +1867,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "destination_TravelRouteName",
+                  "name": "destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2287,7 +2287,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Origin_TravelRouteName",
+                  "name": "route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -2477,7 +2477,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Destination_TravelRouteName",
+                  "name": "route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -3457,7 +3457,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Origin_TravelRouteName",
+                  "name": "route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -3647,7 +3647,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Destination_TravelRouteName",
+                  "name": "route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -4577,7 +4577,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "sailing_Route_Origin_TravelRouteName",
+                  "name": "sailing_Route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -4767,7 +4767,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "sailing_Route_Destination_TravelRouteName",
+                  "name": "sailing_Route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -6707,7 +6707,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "routeInfo_Route_Origin_TravelRouteName",
+                  "name": "routeInfo_Route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -6897,7 +6897,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "routeInfo_Route_Destination_TravelRouteName",
+                  "name": "routeInfo_Route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9313,7 +9313,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "travelRouteName",
+                  "name": "slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9675,7 +9675,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "travelRouteName",
+              "name": "slug",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -9801,7 +9801,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "origin_TravelRouteName",
+                  "name": "origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9991,7 +9991,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "destination_TravelRouteName",
+                  "name": "destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -10248,7 +10248,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "origin_TravelRouteName",
+                  "name": "origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -10438,7 +10438,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "destination_TravelRouteName",
+                  "name": "destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -10899,7 +10899,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "travelRouteName",
+                  "name": "slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -11447,7 +11447,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Origin_TravelRouteName",
+                  "name": "route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -11637,7 +11637,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Destination_TravelRouteName",
+                  "name": "route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -11944,7 +11944,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Origin_TravelRouteName",
+                  "name": "route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -12134,7 +12134,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "route_Destination_TravelRouteName",
+                  "name": "route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -14346,7 +14346,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "routeInfo_Route_Origin_TravelRouteName",
+                  "name": "routeInfo_Route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -14536,7 +14536,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "routeInfo_Route_Destination_TravelRouteName",
+                  "name": "routeInfo_Route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -17486,7 +17486,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "routeInfo_Route_Origin_TravelRouteName",
+                  "name": "routeInfo_Route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -17676,7 +17676,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "routeInfo_Route_Destination_TravelRouteName",
+                  "name": "routeInfo_Route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -19944,7 +19944,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "sailing_Route_Origin_TravelRouteName",
+                  "name": "sailing_Route_Origin_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -20134,7 +20134,7 @@
                 {
                   "defaultValue": null,
                   "description": null,
-                  "name": "sailing_Route_Destination_TravelRouteName",
+                  "name": "sailing_Route_Destination_Slug",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",

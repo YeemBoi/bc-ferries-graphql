@@ -45,7 +45,7 @@ class Terminal(ScrapedModel):
     geo_area = m.ForeignKey(GeoArea, on_delete=m.CASCADE, related_name='terminals')
     code = Code()
     name = m.CharField(max_length=250)
-    travel_route_name = m.CharField(max_length=250)
+    slug = m.CharField(max_length=250)
 
     def save(self, *args, **kwargs):
         if not self.official_page:

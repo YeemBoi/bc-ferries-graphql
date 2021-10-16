@@ -17,7 +17,7 @@ query routeDemo {
           }
           code
           name
-          travelRouteName
+          slug
           officialPage
           id
         }
@@ -36,7 +36,7 @@ query routeDemo {
           }
           code
           name
-          travelRouteName
+          slug
           officialPage
           id
         }

@@ -22,7 +22,7 @@ def make_terminal(t: dict[str, str]) -> m.Terminal:
     terminal, created =  m.Terminal.objects.get_or_create(
         code = t['code'],
         name = t['name'],
-        travel_route_name = t['travelRouteName'],
+        slug = t['travelRouteName'],
         geo_area = make_geo_area(m.GeoArea.objects, t['geoGraphicalArea']),
         city = make_geo_area(m.City.objects, t['city']),
     )

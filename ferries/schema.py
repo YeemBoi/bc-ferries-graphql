@@ -29,7 +29,7 @@ class TerminalNode(gd.DjangoObjectType):
         filter_fields = {
             'code': ['exact'],
             'name': u.lookups(str),
-            'travel_route_name': ['exact'],
+            'slug': ['exact'],
             **u.fk_filters(CityNode, 'city'),
             **u.fk_filters(GeoAreaNode, 'geo_area'),
         }
