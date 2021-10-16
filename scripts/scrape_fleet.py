@@ -30,17 +30,20 @@ BUILD_STATS = [
     ('total_length', 'OVERALL LENGTH (M)', float),
     ('built', 'BUILT', _built_date),
 ]
+
+# BC Ferries doesn't use image alts, so map image src directly to amenities
 AMENITY_IMAGE_PATHS = {
-    '/web_image/h8e/h8d/8800764362782.jpg':'Arbutus Coffee Bar',
-    '/web_image/h81/h88/8798826168350.jpg':'Aurora Lounge',
-    '/web_image/h03/h6d/8798746312734.jpg':'Canoe Cafe',
-    '/web_image/h41/hd5/8798823022622.jpg':'Coast Cafe Express',
-    '/web_image/hcb/hd0/8798832164894.jpg':'Coastal Cafe',
-    '/web_image/h9d/h69/8800604258334.jpg':'Pacific Buffet',
-    '/web_image/haa/hf3/8800605044766.jpg':'Passages',
-    '/web_image/h20/h0b/8798760566814.jpg':'SeaWest Lounge',
-    '/web_image/h44/h77/8798814371870.jpg':'Sitka Coffee Place',
-    '/web_image/hf7/hb3/8798767808542.jpg':'The Raven Lounge',
+    '/web_image/h8e/h8d/8800764362782.jpg': 'Arbutus Coffee Bar',
+    '/web_image/h81/h88/8798826168350.jpg': 'Aurora Lounge',
+    '/web_image/h03/h6d/8798746312734.jpg': 'Canoe Cafe',
+    '/web_image/h41/hd5/8798823022622.jpg': 'Coast Cafe Express',
+    '/web_image/hcb/hd0/8798832164894.jpg': 'Coastal Cafe',
+    '/web_image/h9d/h69/8800604258334.jpg': 'Pacific Buffet',
+    '/web_image/haa/hf3/8800605044766.jpg': 'Passages',
+    '/web_image/h20/h0b/8798760566814.jpg': 'SeaWest Lounge',
+    '/web_image/h44/h77/8798814371870.jpg': 'Sitka Coffee Place',
+    '/web_image/hf7/hb3/8798767808542.jpg': 'The Raven Lounge',
+    '/web_image/h6a/h96/8798810800158.jpg': 'Vista Restaurant',
 }
 
 def scrape_ferry(url: str) -> m.Ferry:
