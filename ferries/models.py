@@ -20,40 +20,35 @@ class ScrapedModel(m.Model):
     class Meta:
         abstract = True
 
+class NamedModel(m.Model):
+    name = m.CharField(max_length=127, unique=True)
+    def __str__(self) -> str:
+        return self.name
+    class Meta:
+        abstract = True
+
 def Code(length: int = 3) -> m.CharField:
     return m.CharField(max_length=length, unique=True)
 
 
-class City(m.Model):
+class City(NamedModel):
     code = Code()
-    name = m.CharField(max_length=250)
     sort_order = m.PositiveIntegerField(null=True) # required for "Southern Gulf Islands" cc
 
-    def __str__(self) -> str:
-        return self.name
-
-class GeoArea(m.Model):
+class GeoArea(NamedModel):
     code = Code(2)
-    name = m.CharField(max_length=250)
     sort_order = m.PositiveIntegerField(null=True)
 
-    def __str__(self) -> str:
-        return self.name
-
-class Terminal(ScrapedModel):
+class Terminal(ScrapedModel, NamedModel):
     city = m.ForeignKey(City, on_delete=m.CASCADE, related_name='terminals')
     geo_area = m.ForeignKey(GeoArea, on_delete=m.CASCADE, related_name='terminals')
     code = Code()
-    name = m.CharField(max_length=250)
-    slug = m.CharField(max_length=250)
+    slug = m.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
         if not self.official_page:
             self.official_page = get_url('TERMINAL').format(self.travel_route_name, self.code)
         super().save(*args, **kwargs)
-
-    def __str__(self) -> str:
-        return self.name
 
 class Route(m.Model):
     origin = m.ForeignKey(Terminal, on_delete=m.CASCADE, related_name='destination_routes')
@@ -96,16 +91,12 @@ class RouteInfo(m.Model):
         return f"info #{self.original_index}: {self.route}"
 
 
-class Service(m.Model):
-    name = m.CharField(max_length=250)
+class Service(NamedModel):
     is_additional = m.BooleanField()
 
-    def __str__(self) -> str:
-        return self.name
 
-class Ferry(ScrapedModel):
+class Ferry(ScrapedModel, NamedModel):
     code = Code(4)
-    name = m.CharField(max_length=250)
     services = m.ManyToManyField(Service, related_name='providing_ferries')
 
     built = m.DateField(null=True)
@@ -115,9 +106,6 @@ class Ferry(ScrapedModel):
     max_displacement = m.FloatField('Max displacement (t)')
     max_speed = m.FloatField('Max speed (knots)')
     total_length = m.FloatField('Total length (m)')
-
-    def __str__(self) -> str:
-        return self.name
 
 
 class Sailing(ScrapedModel):

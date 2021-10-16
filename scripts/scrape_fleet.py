@@ -7,7 +7,10 @@ import ujson
 log: Logger = logging.getLogger(__name__)
 
 def service(name: str, is_additional: bool) -> m.Service:
-    amenity, created = m.Service.objects.get_or_create(name=name, is_additional=is_additional)
+    amenity, created = m.Service.objects.get_or_create(
+        name=name,
+        defaults={'is_additional': is_additional},
+    )
     if created: log.info(f"Created service {amenity}")
     return amenity
 

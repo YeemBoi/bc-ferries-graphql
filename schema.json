@@ -9159,7 +9159,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "code",
+              "name": "name",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -9175,7 +9175,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "name",
+              "name": "code",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -9611,6 +9611,22 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
+              "name": "name",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "",
+              "isDeprecated": false,
               "name": "city",
               "type": {
                 "kind": "NON_NULL",
@@ -9644,22 +9660,6 @@
               "description": "",
               "isDeprecated": false,
               "name": "code",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
-              "description": "",
-              "isDeprecated": false,
-              "name": "name",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -10745,7 +10745,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "code",
+              "name": "name",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -10761,7 +10761,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "name",
+              "name": "code",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -15449,7 +15449,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "code",
+              "name": "name",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -15465,7 +15465,7 @@
               "deprecationReason": null,
               "description": "",
               "isDeprecated": false,
-              "name": "name",
+              "name": "code",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,

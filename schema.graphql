@@ -5,8 +5,8 @@ schema {
 
 type CityNode implements Node {
   id: ID!
-  code: String!
   name: String!
+  code: String!
   sortOrder: Int
   terminals(offset: Int, before: String, after: String, first: Int, last: Int, code: String, name: String, name_Iexact: String, name_Regex: String, name_Iregex: String, name_Icontains: String, slug: String, city_Code: String, city_Name: String, city_Name_Iexact: String, city_Name_Regex: String, city_Name_Iregex: String, city_Name_Icontains: String, geoArea_Code: String, geoArea_Name: String, geoArea_Name_Iexact: String, geoArea_Name_Regex: String, geoArea_Name_Iregex: String, geoArea_Name_Icontains: String): TerminalNodeConnection!
 }
@@ -108,8 +108,8 @@ type FerryNode implements Node {
   id: ID!
   officialPage: String!
   fetchedTime: DateTime!
-  code: String!
   name: String!
+  code: String!
   services(offset: Int, before: String, after: String, first: Int, last: Int, name: String, name_Iexact: String, name_Regex: String, name_Iregex: String, name_Icontains: String, isAdditional: Boolean): ServiceNodeConnection!
   built: Date
   carCapacity: Int!
@@ -135,8 +135,8 @@ scalar GenericScalar
 
 type GeoAreaNode implements Node {
   id: ID!
-  code: String!
   name: String!
+  code: String!
   sortOrder: Int
   terminals(offset: Int, before: String, after: String, first: Int, last: Int, code: String, name: String, name_Iexact: String, name_Regex: String, name_Iregex: String, name_Icontains: String, slug: String, city_Code: String, city_Name: String, city_Name_Iexact: String, city_Name_Regex: String, city_Name_Iregex: String, city_Name_Icontains: String, geoArea_Code: String, geoArea_Name: String, geoArea_Name_Iexact: String, geoArea_Name_Regex: String, geoArea_Name_Iregex: String, geoArea_Name_Icontains: String): TerminalNodeConnection!
 }
@@ -363,10 +363,10 @@ type TerminalNode implements Node {
   id: ID!
   officialPage: String!
   fetchedTime: DateTime!
+  name: String!
   city: CityNode!
   geoArea: GeoAreaNode!
   code: String!
-  name: String!
   slug: String!
   destinationRoutes(offset: Int, before: String, after: String, first: Int, last: Int, origin_Code: String, origin_Name: String, origin_Name_Iexact: String, origin_Name_Regex: String, origin_Name_Iregex: String, origin_Name_Icontains: String, origin_Slug: String, origin_City_Code: String, origin_City_Name: String, origin_City_Name_Iexact: String, origin_City_Name_Regex: String, origin_City_Name_Iregex: String, origin_City_Name_Icontains: String, origin_GeoArea_Code: String, origin_GeoArea_Name: String, origin_GeoArea_Name_Iexact: String, origin_GeoArea_Name_Regex: String, origin_GeoArea_Name_Iregex: String, origin_GeoArea_Name_Icontains: String, destination_Code: String, destination_Name: String, destination_Name_Iexact: String, destination_Name_Regex: String, destination_Name_Iregex: String, destination_Name_Icontains: String, destination_Slug: String, destination_City_Code: String, destination_City_Name: String, destination_City_Name_Iexact: String, destination_City_Name_Regex: String, destination_City_Name_Iregex: String, destination_City_Name_Icontains: String, destination_GeoArea_Code: String, destination_GeoArea_Name: String, destination_GeoArea_Name_Iexact: String, destination_GeoArea_Name_Regex: String, destination_GeoArea_Name_Iregex: String, destination_GeoArea_Name_Icontains: String): RouteNodeConnection!
   originRoutes(offset: Int, before: String, after: String, first: Int, last: Int, origin_Code: String, origin_Name: String, origin_Name_Iexact: String, origin_Name_Regex: String, origin_Name_Iregex: String, origin_Name_Icontains: String, origin_Slug: String, origin_City_Code: String, origin_City_Name: String, origin_City_Name_Iexact: String, origin_City_Name_Regex: String, origin_City_Name_Iregex: String, origin_City_Name_Icontains: String, origin_GeoArea_Code: String, origin_GeoArea_Name: String, origin_GeoArea_Name_Iexact: String, origin_GeoArea_Name_Regex: String, origin_GeoArea_Name_Iregex: String, origin_GeoArea_Name_Icontains: String, destination_Code: String, destination_Name: String, destination_Name_Iexact: String, destination_Name_Regex: String, destination_Name_Iregex: String, destination_Name_Icontains: String, destination_Slug: String, destination_City_Code: String, destination_City_Name: String, destination_City_Name_Iexact: String, destination_City_Name_Regex: String, destination_City_Name_Iregex: String, destination_City_Name_Icontains: String, destination_GeoArea_Code: String, destination_GeoArea_Name: String, destination_GeoArea_Name_Iexact: String, destination_GeoArea_Name_Regex: String, destination_GeoArea_Name_Iregex: String, destination_GeoArea_Name_Icontains: String): RouteNodeConnection!
