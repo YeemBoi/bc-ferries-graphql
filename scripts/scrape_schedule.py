@@ -261,8 +261,8 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
                                     holiday_mondays = True
                                 days.add(u.day_from_text(day_text.replace('HOL ', '')))
                             except ValueError as e:
-                                log.info(e)
-                                log.info('Trying to select individual dates...')
+                                log.info("Could not parse day", exc_info=e)
+                                log.info("Trying to select individual dates...")
                                 month = 0
                                 skipped_tokens = []
                                 for token in days_text.replace(',', '').split():

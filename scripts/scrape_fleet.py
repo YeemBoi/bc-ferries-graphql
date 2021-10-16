@@ -18,7 +18,8 @@ def _built_date(data = None):
     if not data: return None
     for built_val in data.split(','):
         try: return date(int(built_val), 1, 1)
-        except ValueError as e: log.info(e)
+        except ValueError as e:
+            log.info("Could not resolve built date", exc_info=e)
 
 BUILD_STATS = [
     ('car_capacity', 'CAR CAPACITY', int),

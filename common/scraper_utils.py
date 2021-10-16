@@ -42,8 +42,13 @@ class Logger(logging.Logger):
     def request_soup(self, url: str) -> bs:
         sleep(SCRAPER_SETTINGS.PAUSE_SECS)
         req = requests.get(url)
-        req.encoding = req.apparent_encoding
-        self.info(f"\nGot {req.status_code} on {req.url}\n")
+        if req.status_code == 200:
+            level = logging.INFO
+        elif req.status_code >= 400:
+            level = logging.ERROR
+        else:
+            level = logging.WARNING
+        self.log(level, f"\nGot {req.status_code} on {req.url}\n")
         return bs(req.text, SCRAPER_SETTINGS.PARSER)
 
 logging.setLoggerClass(Logger)
