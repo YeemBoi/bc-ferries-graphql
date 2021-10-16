@@ -144,12 +144,11 @@ GRAPHENE = {
     'SCHEMA': 'core.schema.schema',
     'RELAY_CONNECTION_MAX_LIMIT': 250,
     'MIDDLEWARE': [
-        'graphene_django.debug.DjangoDebugMiddleware',
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
-# if DEBUG:
-#     GRAPHENE['MIDDLEWARE'].append('graphene_django.debug.DjangoDebugMiddleware')
+if DEBUG:
+    GRAPHENE['MIDDLEWARE'].append('graphene_django.debug.DjangoDebugMiddleware')
 
 CELERY_BROKER_URL           = os.environ.get('CELERY_BROKER', 'redis://127.0.0.1:6379/0')
 CELERY_RESULT_BACKEND       = CELERY_BROKER_URL
