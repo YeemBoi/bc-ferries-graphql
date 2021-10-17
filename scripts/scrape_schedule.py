@@ -77,33 +77,32 @@ def get_terminal(name: str) -> LocationCertainty:
 
 _alt_note_indicator = re.compile(r'\*+')
 
-def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
-    is_recursive = not url
+def scrape_route(route: m.Route, date_range: Optional[pd.DatetimeIndex] = None):
+    is_recursive = date_range is None
+    url = u.get_url('SCHEDULE_SEASONAL').format(route.scraper_url_param())
     if is_recursive:
         time_initiated = timezone.now()
-        url = u.get_url('SCHEDULE_SEASONAL').format(route.scraper_url_param())
+    else:
+        url += f"?departure_date={date_range_url_param(date_range)}"
     soup = log.request_soup(url)
     tbl = soup.select_one('.table-seasonal-schedule')
     
-    sailing = m.Sailing()
     scheduled_sailings = []
     en_route_stops = []
 
     if tbl:
         date_selections = soup.find('select')
         date_ranges = []
-        date_range = None
-        for date_option in date_selections.select('option'):
-            p_date_range = u.from_schedule_date_range(log, date_option.get_text(strip=True), '%b %d, %Y')
-            if date_option.get('selected', 'UNSELECTED') == 'UNSELECTED':
-                date_ranges.append(p_date_range)
-            else:
-                date_range = p_date_range
-        if date_range == None: date_range = date_ranges.pop(0)
-        
         if is_recursive:
+            for date_option in date_selections.select('option'):
+                p_date_range = u.from_schedule_date_range(log, date_option.get_text(strip=True), '%b %d, %Y')
+                if date_option.get('selected', 'UNSELECTED') == 'UNSELECTED':
+                    date_ranges.append(p_date_range)
+                else:
+                    date_range = p_date_range
+            if date_range is None: date_range = date_ranges.pop(0)
             for other_date_range in date_ranges:
-                scrape_route(route, f"{url}?departure_date={date_range_url_param(other_date_range)}")
+                scrape_route(route, other_date_range)
         
         log.debug(f"Date range: {u.pretty_date_range(date_range)}")
     
@@ -124,19 +123,18 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
                     is_short_format = True
                     week_day_name = potential_week_day[:3]
                 else: 
-                    log.info(f'Skipping row - found "{potential_week_day}"')
+                    log.debug(f'Skipping row - found "{potential_week_day}"')
                     continue
                 
             additionals = row.select_one('.progtrckr')
-            if week_day_name:
-                hours, mins = u.clean_tag_text(additionals.find('span')).split()
-                sailing = m.Sailing.objects.create(
-                    route = route,
-                    official_page = url,
-                    duration = timedelta(minutes=int(mins.replace('M', '')), hours=int(hours.replace('H', '')))
-                )
-            else: week_day_name = prev_week_day_name
-            
+            if not week_day_name:
+                week_day_name = prev_week_day_name
+            hours, mins = u.clean_tag_text(additionals.find('span')).split()
+            sailing: m.Sailing = m.Sailing.objects.create(
+                route = route,
+                official_page = url,
+                duration = timedelta(minutes=int(mins.replace('M', '')), hours=int(hours.replace('H', '')))
+            )
             for i, additional in enumerate(additionals.select('.prog-tracker-entry-seasonal-schedules')):
                 classes = additional.get('class', [])
                 add_text = u.clean_tag_text(additional)
@@ -332,11 +330,9 @@ def scrape_route(route: m.Route, url: Optional[str] = None) -> m.Sailing:
     m.EnRouteStop.objects.bulk_create(en_route_stops)
     m.ScheduledSailing.objects.bulk_create(scheduled_sailings)
     if is_recursive:
-        m.Sailing.objects.filter(
-            route = route,
+        route.sailings.filter(
             fetched_time__lt = time_initiated - timedelta(minutes=1)
         ).delete()
-    return sailing
 
 def init_misc_schedules():
     global misc_schedule_soups
