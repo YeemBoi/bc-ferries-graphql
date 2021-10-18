@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.env('DEBUG', 'true').lower() == 'true')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 if DEBUG:
@@ -30,7 +30,11 @@ if DEBUG:
 else:
     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    *os.environ.get('ALLOWED_HOSTS', '').split()
+]
 
 
 # Application definition
@@ -100,6 +104,18 @@ if DEBUG:
         }
     }
 
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     os.environ['DB_NAME'],
+            'USER':     os.environ['DB_USERNAME'],
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST':     os.environ['DB_HOST'],
+            'PORT':     os.environ['DB_PORT'],
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,6 +155,10 @@ USE_L10N = True
 USE_TZ = DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql_psycopg2'
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOWED_ORIGINS = [
+    *ALLOWED_HOSTS,
+    *os.environ.get('CORS_ALLOWED_ORIGINS', '').split()
+]
 
 GRAPHENE = {
     'SCHEMA': 'core.schema.schema',
