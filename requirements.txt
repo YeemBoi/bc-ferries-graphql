@@ -1,6 +1,7 @@
 beautifulsoup4
 celery
 Django
+dj-database-url
 django-cors-headers
 django-extensions
 django-filter
