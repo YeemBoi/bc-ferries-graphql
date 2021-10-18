@@ -12,7 +12,8 @@ django-graphql-jwt
 gunicorn
 html5lib
 munch
-pandas
+numpy
+#pandas
 psycopg2
 redis
 urllib3
