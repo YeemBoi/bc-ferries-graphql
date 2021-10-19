@@ -32,8 +32,9 @@ else:
     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 ALLOWED_HOSTS = [
-    'http://localhost',
-    'http://127.0.0.1',
+    'localhost',
+    '127.0.0.1',
+    '0.0.0.0',
     *os.environ.get('ALLOWED_HOSTS', '').split()
 ]
 
@@ -148,7 +149,11 @@ USE_TZ = False # DATABASES['default']['ENGINE'] == 'django.db.backends.postgresq
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [
     'http://localhost',
+    'https://localhost',
     'http://127.0.0.1',
+    'https://127.0.0.1',
+    'http://0.0.0.0',
+    'https://0.0.0.0',
     *os.environ.get('CORS_ALLOWED_ORIGINS', '').split()
 ]
 
