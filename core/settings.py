@@ -143,7 +143,7 @@ LANGUAGE_CODE = 'en-ca'
 TIME_ZONE = 'America/Vancouver'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql_psycopg2'
+USE_TZ = False # DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql_psycopg2'
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [
