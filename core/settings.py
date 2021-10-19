@@ -176,23 +176,23 @@ CELERY_TIMEZONE             = TIME_ZONE
 CELERY_BEAT_SCHEDULE = {    # Odd timings are in consideration of http://bcferries.com/robots.txt
     'scrape_current_conditions': {
         'task': 'ferries.tasks.scrape_current_conditions_task',
-        'schedule': crontab(minute='*/5'),
+        'schedule': crontab(minute='*/10'),
     },
     'scrape_schedule': {
         'task': 'ferries.tasks.scrape_schedule_task',
-        'schedule': crontab(0, 23, day_of_week=1),
+        'schedule': crontab(5, 23, day_of_week=1),
     },
     'save_sitemap': {
         'task': 'ferries.tasks.save_sitemap_task',
-        'schedule': crontab(0, 21, day_of_week=2),
+        'schedule': crontab(5, 21, day_of_week=2),
     },
     'scrape_fleet': {
         'task': 'ferries.tasks.scrape_fleet_task',
-        'schedule': crontab(10, 21, day_of_month=2),
+        'schedule': crontab(15, 21, day_of_month=2),
     },
     'scrape_routes': {
         'task': 'ferries.tasks.scrape_routes_task',
-        'schedule': crontab(0, 21, day_of_month=1, month_of_year='*/2'),
+        'schedule': crontab(5, 21, day_of_month=1, month_of_year='*/2'),
     },
 }
 
