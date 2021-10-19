@@ -47,7 +47,7 @@ class Terminal(ScrapedModel, NamedModel):
 
     def save(self, *args, **kwargs):
         if not self.official_page:
-            self.official_page = get_url('TERMINAL').format(self.travel_route_name, self.code)
+            self.official_page = get_url('TERMINAL').format(self.slug, self.code)
         super().save(*args, **kwargs)
 
 class Route(m.Model):
