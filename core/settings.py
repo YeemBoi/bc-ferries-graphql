@@ -194,7 +194,7 @@ from datedelta import datedelta
 SCRAPER = {
     'PARSER':               'html5lib',         # used by bs4
     'PAUSE_SECS':           0 if DEBUG else 10, # See http://bcferries.com/robots.txt
-    'FALLBACK_DATEDELTA':   datedelta(months=3),                # How many days into the future to attempt to create schedules for
+    'FALLBACK_DATEDELTA':   datedelta(months=3),# How far into the future to create schedules for, if not automatically determined
     'FLEET_PAGE_RANGE':     2,
     'LOG_LEVEL':            logging.DEBUG,
     'INIT_SCRIPTS': [       # Used by init_scraped_data script

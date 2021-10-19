@@ -39,7 +39,7 @@ Scraping operations can also be run as asynchronous tasks via Celery (Redis as a
 SCRAPER = {
     'PARSER':               'html5lib',         # used by bs4
     'PAUSE_SECS':           0 if DEBUG else 10, # See http://bcferries.com/robots.txt
-    'FALLBACK_DAY_PERIODS': 100,                # How many days into the future to attempt to create schedules for
+    'FALLBACK_DATEDELTA':   datedelta(months=3),# How far into the future to create schedules for, if not automatically determined
     'FLEET_PAGE_RANGE':     2,
     'LOG_LEVEL':            logging.DEBUG,
     'INIT_SCRIPTS': [       # Used by init_scraped_data script
@@ -77,7 +77,6 @@ _use_unnested_range_lookups = lambda lt: itertools.chain(*[_use_range_lookups(lo
 _DATE_LOOKUPS = ['year', 'month', 'day', 'week_day']
 _TIME_LOOKUPS = ['hour', 'minute']
 
-from datetime import date, time, datetime, timedelta
 DEFAULT_LOOKUPS = {
     str: ['exact', 'iexact', 'regex', 'iregex', 'icontains'],
     bool: ['exact'],
@@ -99,4 +98,5 @@ DEFAULT_LOOKUPS = {
     ],
     timedelta: _RANGE_LOOKUPS,
 }
+
 ```
