@@ -24,7 +24,7 @@ class ScheduleDateRange:
     def fallback(self):
         log.warning('Using fallback dates')
         self.start = date.today()
-        self.end = self.start + u.SCRAPER_SETTINGS.FALLBACK_DATE_DELTA
+        self.end = self.start + u.SCRAPER_SETTINGS.FALLBACK_DATEDELTA
 
     def __init__(self, dates_text: str, parser_format: str, use_fallback=False):
         if use_fallback:
