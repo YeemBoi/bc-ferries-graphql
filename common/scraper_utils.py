@@ -4,7 +4,6 @@ from munch import Munch
 from django.utils import timezone
 from datetime import datetime, timedelta
 from calendar import month_abbr, day_abbr
-import pandas as pd
 from dataclasses import dataclass
 
 import re
@@ -16,12 +15,6 @@ from time import sleep
 SCRAPER_SETTINGS = Munch(settings.SCRAPER)
 
 tz = timezone.get_current_timezone() if settings.USE_TZ else None
-
-fallback_dates = pd.date_range(
-    start = timezone.now(),
-    periods = SCRAPER_SETTINGS.FALLBACK_DAY_PERIODS,
-    freq = '1D',
-)
 
 class Logger(logging.Logger):
     def __init__(self, *args, **kwargs):
@@ -100,8 +93,10 @@ def month_from_text(text: str) -> int:
 def day_from_text(text: str) -> int:
     return _calendar_abbr_to_int(text, day_abbr)
 
+"""
 def pretty_date_range(date_range: pd.DatetimeIndex) -> str:
     return f"{date_range[0].strftime('%x')} - {date_range[-1].strftime('%x')}"
+"""
 
 @dataclass
 class ScrapedSchedule:
@@ -113,11 +108,6 @@ class ScrapedSchedule:
 class ScheduleTime(ScrapedSchedule):
     hour: int
     minute: int
-
-@dataclass
-class ScheduleDate(ScrapedSchedule):
-    day: int
-    month: int
 
 def schedule_includes(search_schedule, search_date) -> bool:
     for scheduled_date in search_schedule:
@@ -138,28 +128,7 @@ def from_schedule_time(schedule: str) -> ScheduleTime:
         hour += 12
     return ScheduleTime(schedule, hour, minute)
 
-def from_schedule_date(schedule: str) -> ScheduleDate:
-    schedule = schedule_clean(schedule)
-    split_text = schedule.split()
-    day = int(split_text[0])
-    month = month_from_text(split_text[1])
-    return ScheduleDate(schedule, day, month)
 
-def from_schedule_date_range(l: Logger, dates_text: str, parser_format: str) -> pd.DatetimeIndex:
-    try:
-        from_time, to_time = [
-            datetime.strptime(date_text.strip(), parser_format)
-            for date_text in multi_split(clean(dates_text), ['-', ' TO '])
-        ]
-        return pd.date_range(
-            start = from_time,
-            end = to_time,
-            tz = tz,
-        )
-    except ValueError as e:
-        l.warning(e)
-        l.warning('Using fallback dates')
-        return fallback_dates
 
 def get_url(name: str) -> str | list[str]:
     path = SCRAPER_SETTINGS.URL_PATHS[name]

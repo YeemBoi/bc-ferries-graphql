@@ -3,3 +3,4 @@ LICENSE
 clean_gitignore.py
 schema.graphql
 schema.json
+examples.graphql
