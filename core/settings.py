@@ -147,7 +147,8 @@ USE_TZ = DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql_psycop
 
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 CORS_ALLOWED_ORIGINS = [
-    *ALLOWED_HOSTS,
+    'http://localhost',
+    'http://127.0.0.1',
     *os.environ.get('CORS_ALLOWED_ORIGINS', '').split()
 ]
 
