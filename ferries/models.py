@@ -36,7 +36,7 @@ class City(NamedModel):
     sort_order = m.PositiveIntegerField(null=True) # required for "Southern Gulf Islands" cc
 
 class GeoArea(NamedModel):
-    code = Code(2)
+    code = Code()
     sort_order = m.PositiveIntegerField(null=True)
 
 class Terminal(ScrapedModel, NamedModel):
