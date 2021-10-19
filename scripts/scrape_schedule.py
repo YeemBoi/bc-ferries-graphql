@@ -268,8 +268,8 @@ def scrape_route(route: m.Route, date_range: Optional[ScheduleDateRange] = None)
             if unmatched_schedule_dates := len(date_titles) != len(time_tables):
                 log.warning(f"Found {len(date_titles)} date titles but {len(time_tables)} schedules")
             for i, time_table in enumerate(time_tables):
-                date_range = ScheduleDateRange(date_titles[i].get_text(strip=True), '%B %d, %Y')\
-                    if not unmatched_schedule_dates else ScheduleDateRange(use_fallback=True)
+                date_range = ScheduleDateRange(date_titles[i].get_text(strip=True), '%B %d, %Y',
+                                               use_fallback=unmatched_schedule_dates)
                 
                 log.info(f"Date range: {date_range}")
                 rows = time_table.select('tr')
