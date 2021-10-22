@@ -19000,6 +19000,12 @@
             },
             {
               "deprecationReason": null,
+              "description": "Mechanical issue causing ongoing delays",
+              "isDeprecated": false,
+              "name": "MECH"
+            },
+            {
+              "deprecationReason": null,
               "description": "Vessel start up delay, departing ASAP",
               "isDeprecated": false,
               "name": "DELA"

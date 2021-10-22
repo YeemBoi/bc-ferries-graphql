@@ -53,6 +53,7 @@ enum CurrentSailingStatus {
   PEAK
   VHCL
   ONGN
+  MECH
   DELA
   SHIP
   CREW
