@@ -32,7 +32,7 @@ Scraping should not be resource intensive, but by default there is a 10-second d
 This can be changed in `settings.SCRAPER_PAUSE_SECS`.
 
 ### Scheduling
-Scraping operations can also be run as asynchronous tasks via Celery (Redis as a broker and result backend). By default these are scheduled in Celery Beat, running no more than weekly with the exception of current conditions scraping, which runs every 5 minutes. Keep in mind that these tasks will be most effective after initializing other data, e.g. routes and ferries.
+Scraping operations can also be run as asynchronous tasks via Celery (Redis as a broker and result backend). By default these are scheduled in Celery Beat, running no more than weekly with the exception of current conditions scraping, which runs every 10 minutes. Keep in mind that these tasks will be most effective after initializing other data, e.g. routes and ferries.
 
 ## [Default settings](ferries/settings.py)
 ```python
