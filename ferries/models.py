@@ -7,6 +7,7 @@ CURRENT_SAILING_STATUS_CHOICES = [
     ('PEAK', 'Peak travel; Loading max number of vehicles'),
     ('VHCL', 'Loading as many vehicles as possible'),
     ('ONGN', 'Earlier loading procedure causing ongoing delay'),
+    ('MECH', 'Mechanical issue causing ongoing delays'),
     ('DELA', 'Vessel start up delay, departing ASAP'),
     ('SHIP', 'Loading and unloading multiple ships'),
     ('CREW', 'Crew member enroute to assist with boarding'),
